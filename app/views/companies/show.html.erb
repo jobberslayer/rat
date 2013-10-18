@@ -1,0 +1,9 @@
+<% content_for :title, @company.name %>
+<h1><%= @company.name %></h1>
+
+<div class="panel large-4">
+  <%= @company.info %>
+</div>
+
+<%= link_to 'Edit', edit_company_path(@company) %> |
+<%= link_to 'Back', companies_path %>

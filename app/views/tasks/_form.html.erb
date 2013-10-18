@@ -1,0 +1,50 @@
+<%= form_for(@task, remote: true) do |f| %>
+  <% if @task.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@task.errors.count, "error") %> prohibited this task from being saved:</h2>
+
+      <ul>
+      <% @task.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <% if @task %>
+    <% if @parent %>
+      <%= f.hidden_field :child_of_id, value: @parent.id %>
+    <%end%>
+    <%= f.hidden_field :company_id, value: @task.company_id %>
+  <% else %>
+    <div class="large-4">
+      <div class="field">
+        <%= f.label :company %>
+        <%= f.collection_select :company_id, Company.order(:name), :id, :name %>
+      </div>
+    </div>
+  <% end %>
+
+  <div class="large-4">
+    <div class="field">
+      <%= f.label :title %>
+      <%= f.text_field :title %>
+    </div>
+  </div>
+
+  <div class="large-12">
+    <div class="field">
+      <%= f.label :info %><br />
+      <%= f.cktext_area :info %>
+    </div>
+  </div>
+
+  <%= render('scheduler', f: f, task: @task) %>
+
+  <div class="large-4">
+    <div class="actions">
+      <%= f.submit %>
+      <%= button_to_function 'Cancel', raw('$("#task-' + @task.id.to_s + '").empty().append("' + j(render('show_task', task: @task)) + '")') %>
+    </div>
+  </div>
+<% end %>

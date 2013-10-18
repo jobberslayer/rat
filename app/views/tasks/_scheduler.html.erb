@@ -1,0 +1,6 @@
+<%= link_to_function 'Scheduler', '$("#scheduler-' + task.id.to_s + '").toggle()' %>
+<div id="scheduler-<%=task.id%>" style="display:none">
+  <label for="radio1">
+    <%= f.radio_button :schedule, 'none' %> None
+  </label>
+</div>

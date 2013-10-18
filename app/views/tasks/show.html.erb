@@ -1,0 +1,22 @@
+<% content_for :title, 'Task Detail' %>
+
+<div id="task-<%=@task.id%>" class="large-8">
+  <h1><%= @task.company.name %></h1>
+  <%= render 'show_task', task:@task %>
+</div>
+
+<% if @task.parent.nil? %>
+
+<br/>
+<%= link_to "new subtask", new_subtask_path(task_id: @task.id), remote: true, id: 'new-subtask-link' %>
+<div id="new-subtask">
+</div>
+
+<% end %>
+<hr/>
+<div id="subtasks" class="panel">
+  <p id="none-msg" <%= !@subtasks.empty?() ? raw('style="display:none"') : '' %>>No updates</p>
+  <% @subtasks.each do |s| %>
+    <%= render 'show_task', task: s %>
+  <% end %>
+</div>

@@ -1,0 +1,12 @@
+<div id="task-<%=task.id%>">
+  <h3><%= task.title %></h3>
+  <em><%= l task.created_at, format: :long_dateweek %></em>
+  <br/>
+  <br/>
+  <p><%= task.info %></p>
+  <%= link_to 'Edit', edit_task_path(task), remote: true %> 
+  <% if task.child? %>
+    | <%= link_to 'Destroy', task, method: :delete, data: { confirm: 'Are you sure?' }, remote: true %>
+  <% end %>
+  <hr/>
+</div>
