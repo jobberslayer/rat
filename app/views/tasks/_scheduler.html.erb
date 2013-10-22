@@ -1,6 +1,7 @@
 <%= link_to_function 'Scheduler', '$("#scheduler-' + task.id.to_s + '").toggle()' %>
 <div id="scheduler-<%=task.id%>" style="display:none">
   <label for="radio1">
-    <%= f.radio_button :schedule, 'none' %> None
+    <%= f.radio_button :schedule_type, 'none' %> None
+    <%= f.radio_button :schedule_type, 'yearly' %>Yearly on <%= f.date_select(:created_at, start_year: Date.today.year) %>
   </label>
 </div>

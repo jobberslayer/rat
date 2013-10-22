@@ -4,7 +4,6 @@ Rat::Application.routes.draw do
 
   mount Ckeditor::Engine => '/ckeditor'
 
-  get '/tasks/new_subtask', to: 'tasks#new_subtask', as: 'new_subtask' 
   resources :tasks
 
   devise_for :users

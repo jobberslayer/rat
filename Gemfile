@@ -28,4 +28,11 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
 end
 
+gem "rspec-rails", :group => [:test, :development]
+gem "capybara", :group => [:test, :development]
+
+group :test do
+  gem 'capybara'
+end
+
 gem 'jquery-rails', '3.0.4'

@@ -1,4 +1,4 @@
 $('#new-subtask').empty();
-$('#subtasks').prepend('<%= j render("show_subtask", s: @task) %>');
+$('#subtasks').prepend('<%= j render("show_task", task: @task) %>');
 $('#none-msg').hide();
 $('#new-subtask-link').show();

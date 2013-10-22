@@ -27,6 +27,10 @@ class TasksController < ApplicationController
   # GET /tasks/new.json
   def new
     @task = Task.new
+    @parent = nil
+    if params[:task_id]
+      @parent = Task.find(params[:task_id])
+    end
 
     respond_to do |format|
       format.html # new.html.erb

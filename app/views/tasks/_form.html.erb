@@ -1,4 +1,5 @@
-<%= form_for(@task, remote: true) do |f| %>
+<% @remote = @parent.nil? ? false: true %>
+<%= form_for(@task, remote: @remote) do |f| %>
   <% if @task.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@task.errors.count, "error") %> prohibited this task from being saved:</h2>
@@ -11,11 +12,13 @@
     </div>
   <% end %>
 
-  <% if @task %>
+  <% if !@task.new_record? || !@parent.nil? %>
     <% if @parent %>
       <%= f.hidden_field :child_of_id, value: @parent.id %>
+      <%= f.hidden_field :company_id, value: @parent.company_id %>
+    <% else %>
+      <%= f.hidden_field :company_id, value: @task.company_id %>
     <%end%>
-    <%= f.hidden_field :company_id, value: @task.company_id %>
   <% else %>
     <div class="large-4">
       <div class="field">
@@ -40,11 +43,17 @@
   </div>
 
   <%= render('scheduler', f: f, task: @task) %>
+  <br/><br/>
 
   <div class="large-4">
     <div class="actions">
       <%= f.submit %>
-      <%= button_to_function 'Cancel', raw('$("#task-' + @task.id.to_s + '").empty().append("' + j(render('show_task', task: @task)) + '")') %>
+      <% if @task.new_record? && @parent.nil?%>
+      <% elsif @task.new_record? %>
+        <%= button_to_function 'Cancel', raw('$("#new-subtask").empty(); $("#new-subtask-link").show();') %>
+      <% else %>
+        <%= button_to_function 'Cancel', raw('$("#task-' + @task.id.to_s + '").empty().append("' + j(render('show_task', task: @task)) + '")') %>
+      <% end %>
     </div>
   </div>
 <% end %>
