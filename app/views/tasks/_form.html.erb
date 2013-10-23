@@ -42,8 +42,12 @@
     </div>
   </div>
 
-  <%= render('scheduler', f: f, task: @task) %>
-  <br/><br/>
+  <div id="scheduler" class="panel">
+    <%= link_to_function 'Scheduler', '$("#scheduler-' + @task.id.to_s + '").toggle()' %>
+    <%= f.fields_for :schedule do |build| %>
+      <%= render('scheduler', f: build, task: @task) %>
+    <% end %>
+  </div>
 
   <div class="large-4">
     <div class="actions">

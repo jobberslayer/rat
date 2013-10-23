@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131022203918) do
+ActiveRecord::Schema.define(:version => 20131023225643) do
 
   create_table "ckeditor_assets", :force => true do |t|
     t.string   "data_file_name",                  :null => false
@@ -36,18 +36,26 @@ ActiveRecord::Schema.define(:version => 20131022203918) do
     t.datetime "updated_at", :null => false
   end
 
+  create_table "schedules", :force => true do |t|
+    t.string   "kind",        :null => false
+    t.integer  "weekly_day"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+    t.integer  "task_id"
+    t.date     "yearly_date"
+    t.integer  "monthly_day"
+    t.date     "once_date"
+  end
+
   create_table "tasks", :force => true do |t|
     t.integer  "company_id"
     t.text     "info"
-    t.text     "schedule_serialized"
     t.integer  "parent_id"
-    t.datetime "created_at",          :null => false
-    t.datetime "updated_at",          :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
     t.string   "title"
     t.integer  "lft"
     t.integer  "rgt"
-    t.string   "schedule_type"
-    t.text     "schedule_data"
   end
 
   create_table "users", :force => true do |t|

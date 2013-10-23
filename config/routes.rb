@@ -1,7 +1,6 @@
 Rat::Application.routes.draw do
   resources :companies
 
-
   mount Ckeditor::Engine => '/ckeditor'
 
   resources :tasks

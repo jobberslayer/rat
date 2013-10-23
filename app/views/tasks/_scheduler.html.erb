@@ -1,7 +1,34 @@
-<%= link_to_function 'Scheduler', '$("#scheduler-' + task.id.to_s + '").toggle()' %>
 <div id="scheduler-<%=task.id%>" style="display:none">
-  <label for="radio1">
-    <%= f.radio_button :schedule_type, 'none' %> None
-    <%= f.radio_button :schedule_type, 'yearly' %>Yearly on <%= f.date_select(:created_at, start_year: Date.today.year) %>
+  <label>
+    <%= f.radio_button :kind, :none %> None
+  </label>
+
+  <label>
+    <%= f.radio_button :kind, :once %> Once on
+    <div class="large-4">
+      <%= f.date_select( :once_date, order: [:year, :month, :day]) %>
+    </div>
+  </label>
+
+  <label>
+    <%= f.radio_button :kind, :yearly %> Yearly on
+    <div class="large-4">
+      <%= f.date_select( :yearly_date, order: [:month, :day]) %>
+    </div>
+  </label>
+
+  <label>
+    <%= f.radio_button :kind, :month %> Monthly on 
+    <div class="large-4">
+      <%= f.select( :monthly_day, (1..31)) %>
+    </div>
+  </label>
+
+  <label>
+    <%= f.radio_button :kind, :first_day_month %> First Day of the Month
+  </label>
+
+  <label>
+    <%= f.radio_button :kind, :last_day_month %> Last Day of the Month
   </label>
 </div>
