@@ -20,6 +20,14 @@ class Schedule < ActiveRecord::Base
     add_rule(IceCube::Rule.monthly.day_of_month(monthly_day))
   end
 
+  def ic_first_day_month
+    add_rule(IceCube::Rule.monthly.day_of_month(1))
+  end
+
+  def ic_last_day_month
+    add_rule(IceCube::Rule.monthly.day_of_month(-1))
+  end
+
   def ic_once
     IceCube::Schedule.new(once_date) 
   end

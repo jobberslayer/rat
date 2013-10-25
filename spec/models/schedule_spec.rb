@@ -20,12 +20,34 @@ describe Schedule do
   end
 
   describe "do monthly" do
-    let(:d) { Date.new(2013, 10, 24)}
+    let(:d) { Date.today }
     let(:s) { Schedule.new(kind: :monthly, monthly_day: d.day) }
 
-    it { s.ice_cube.occurs_on?(d).should be true }
-    it { s.ice_cube.occurs_on?(d + 1.month).should be true }
-    it { s.ice_cube.occurs_on?(d + 1.month + 1.day).should be false }
+    it "specific day" do 
+      s.ice_cube.occurs_on?(d).should be true 
+    end 
+    it "specific day + 1 month" do 
+      s.ice_cube.occurs_on?(d + 1.month).should be true 
+    end 
+    it "specific day + a month and a day" do 
+      s.ice_cube.occurs_on?(d + 1.month + 1.day).should be false 
+    end
+  end
+
+  describe "do 1st day of month" do
+    let(:d) { Date.new((Date.today + 1.year).year, Date.today.month, 1) }
+    let(:s) { Schedule.new(kind: :first_day_month) }
+
+    it { s.ice_cube.occurs_on?(d).should be true } 
+    it { s.ice_cube.occurs_on?(d + 1.day).should be false }
+  end
+
+  describe "do last day of month" do
+    let(:d) { Date.new((Date.today + 1.year).year, Date.today.month, 1) - 1.day }
+    let(:s) { Schedule.new(kind: :last_day_month) }
+
+    it { s.ice_cube.occurs_on?(d).should be true } 
+    it { s.ice_cube.occurs_on?(d + 1.day).should be false }
   end
 
   describe "for none" do
