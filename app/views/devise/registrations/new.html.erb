@@ -5,8 +5,22 @@
 
   <div class="row">
     <div class="large-4 column">
+      <%= f.label :first_name %>
+      <%= f.text_field :first_name, :autofocus => true %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="large-4 column">
+      <%= f.label :last_name %>
+      <%= f.text_field :last_name %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="large-4 column">
       <%= f.label :email %>
-      <%= f.email_field :email, :autofocus => true %>
+      <%= f.email_field :email %>
     </div>
   </div>
 

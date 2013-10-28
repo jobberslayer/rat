@@ -1,0 +1,15 @@
+<% content_for :title, 'Agenda' %>
+
+<% @happenings.each do |date, tasks| %>
+  <div class="panel">
+    <%= l date, format: :long_dateweek %>
+    <br/>
+    <% tasks.each_with_index do |task, i| %>
+      <% if i > 0 %><hr/><% end %>
+      <p>
+        <h3><%= task.title %></h3>
+        <%= task.info %>
+      </p>
+    <% end %>
+  </div>
+<% end %>

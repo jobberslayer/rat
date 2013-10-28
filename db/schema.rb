@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131023225643) do
+ActiveRecord::Schema.define(:version => 20131028190835) do
 
   create_table "ckeditor_assets", :force => true do |t|
     t.string   "data_file_name",                  :null => false
@@ -37,10 +37,10 @@ ActiveRecord::Schema.define(:version => 20131023225643) do
   end
 
   create_table "schedules", :force => true do |t|
-    t.string   "kind",        :null => false
+    t.string   "kind",        :default => "none"
     t.integer  "weekly_day"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at",                      :null => false
+    t.datetime "updated_at",                      :null => false
     t.integer  "task_id"
     t.date     "yearly_date"
     t.integer  "monthly_day"
@@ -56,6 +56,7 @@ ActiveRecord::Schema.define(:version => 20131023225643) do
     t.string   "title"
     t.integer  "lft"
     t.integer  "rgt"
+    t.integer  "user_id"
   end
 
   create_table "users", :force => true do |t|
@@ -71,6 +72,8 @@ ActiveRecord::Schema.define(:version => 20131023225643) do
     t.string   "last_sign_in_ip"
     t.datetime "created_at",                             :null => false
     t.datetime "updated_at",                             :null => false
+    t.string   "first_name"
+    t.string   "last_name"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

@@ -12,6 +12,10 @@ class Schedule < ActiveRecord::Base
     not ice_cube.nil?
   end
 
+  def to_s
+    exists? ? ice_cube.to_s : 'none'
+  end
+
   def ice_cube
     send("ic_#{kind}")
   end

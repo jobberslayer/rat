@@ -27,6 +27,8 @@ class TasksController < ApplicationController
   # GET /tasks/new.json
   def new
     @task = Task.new
+    @task.build_schedule
+
     @parent = nil
     if params[:task_id]
       @parent = Task.find(params[:task_id])
@@ -74,8 +76,6 @@ class TasksController < ApplicationController
             redirect_to @task, notice: 'Task was successfully created.'
           end
         end
-        s = Schedule.new(kind: :none)
-        @task.schedule = s
         format.json { render json: @task, status: :created, location: @task }
         format.js
       else

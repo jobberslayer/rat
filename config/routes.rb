@@ -9,6 +9,8 @@ Rat::Application.routes.draw do
 
   get "home/index"
 
+  get "agenda", :to => "agenda#index"
+
   root :to => "home#index"
 
   mount Ckeditor::Engine => "/ckeditor"

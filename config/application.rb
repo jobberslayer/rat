@@ -64,5 +64,6 @@ module Rat
 
     # display times in EST
     config.time_zone = 'Eastern Time (US & Canada)'
+    config.active_record.default_timezone = 'Eastern Time (US & Canada)'
   end
 end
