@@ -2,7 +2,7 @@ class TasksController < ApplicationController
   # GET /tasks
   # GET /tasks.json
   def index
-    @tasks = Task.roots
+    @tasks = Task.order(:parent_id, :title)
 
     respond_to do |format|
       format.html # index.html.erb

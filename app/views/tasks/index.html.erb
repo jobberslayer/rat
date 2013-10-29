@@ -5,6 +5,7 @@
   <tr>
     <th>Company</th>
     <th>Title</th>
+    <th>SubTask</th>
     <th>Schedule</th>
     <th>Parent</th>
     <th></th>
@@ -13,7 +14,8 @@
 <% @tasks.each do |task| %>
   <tr>
     <td><%= link_to task.company.name, task %></td>
-    <td><%= task.title %></td>
+    <td><%= task.parent.nil? ? task.title : task.parent.title %></td>
+    <td><%= task.parent.nil? ? '' : task.title %></td>
     <td><%= task.schedule %></td>
     <td><%= task.parent ? task.parent.title : 'none' %></td>
     <td><%= link_to 'Destroy', task, method: :delete, data: { confirm: 'Are you sure?' } %></td>
