@@ -22,29 +22,31 @@
   </head>
 
   <body>
-    <nav class="top-bar">
-      <ul class="title-area">
-        <li class="name">
-          <h1><%= link_to "R.A.T.", '/' %></a></h1>
-        </li>
-      </ul>
-      <section class="top-bar-section">
-        <ul class="right">
-          <li class="divider"></li>
-          <li><%= link_to "Agenda", agenda_path %></li>
-          <li class="divider"></li>
-          <li><%= link_to "Companies", companies_path %></li>
-          <li class="divider"></li>
-          <li><%= link_to "Tasks", tasks_path %></li>
-          <li class="divider"></li>
-          <% if user_signed_in? %>
-          <li><%= link_to "Sign Out", destroy_user_session_path, method: :delete %></li>
-          <% else %>
-          <li><%= link_to "Sign In", user_session_path %></li>
-          <% end %>
+    <div class="sticky">
+      <nav class="top-bar">
+        <ul class="title-area">
+          <li class="name">
+            <h1><%= link_to "R.A.T.", '/' %></a></h1>
+          </li>
         </ul>
-      </div>
-    </nav> 
+        <section class="top-bar-section">
+          <ul class="right">
+            <li class="divider"></li>
+            <li><%= link_to "Agenda", agenda_path %></li>
+            <li class="divider"></li>
+            <li><%= link_to "Companies", companies_path %></li>
+            <li class="divider"></li>
+            <li><%= link_to "Tasks", tasks_path %></li>
+            <li class="divider"></li>
+            <% if user_signed_in? %>
+            <li><%= link_to "Sign Out", destroy_user_session_path, method: :delete %></li>
+            <% else %>
+            <li><%= link_to "Sign In", user_session_path %></li>
+            <% end %>
+          </ul>
+        </section>
+      </nav>
+    </div> 
 
     <div class="panel" style="background: white">
       <% if notice %>
