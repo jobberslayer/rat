@@ -11,10 +11,10 @@ gem 'rspec', '2.14.1'
 gem 'ice_cube', '0.11.0'
 gem 'devise', '3.1.1'
 
-gem 'ckeditor'
-gem 'paperclip'
+gem 'ckeditor', '4.0.6'
+gem 'paperclip', '3.5.1'
 
-gem 'awesome_nested_set'
+gem 'awesome_nested_set', '2.1.6'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -28,11 +28,7 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
 end
 
-gem "rspec-rails", :group => [:test, :development]
-gem "capybara", :group => [:test, :development]
-
-group :test do
-  gem 'capybara'
-end
+gem "rspec-rails", '2.14.0', :group => [:test, :development]
+gem "capybara", '2.1.0', :group => [:test, :development]
 
 gem 'jquery-rails', '3.0.4'
