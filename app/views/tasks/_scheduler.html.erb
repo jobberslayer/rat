@@ -2,13 +2,14 @@
   <label>
     <%= f.radio_button :kind, :none %> None
   </label>
-
+  <hr/>
   <label>
     <%= f.radio_button :kind, :once %> Once on
     <div class="large-4">
       <%= f.date_select( :once_date, order: [:year, :month, :day]) %>
     </div>
   </label>
+  <hr/>
 
   <label>
     <%= f.radio_button :kind, :yearly %> Yearly on
@@ -16,6 +17,7 @@
       <%= f.date_select( :yearly_date, order: [:month, :day]) %>
     </div>
   </label>
+  <hr/>
 
   <label>
     <%= f.radio_button :kind, :monthly %> Monthly on 
@@ -23,12 +25,35 @@
       <%= f.select( :monthly_day, (1..31)) %>
     </div>
   </label>
+  <hr/>
+
+  <label>
+      <%= f.radio_button :kind, :weekly %> Weekly
+  </label>
+  <div class="row">
+    <div class="small-1 columns">
+      <label for="weekly_interval" class="right">Every</label>
+    </div> 
+    <div class="small-1 columns">
+      <%= f.text_field :weekly_interval, id: :weekly_interval %>
+    </div>
+    <div class="small-10 columns">
+      weeks
+    </div>
+  </div>
+  <div class="large-4 columns">
+    Starting on
+    <%= f.date_select( :weekly_date, order: [:month, :day]) %>
+  </div>
+  <hr/>
 
   <label>
     <%= f.radio_button :kind, :first_day_month %> First Day of the Month
   </label>
+  <hr/>
 
   <label>
     <%= f.radio_button :kind, :last_day_month %> Last Day of the Month
   </label>
 </div>
+

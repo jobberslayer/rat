@@ -1,7 +1,9 @@
 require 'ice_cube'
 
 class Schedule < ActiveRecord::Base
-  attr_accessible :monthly_day, :once_date, :kind, :weekly_day, :yearly_date, :yearly_day, :yearly_month
+  attr_accessible :monthly_day, :once_date, :kind, :weekly_day, :yearly_date, :yearly_day, :yearly_month, 
+    :weekly_date, :weekly_interval
+
   belongs_to :tasks
 
   def occurs_on?(date)
@@ -13,7 +15,14 @@ class Schedule < ActiveRecord::Base
   end
 
   def to_s
-    exists? ? ice_cube.to_s : 'none'
+    case 
+      when !exists?
+        'none'
+      when kind == 'weekly'
+        ice_cube.to_s + " starting on #{weekly_date.strftime('%A, %B %d, %Y')}"
+      else
+        ice_cube.to_s
+      end
   end
 
   def ice_cube
@@ -42,6 +51,12 @@ class Schedule < ActiveRecord::Base
 
   def ic_once
     IceCube::Schedule.new(once_date) 
+  end
+
+  def ic_weekly
+    s = IceCube::Schedule.new(weekly_date)
+    s.add_recurrence_rule IceCube::Rule.weekly(weekly_interval)
+    s
   end
 
   def add_rule(rule)

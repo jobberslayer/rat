@@ -4,7 +4,8 @@ class AgendaController < ApplicationController
   end
 
   def week
-    dates = (Date.today..Date.today + 7.days)
+    start_date = params[:start_date] ? Date.parse(params[:start_date]) : Date.today
+    dates = (start_date..start_date + 7.days)
     @happenings = {} 
     Task.all.each do |task|
       dates.each do |date|

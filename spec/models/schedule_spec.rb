@@ -49,6 +49,19 @@ describe Schedule do
     it { s.should_not be_occurs_on(d + 1.day) }
   end
 
+  describe "do weekly" do
+    let(:d) { Date.today }
+    let(:s) {Schedule.new(kind: :weekly, weekly_date: d, weekly_interval: 2)}
+
+    it { s.should be_occurs_on(d)}
+    it { s.should_not be_occurs_on (d + 1.week)}
+    it { s.should be_occurs_on(d + 2.weeks)}
+    it { s.should_not be_occurs_on (d + 3.week)}
+    it { s.should be_occurs_on(d + 4.weeks)}
+    it { s.should_not be_occurs_on(d - 2.weeks)}
+    it { s.should_not be_occurs_on (d + 1.day)}
+  end
+
   describe "for none" do
     let(:s) { Schedule.new(kind: :none) }
 
