@@ -14,8 +14,10 @@
 <% @tasks.each do |task| %>
   <tr>
     <td>
-      <%= link_to('#', onclick: "toggle_tree('subtask-#{task.id}', 'task-toggle-#{task.id}')") do %>
-        <span id="task-toggle-<%=task.id%>" class="ui-icon ui-icon-triangle-1-e")></span>
+      <% if task.children.size > 0 %>
+        <%= link_to('#', onclick: "toggle_tree('subtask-#{task.id}', 'task-toggle-#{task.id}')") do %>
+          <span id="task-toggle-<%=task.id%>" class="ui-icon ui-icon-triangle-1-e")></span>
+        <% end %>
       <% end %>
     </td>
     <td><%= task.company.name %></td>
