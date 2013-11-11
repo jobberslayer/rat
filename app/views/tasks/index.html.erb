@@ -1,7 +1,27 @@
 <h1>Listing tasks</h1>
 <% content_for :title, 'Tasks' %>
 
+<%= form_tag tasks_path, method: :get do %>
+  <div class="row">
+    <div class="columns large-4">
+      <%= collection_select nil, :company_id, Company.order(:name), :id, :name, 
+          {:include_blank => 'All Companies', selected: params[:company_id.to_s]} %> 
+    </div>
+    <div class="columns large-4">
+      <%= collection_select nil, :user_id, User.order(:last_name, :first_name), :id, :full_name, 
+          {:include_blank => 'All Users', selected: params[:user_id.to_s]} %> 
+    </div>
+    <div class="columns large-4">
+      <%= text_field_tag :search_text, params[:search_text] %>
+    </div>
+    <div class="columns large-4">
+      <%= submit_tag 'Filter', name: nil %>
+    </div>
+  </div>
+<% end %>
+
 <%= will_paginate @tasks %>
+
 <table>
   <tr>
     <th></th>
@@ -36,6 +56,8 @@
   <% end %>
 <% end %>
 </table>
+
+<%= will_paginate @tasks %>
 
 <br />
 
