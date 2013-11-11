@@ -1,25 +1,37 @@
 <h1>Listing tasks</h1>
 <% content_for :title, 'Tasks' %>
 
+<%= will_paginate @tasks %>
 <table>
   <tr>
+    <th></th>
     <th>Company</th>
     <th>Title</th>
-    <th>SubTask</th>
     <th>Schedule</th>
     <th>Parent</th>
-    <th></th>
   </tr>
 
 <% @tasks.each do |task| %>
   <tr>
-    <td><%= link_to task.company.name, task %></td>
-    <td><%= task.parent.nil? ? task.title : task.parent.title %></td>
-    <td><%= task.parent.nil? ? '' : task.title %></td>
+    <td>
+      <%= link_to('#', onclick: "toggle_tree('subtask-#{task.id}', 'task-toggle-#{task.id}')") do %>
+        <span id="task-toggle-<%=task.id%>" class="ui-icon ui-icon-triangle-1-e")></span>
+      <% end %>
+    </td>
+    <td><%= task.company.name %></td>
+    <td><%= link_to task.title, task %></td>
     <td><%= task.schedule %></td>
-    <td><%= task.parent ? task.parent.title : 'none' %></td>
     <td><%= link_to 'Destroy', task, method: :delete, data: { confirm: 'Are you sure?' } %></td>
   </tr>
+  <% task.children.each do |child| %>
+    <tr class="subtask-<%= task.id %>" style="display: none;">
+      <td></td>
+      <td></td>
+      <td><%= link_to child.title, child %></td>
+      <td><%= child.schedule %></td>
+      <td><%= link_to 'Destroy', child, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    </tr>
+  <% end %>
 <% end %>
 </table>
 

@@ -2,7 +2,7 @@ class TasksController < ApplicationController
   # GET /tasks
   # GET /tasks.json
   def index
-    @tasks = Task.order(:parent_id, :title)
+    @tasks = Task.roots.paginate(page: params[:page], per_page: 10).order(:title)
 
     respond_to do |format|
       format.html # index.html.erb

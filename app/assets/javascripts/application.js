@@ -12,6 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require jquery.ui.all
 //= require foundation
 //= require_tree .
 
@@ -23,5 +24,24 @@ function toggle(div_name, butt_name, on_text, off_text) {
     $("#" + butt_name).val(on_text);
   } else {
     $("#" + butt_name).val(off_text);
+  }
+}
+
+function toggle_tree(div_name, arrow) {
+  $("." + div_name).toggle(); 
+  if ( $("." + div_name).is(':visible') ) {
+    $("#" + arrow).removeClass('ui-icon-triangle-1-e').addClass('ui-icon-triangle-1-s');
+  } else {
+    $("#" + arrow).removeClass('ui-icon-triangle-1-s').addClass('ui-icon-triangle-1-e');
+  }
+
+}
+
+function toggle_class_link(div_name, butt_name, on_text, off_text) {
+  $("." + div_name).toggle(); 
+  if ( $("." + div_name).is(':visible') ) {
+    $("#" + butt_name).text(on_text);
+  } else {
+    $("#" + butt_name).text(off_text);
   }
 }
