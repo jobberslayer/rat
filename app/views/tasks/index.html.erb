@@ -2,46 +2,61 @@
 <% content_for :title, 'Tasks' %>
 
 <%= form_tag tasks_path, method: :get do %>
-  <div class="row">
-    <div class="columns large-4">
+  <div class="columns large-12">
+    <div class="columns large-3">
       <%= collection_select nil, :company_id, Company.order(:name), :id, :name, 
           {:include_blank => 'All Companies', selected: params[:company_id.to_s]} %> 
     </div>
-    <div class="columns large-4">
+    <div class="columns large-3">
+      <%= collection_select nil, :category_id, Category.order(:name), :id, :name, 
+          {:include_blank => 'All Categories', selected: params[:category_id.to_s]} %> 
+    </div>
+    <div class="columns large-3">
       <%= collection_select nil, :user_id, User.order(:last_name, :first_name), :id, :full_name, 
           {:include_blank => 'All Users', selected: params[:user_id.to_s]} %> 
     </div>
-    <div class="columns large-4">
+    <div class="columns large-2">
       <%= text_field_tag :search_text, params[:search_text] %>
     </div>
-    <div class="columns large-4">
+    <div class="columns large-1">
       <%= submit_tag 'Filter', name: nil %>
     </div>
   </div>
 <% end %>
 
-<%= will_paginate @tasks %>
+<br/><br/>
+
+<div class="large-12">
+  <%= will_paginate @tasks %>
+</div>
 
 <table>
+  <thead>
   <tr>
     <th></th>
     <th>Company</th>
+    <th>Category</th>
     <th>Title</th>
+    <th>Owner</th>
     <th>Schedule</th>
-    <th>Parent</th>
+    <th></th>
   </tr>
+  </thead>
+  <tbody>
 
 <% @tasks.each do |task| %>
   <tr>
     <td>
       <% if task.children.size > 0 %>
-        <%= link_to('#', onclick: "toggle_tree('subtask-#{task.id}', 'task-toggle-#{task.id}')") do %>
+        <%= link_to('#', onclick: "toggle_tree('.subtask-#{task.id}', '#task-toggle-#{task.id}')") do %>
           <span id="task-toggle-<%=task.id%>" class="ui-icon ui-icon-triangle-1-e")></span>
         <% end %>
       <% end %>
     </td>
     <td><%= task.company.name %></td>
+    <td><%= task.category ? task.category.name : '' %></td>
     <td><%= link_to task.title, task %></td>
+    <td><%= link_to task.user.full_name %></td>
     <td><%= task.schedule %></td>
     <td><%= link_to 'Destroy', task, method: :delete, data: { confirm: 'Are you sure?' } %></td>
   </tr>
@@ -49,16 +64,23 @@
     <tr class="subtask-<%= task.id %>" style="display: none;">
       <td></td>
       <td></td>
+      <td></td>
       <td><%= link_to child.title, child %></td>
+      <td><%= child.user.full_name %></td>
       <td><%= child.schedule %></td>
       <td><%= link_to 'Destroy', child, method: :delete, data: { confirm: 'Are you sure?' } %></td>
     </tr>
   <% end %>
 <% end %>
+</tbody>
 </table>
 
-<%= will_paginate @tasks %>
+<div class="large-12">
+  <%= will_paginate @tasks %>
+</div>
 
 <br />
 
 <%= link_to 'New Task', new_task_path %>
+
+<%= debug params %> 

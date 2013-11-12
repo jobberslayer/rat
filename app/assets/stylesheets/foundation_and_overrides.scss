@@ -1324,4 +1324,30 @@ $default-float: left;
 // $topbar-sticky-class: ".sticky";
 // $topbar-arrows: true; //Set false to remove the triangle icon from the menu item
 
+/* These control the background color for the table and even rows */
+$table-bg: #CCC;
+$table-even-row-bg: #CCC;
+
+/* These control the table cell border style */
+$table-border-style: solid;
+$table-border-size: 1px;
+$table-border-color: #ddd;
+
+/* These control the table head styles */
+$table-head-bg: #666666;
+$table-head-font-size: em-calc(14);
+$table-head-font-color: #222;
+$table-head-font-weight: bold;
+$table-head-padding: em-calc(8 10 10);
+
+/* These control the row padding and font styles */
+$table-row-padding: em-calc(9 10);
+$table-row-font-size: em-calc(14);
+$table-row-font-color: #222;
+$table-line-height: em-calc(18);
+
+/* These are for controlling the display and margin of tables */
+$table-display: table-cell;
+$table-margin-bottom: em-ca;
+
 @import 'foundation';

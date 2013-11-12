@@ -2,7 +2,8 @@ class TasksController < ApplicationController
   # GET /tasks
   # GET /tasks.json
   def index
-    @tasks = Task.roots.paginate(page: params[:page], per_page: 10).order(:title)
+    @tasks = Task.filters(params).joins(:company).joins(:category).order('companies.name', 'categories.name', 'created_at').roots.paginate(page: params[:page], per_page: 10)
+    #@tasks = Task.joins(:company).filters(params).order('category_id').paginate(page: params[:page], per_page: 10)
 
     respond_to do |format|
       format.html # index.html.erb

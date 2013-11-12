@@ -28,13 +28,12 @@ function toggle(div_name, butt_name, on_text, off_text) {
 }
 
 function toggle_tree(div_name, arrow) {
-  $("." + div_name).toggle(); 
-  if ( $("." + div_name).is(':visible') ) {
-    $("#" + arrow).removeClass('ui-icon-triangle-1-e').addClass('ui-icon-triangle-1-s');
+  $(div_name).toggle(); 
+  if ( $(div_name).is(':visible') ) {
+    $(arrow).removeClass('ui-icon-triangle-1-e').addClass('ui-icon-triangle-1-s');
   } else {
-    $("#" + arrow).removeClass('ui-icon-triangle-1-s').addClass('ui-icon-triangle-1-e');
+    $(arrow).removeClass('ui-icon-triangle-1-s').addClass('ui-icon-triangle-1-e');
   }
-
 }
 
 function toggle_class_link(div_name, butt_name, on_text, off_text) {

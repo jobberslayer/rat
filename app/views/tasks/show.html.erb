@@ -6,11 +6,13 @@
 </div>
 
 <% if @task.parent.nil? %>
-  <%= link_to "new subtask", new_task_path(task_id: @task.id), remote: true, id: 'new-subtask-link' %>
+  <%= link_to "new note", new_task_path(task_id: @task.id), remote: true, id: 'new-subtask-link',
+        :class => 'button round'  %>
   <div id="new-subtask">
   </div>
   <hr/>
-  <div id="subtasks" class="panel">
+  <h2>News</h2>
+  <div id="subtasks">
     <p id="none-msg" <%= !@subtasks.empty?() ? raw('style="display:none"') : '' %>>No updates</p>
     <% @subtasks.each do |s| %>
       <%= render 'show_task', task: s %>

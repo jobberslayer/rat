@@ -1,4 +1,7 @@
 Rat::Application.routes.draw do
+  resources :categories
+
+
   resources :companies
 
   mount Ckeditor::Engine => '/ckeditor'

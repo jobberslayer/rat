@@ -1,15 +1,14 @@
-<div id="task-<%=task.id%>">
+<div id="task-<%=task.id%>" class="panel callout large-8">
   <h3><%= task.title %></h3>
-  <em><%= l task.created_at, format: :long_dateweek %></em>
-  <br/>
+  <em>Created: <%= l task.created_at, format: :long_dateweek %></em><br/>
+  <em>Updated: <%= l task.updated_at, format: :long_dateweek %></em><br/>
   <em>owned by: <%= task.user.full_name %></em>
-  <br/>
-  <br/>
+  <hr/>
   <p><%= task.info %></p>
   <p>Scheduled: <%= task.schedule.to_s %></p>
   <%= link_to 'Edit', edit_task_path(task), remote: true %> 
   <% if task.child? %>
     | <%= link_to 'Destroy', task, method: :delete, data: { confirm: 'Are you sure?' }, remote: true %>
   <% end %>
-  <hr/>
 </div>
+<hr/>

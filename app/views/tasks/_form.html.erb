@@ -1,4 +1,5 @@
 <% @remote = @parent.nil? ? false: true %>
+<div class="panel callout">
 <%= form_for(@task, remote: @remote) do |f| %>
   <% if @task.errors.any? %>
     <div id="error_explanation">
@@ -16,14 +17,22 @@
     <% if @parent %>
       <%= f.hidden_field :child_of_id, value: @parent.id %>
       <%= f.hidden_field :company_id, value: @parent.company_id %>
+      <%= f.hidden_field :category_id, value: @parent.category_id %>
     <% else %>
       <%= f.hidden_field :company_id, value: @task.company_id %>
+      <%= f.hidden_field :category_id, value: @task.category_id %>
     <%end%>
   <% else %>
     <div class="large-4">
       <div class="field">
         <%= f.label :company %>
         <%= f.collection_select :company_id, Company.order(:name), :id, :name %>
+      </div>
+    </div>
+    <div class="large-4">
+      <div class="field">
+        <%= f.label :category %>
+        <%= f.collection_select :category_id, Category.order(:name), :id, :name %>
       </div>
     </div>
   <% end %>
@@ -49,22 +58,27 @@
     </div>
   </div>
 
-  <div id="scheduler" class="panel">
-    <%= link_to_function 'Scheduler', '$("#scheduler-' + @task.id.to_s + '").toggle()' %>
+  <div id="scheduler">
+    <%= link_to('#', onclick: "toggle_tree('#scheduler-#{@task.id}', '#task-toggle-#{@task.id}')") do %>
+          <span id="task-toggle-<%=@task.id%>" class="ui-icon ui-icon-triangle-1-e left") ></span>Scheduler
+        <% end %>
     <%= f.fields_for :schedule do |build| %>
       <%= render('scheduler', f: build, task: @task, ) %>
     <% end %>
   </div>
+  <br/>
 
   <div class="large-4">
     <div class="actions">
-      <%= f.submit %>
+      <%= f.submit :class => 'button round' %>
       <% if @task.new_record? && @parent.nil?%>
       <% elsif @task.new_record? %>
-        <%= button_to_function 'Cancel', raw('$("#new-subtask").empty(); $("#new-subtask-link").show();') %>
+        <%= button_to_function 'Cancel', raw('$("#new-subtask").empty(); $("#new-subtask-link").show();', 
+            :class => 'button round') %>
       <% else %>
-        <%= button_to_function 'Cancel', raw('$("#task-' + @task.id.to_s + '").empty().append("' + j(render('show_task', task: @task)) + '")') %>
+        <%= button_to_function 'Cancel', raw('$("#task-' + @task.id.to_s + '").empty().append("' + j(render('show_task', task: @task)) + '")'), :class => 'button round' %>
       <% end %>
     </div>
   </div>
 <% end %>
+</div>
