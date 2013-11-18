@@ -1,8 +1,12 @@
 Rat::Application.routes.draw do
   resources :categories
-
-
   resources :companies
+
+  #status updates
+  get 'tasks/:id/new_status', to: "tasks#new_status", as: "new_task_status"
+  post 'tasks/:id/new_status', to: "tasks#create_status", as: "new_task_status"
+  get 'tasks/:id/edit_status/:status_id', to: "tasks#edit_status", as: "edit_task_status"
+  put 'tasks/:id/update_status/:status_id', to: "tasks#update_status", as: "update_task_status"
 
   mount Ckeditor::Engine => '/ckeditor'
 

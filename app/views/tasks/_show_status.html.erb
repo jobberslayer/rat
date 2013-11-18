@@ -1,0 +1,11 @@
+<div id="status-<%=status.id%>" class="panel callout large-8">
+  <h3><%= status.title %></h3>
+  <em>Created: <%= l status.created_at, format: :long_dateweek %></em><br/>
+  <em>Updated: <%= l status.updated_at, format: :long_dateweek %></em><br/>
+  <em>owned by: <%= status.user.full_name %></em>
+  <hr/>
+  <p><%= status.info %></p>
+  <p>Scheduled: <%= status.schedule.to_s %></p>
+  <%= link_to 'Edit', edit_task_status_path(task.id, status.id), remote: true %> 
+</div>
+<hr/>

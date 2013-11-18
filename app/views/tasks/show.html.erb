@@ -5,17 +5,17 @@
   <%= render 'show_task', task:@task %>
 </div>
 
-<% if @task.parent.nil? %>
-  <%= link_to "new note", new_task_path(task_id: @task.id), remote: true, id: 'new-subtask-link',
-        :class => 'button round'  %>
-  <div id="new-subtask">
-  </div>
-  <hr/>
-  <h2>News</h2>
-  <div id="subtasks">
-    <p id="none-msg" <%= !@subtasks.empty?() ? raw('style="display:none"') : '' %>>No updates</p>
-    <% @subtasks.each do |s| %>
-      <%= render 'show_task', task: s %>
-    <% end %>
-  </div>
-<% end %>
+<%= link_to "new note", new_task_status_path(task_id: @task.id), remote: true, id: 'new-status-link',
+      :class => 'button round'  %>
+<div id="new-status">
+</div>
+<hr/>
+<h2>News</h2>
+<div id="statuses">
+  <p id="none-msg" <%= !@subtasks.empty?() ? raw('style="display:none"') : '' %>>No updates</p>
+  <% @subtasks.each do |s| %>
+    <div id="outer-status-<%= s.id %>">
+      <%= render 'show_status', task: @task, status: s %>
+    </div>
+  <% end %>
+</div>

@@ -1,0 +1,34 @@
+<%= form_for(@status, url: @status.new_record? ? new_task_status_path(@task, @status) : update_task_status_path(@task, @status), remote: true) do |f| %>
+  <div class="large-4">
+    <div class="field">
+      <%= f.label :user %>
+      <%= f.collection_select :user_id, User.order(:last_name, :first_name), :id, :full_name %>
+    </div>
+  </div>
+
+  <div class="large-4">
+    <div class="field">
+      <%= f.label :title %>
+      <%= f.text_field :title %>
+    </div>
+  </div>
+
+  <div class="large-12">
+    <div class="field">
+      <%= f.label :info %><br />
+      <%= f.cktext_area :info %>
+    </div>
+  </div>
+
+  <% @task.build_schedule %> 
+
+  <div id="scheduler">
+    <%= link_to('#', onclick: "toggle_tree('#scheduler-new', '#task-toggle-new')") do %>
+          <span id="task-toggle-new" class="ui-icon ui-icon-triangle-1-e left") ></span>Scheduler
+        <% end %>
+    <%= f.fields_for :schedule do |build| %>
+      <%= render('scheduler', f: build, task: @task) %>
+    <% end %>
+  </div>
+  <%= f.submit :class => 'button round' %>
+<% end %>

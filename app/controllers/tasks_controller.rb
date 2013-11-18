@@ -2,8 +2,7 @@ class TasksController < ApplicationController
   # GET /tasks
   # GET /tasks.json
   def index
-    @tasks = Task.filters(params).joins(:company).joins(:category).order('companies.name', 'categories.name', 'created_at').roots.paginate(page: params[:page], per_page: 10)
-    #@tasks = Task.joins(:company).filters(params).order('category_id').paginate(page: params[:page], per_page: 10)
+    @tasks = Task.filters(params).joins(:company).joins(:category).order('companies.name', 'categories.name', 'created_at').paginate(page: params[:page], per_page: 10)
 
     respond_to do |format|
       format.html # index.html.erb
@@ -15,8 +14,8 @@ class TasksController < ApplicationController
   # GET /tasks/1.json
   def show
     @task = Task.find(params[:id])
-    @subtasks = @task.children.order(:created_at).reverse
-    @subtask = Task.new
+    @subtasks = @task.statuses.order(:created_at).reverse
+    @subtask = Status.new
 
     respond_to do |format|
       format.html # show.html.erb
@@ -29,11 +28,7 @@ class TasksController < ApplicationController
   def new
     @task = Task.new
     @task.build_schedule
-
-    @parent = nil
-    if params[:task_id]
-      @parent = Task.find(params[:task_id])
-    end
+    @task.statuses.build
 
     respond_to do |format|
       format.html # new.html.erb
@@ -45,7 +40,6 @@ class TasksController < ApplicationController
   # GET /tasks/1/edit
   def edit
     @task = Task.find(params[:id])
-    @parent = @task.parent
 
     respond_to do |format|
       format.html # edit.html.erb
@@ -56,26 +50,12 @@ class TasksController < ApplicationController
   # POST /tasks
   # POST /tasks.json
   def create
-    parent = nil
-
-    if params[:task][:child_of_id]
-      parent = Task.find(params[:task][:child_of_id])    
-      params[:task].delete :child_of_id
-    end
-
     @task = Task.new(params[:task])
 
     respond_to do |format|
       if @task.save
-        if parent
-          @task.move_to_child_of(parent)
-        end
         format.html do 
-          if parent
-            redirect_to parent, notice: 'Subtask was successfully created.'
-          else
-            redirect_to @task, notice: 'Task was successfully created.'
-          end
+          redirect_to @task, notice: 'Task was successfully created.'
         end
         format.json { render json: @task, status: :created, location: @task }
         format.js
@@ -90,11 +70,6 @@ class TasksController < ApplicationController
   # PUT /tasks/1
   # PUT /tasks/1.json
   def update
-    if params[:task][:child_of_id]
-      parent = Task.find(params[:task][:child_of_id])    
-      params[:task].delete :child_of_id
-    end
-
     @task = Task.find(params[:id])
 
     respond_to do |format|
@@ -113,20 +88,64 @@ class TasksController < ApplicationController
   # DELETE /tasks/1.json
   def destroy
     @task = Task.find(params[:id])
-    parent = @task.parent
     @task.destroy
 
     respond_to do |format|
       format.html do 
-        if parent
-          redirect_to task_url parent
-        else
-          redirect_to tasks_url
-        end
+        redirect_to tasks_url
       end
 
       format.json { head :no_content }
       format.js
     end
   end
+
+  def new_status
+    @task_id = params[:id]
+    @task = Task.find(@task_id)
+    @status = Status.new()
+
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def create_status
+    task_id = params[:id]
+    @task = Task.find(task_id)
+    @status = Status.new(params[:status])
+    
+    if @status.save
+      flash.now[:success] = "Prayer update created."
+    else
+      flash.now[:error] = "Errors below."
+    end
+
+    @task.statuses.push @status
+
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def edit_status
+    @task = Task.find(params[:id])
+    @status = Status.find(params[:status_id])
+  end
+
+  def update_status
+    @task = Task.find(params[:id])
+    @status = Status.find(params[:status_id])
+
+    if @status.update_attributes(params[:status])
+      flash[:success] = "Request updated."
+    else
+      flash.now[:error] = "Errors below."
+    end
+
+    respond_to do |format|
+      format.js 
+    end
+  end
+
 end

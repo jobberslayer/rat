@@ -5,6 +5,7 @@ class Schedule < ActiveRecord::Base
     :weekly_date, :weekly_interval
 
   belongs_to :tasks
+  belongs_to :statuses
 
   def occurs_on?(date)
     ice_cube.occurs_on?(date)

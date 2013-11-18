@@ -1,0 +1,4 @@
+$('#new-status').empty();
+$('#statuses').prepend('<%= j render("show_status", task: @task, status: @status) %>');
+$('#none-msg').hide();
+$('#new-status-link').show();

@@ -2,7 +2,7 @@ namespace :db do
   desc "erase database"
   task :delete_it_all => :environment do
     puts "Deleting all data in users, companies, categories, tasks, and schedules"
-    [User, Company, Category, Task, Schedule].each(&:delete_all)
+    [User, Company, Category, Task, Status, Schedule].each(&:delete_all)
   end
 
   desc "fill database"
@@ -57,9 +57,7 @@ namespace :db do
       end
 
       rand(5).times do
-        st = Task.new
-        st.company_id = t.company_id
-        st.category_id = t.category_id
+        st = Status.new
         st.user_id = User.first(offset: rand(User.count)).id
         st.title = Faker::Lorem::words(1..3).join(' ')
         st.info = Faker::Lorem::sentences(2..5).join(' ')
@@ -68,7 +66,7 @@ namespace :db do
         unless st.save
           puts "subtask had errors: #{st.errors.full_messages}"
         end
-        st.move_to_child_of(t)
+        t.statuses.push st
       end
     end
   end  

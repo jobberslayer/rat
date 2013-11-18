@@ -14,8 +14,6 @@ gem 'devise', '3.1.1'
 gem 'ckeditor', '4.0.6'
 gem 'paperclip', '3.5.1'
 
-gem 'awesome_nested_set', '2.1.6'
-
 gem 'will_paginate', '3.0.5'
 
 gem 'jquery-ui-rails'

@@ -1,4 +1,3 @@
-<% @remote = @parent.nil? ? false: true %>
 <div class="panel callout">
 <%= form_for(@task, remote: @remote) do |f| %>
   <% if @task.errors.any? %>
@@ -13,29 +12,18 @@
     </div>
   <% end %>
 
-  <% if !@task.new_record? || !@parent.nil? %>
-    <% if @parent %>
-      <%= f.hidden_field :child_of_id, value: @parent.id %>
-      <%= f.hidden_field :company_id, value: @parent.company_id %>
-      <%= f.hidden_field :category_id, value: @parent.category_id %>
-    <% else %>
-      <%= f.hidden_field :company_id, value: @task.company_id %>
-      <%= f.hidden_field :category_id, value: @task.category_id %>
-    <%end%>
-  <% else %>
-    <div class="large-4">
-      <div class="field">
-        <%= f.label :company %>
-        <%= f.collection_select :company_id, Company.order(:name), :id, :name %>
-      </div>
+  <div class="large-4">
+    <div class="field">
+      <%= f.label :company %>
+      <%= f.collection_select :company_id, Company.order(:name), :id, :name %>
     </div>
-    <div class="large-4">
-      <div class="field">
-        <%= f.label :category %>
-        <%= f.collection_select :category_id, Category.order(:name), :id, :name %>
-      </div>
+  </div>
+  <div class="large-4">
+    <div class="field">
+      <%= f.label :category %>
+      <%= f.collection_select :category_id, Category.order(:name), :id, :name %>
     </div>
-  <% end %>
+  </div>
 
   <div class="large-4">
     <div class="field">

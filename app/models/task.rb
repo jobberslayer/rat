@@ -1,13 +1,13 @@
 class Task < ActiveRecord::Base
   before_destroy :remove_children_schedules
 
-  acts_as_nested_set 
+  attr_accessible :company_id, :category_id, :title, :info, :schedule_attributes, :user_id
 
   belongs_to :company
   belongs_to :user
   belongs_to :category
   has_one :schedule, dependent: :destroy
-  attr_accessible :company_id, :category_id, :title, :info, :schedule_id, :parent_id, :lft, :rgt, :schedule_attributes, :user_id
+  has_many :statuses, dependent: :destroy
 
   accepts_nested_attributes_for :schedule
 

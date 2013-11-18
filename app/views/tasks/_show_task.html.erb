@@ -7,8 +7,5 @@
   <p><%= task.info %></p>
   <p>Scheduled: <%= task.schedule.to_s %></p>
   <%= link_to 'Edit', edit_task_path(task), remote: true %> 
-  <% if task.child? %>
-    | <%= link_to 'Destroy', task, method: :delete, data: { confirm: 'Are you sure?' }, remote: true %>
-  <% end %>
 </div>
 <hr/>

@@ -30,8 +30,6 @@ GEM
       multi_json (~> 1.0)
     arel (3.0.2)
     atomic (1.1.14)
-    awesome_nested_set (2.1.6)
-      activerecord (>= 3.0.0)
     bcrypt-ruby (3.1.2)
     builder (3.0.4)
     capybara (2.1.0)
@@ -170,7 +168,6 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  awesome_nested_set (= 2.1.6)
   capybara (= 2.1.0)
   ckeditor (= 4.0.6)
   coffee-rails (~> 3.2.1)

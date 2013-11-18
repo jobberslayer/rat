@@ -47,7 +47,7 @@
 <% @tasks.each do |task| %>
   <tr>
     <td>
-      <% if task.children.size > 0 %>
+      <% if task.statuses.size > 0 %>
         <%= link_to('#', onclick: "toggle_tree('.subtask-#{task.id}', '#task-toggle-#{task.id}')") do %>
           <span id="task-toggle-<%=task.id%>" class="ui-icon ui-icon-triangle-1-e")></span>
         <% end %>
@@ -60,15 +60,15 @@
     <td><%= task.schedule %></td>
     <td><%= link_to 'Destroy', task, method: :delete, data: { confirm: 'Are you sure?' } %></td>
   </tr>
-  <% task.children.each do |child| %>
+  <% task.statuses.each do |status| %>
     <tr class="subtask-<%= task.id %>" style="display: none;">
       <td></td>
       <td></td>
       <td></td>
-      <td><%= link_to child.title, child %></td>
-      <td><%= child.user.full_name %></td>
-      <td><%= child.schedule %></td>
-      <td><%= link_to 'Destroy', child, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      <td><%= status.title %></td>
+      <td><%= status.user.full_name %></td>
+      <td><%= status.schedule %></td>
+      <td><%= link_to 'Destroy', task, method: :delete, data: { confirm: 'Are you sure?' } %></td>
     </tr>
   <% end %>
 <% end %>
