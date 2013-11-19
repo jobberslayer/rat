@@ -1,4 +1,3 @@
-<div class="panel callout">
 <%= form_for(@task, remote: @remote) do |f| %>
   <% if @task.errors.any? %>
     <div id="error_explanation">
@@ -47,26 +46,26 @@
   </div>
 
   <div id="scheduler">
-    <%= link_to('#', onclick: "toggle_tree('#scheduler-#{@task.id}', '#task-toggle-#{@task.id}')") do %>
+    <%= link_to('#', onclick: "toggle_tree('#task-scheduler-#{@task.id}', '#task-toggle-#{@task.id}')") do %>
           <span id="task-toggle-<%=@task.id%>" class="ui-icon ui-icon-triangle-1-e left") ></span>Scheduler
         <% end %>
-    <%= f.fields_for :schedule do |build| %>
-      <%= render('scheduler', f: build, task: @task, ) %>
-    <% end %>
-  </div>
-  <br/>
-
-  <div class="large-4">
-    <div class="actions">
-      <%= f.submit :class => 'button round' %>
-      <% if @task.new_record? && @parent.nil?%>
-      <% elsif @task.new_record? %>
-        <%= button_to_function 'Cancel', raw('$("#new-subtask").empty(); $("#new-subtask-link").show();', 
-            :class => 'button round') %>
-      <% else %>
-        <%= button_to_function 'Cancel', raw('$("#task-' + @task.id.to_s + '").empty().append("' + j(render('show_task', task: @task)) + '")'), :class => 'button round' %>
+    <div id="task-scheduler-<%= @task.id %>" style="display:none">
+      <%= f.fields_for :schedule do |build| %>
+        <%= render('scheduler', f: build ) %>
       <% end %>
     </div>
   </div>
+ </div>
+
+  <div class="large-4">
+    <div class="actions button-group round even-2">
+      <%= f.submit :class => 'button' %>
+      <% if @task.new_record? %>
+        <%= button_to_function 'Cancel', raw("document.location='#{tasks_path}'"), :class => 'button'%>
+      <% else %>
+        <%= button_to_function 'Cancel', raw('$("#task-' + @task.id.to_s + '").empty().append("' + j(render('show_task', task: @task)) + '")'), :class => 'button' %>
+      <% end %>
+    </div>
+  </div>
+  <hr/>
 <% end %>
-</div>

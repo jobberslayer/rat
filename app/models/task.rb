@@ -1,5 +1,5 @@
 class Task < ActiveRecord::Base
-  before_destroy :remove_children_schedules
+  #before_destroy :remove_children_schedules
 
   attr_accessible :company_id, :category_id, :title, :info, :schedule_attributes, :user_id
 
