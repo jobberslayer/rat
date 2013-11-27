@@ -15,7 +15,9 @@ class Task < ActiveRecord::Base
     set = Task
     set = set.where("category_id = ?", args[:category_id]) if args.has_key?(:category_id) and !args[:category_id].empty?
     set = set.where("company_id = ?", args[:company_id]) if args.has_key?(:company_id) and !args[:company_id].empty?
-    set = set.where("user_id = ?", args[:user_id]) if args.has_key?(:user_id) and !args[:user_id].empty?
+    if args.has_key?(:user_id) and !args[:user_id].empty?
+      set = set.where("user_id = ? or statuses.user_id=?", args[:user_id], args[:user_id])
+    end
 
     set
   end
