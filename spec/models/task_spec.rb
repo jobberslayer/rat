@@ -11,14 +11,14 @@ describe Task do
       parent.save
       s.save
 
-      child = Task.new(user_id: u.id, company_id: c.id, title: "subtask", info:'this is a subtask.')
+      child = Status.new(title: "subtask", info:'this is a subtask.')
       child_s = Schedule.new()
       child.schedule = child_s
       child.save
-      child.move_to_child_of(parent) 
+      parent.statuses.push child
 
-      c = Task.find(child.id)
-      c.parent_id.should be parent.id
+      c = Status.find(child.id)
+      c.task_id.should be parent.id
       c.schedule.id.should be child_s.id
 
       s2 = Schedule.find(s.id)
@@ -26,7 +26,7 @@ describe Task do
 
       parent.destroy
       Task.should_not be_exists(parent.id)
-      Task.should_not be_exists(child.id)
+      Status.should_not be_exists(child.id)
 
       Schedule.should_not be_exists(s.id)
       Schedule.should_not be_exists(child_s.id)
