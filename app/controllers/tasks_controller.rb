@@ -4,7 +4,7 @@ class TasksController < ApplicationController
   def index
     @tasks = Task
         .filters(params)
-        .order('companies.name', 'categories.name', 'created_at')
+        .order('companies.name', 'categories.name', 'tasks.created_at')
         .paginate(page: params[:page], per_page: 10, :count => {:group => 'tasks.id' })
 
     respond_to do |format|
