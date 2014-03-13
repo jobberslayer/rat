@@ -1,56 +1,52 @@
-<label>
-  <%= f.radio_button :kind, :none %> None
-</label>
-<hr/>
-<label>
-  <%= f.radio_button :kind, :once %> Once on
-  <div class="large-4">
-    <%= f.date_select( :once_date, order: [:year, :month, :day]) %>
-  </div>
-</label>
-<hr/>
+<div class="large-4 scheduler_type_container">
+  Type:
+  <p class="large-4" id="scheduler_type">
+    <%= f.select(:kind, 
+          [
+            ['None', :none], 
+            ['Once', :once],
+            ['Yearly', :yearly],
+            ['Monthly', :monthly],
+            ['Weekly', :weekly],
+            ['Start of Month', :first_day_month],
+            ['Last of Month', :last_day_month],
+          ], {}, 
+          class: "schedule_type_select"
+       )
+    %>
+  </p>
 
-<label>
-  <%= f.radio_button :kind, :yearly %> Yearly on
-  <div class="large-4">
-    <%= f.date_select( :yearly_date, order: [:month, :day]) %>
+  <div id="schedule_once" class="container" style="<%= kind == :once ? '' : 'display:none' %>">
+      On Date: 
+      <p class="large-4">
+        <%= f.date_select( :once_date, order: [:year, :month, :day]) %>
+      </p>
   </div>
-</label>
-<hr/>
-
-<label>
-  <%= f.radio_button :kind, :monthly %> Monthly on 
-  <div class="large-4">
-    <%= f.select( :monthly_day, (1..31)) %>
+  
+  <div id="schedule_yearly" class="container" style="<%= kind == :yearly ? '' : 'display:none' %>">
+      on
+      <p class='large-4'>
+        <%= f.date_select( :yearly_date, order: [:month, :day]) %>
+      </p>
   </div>
-</label>
-<hr/>
-
-<label>
-    <%= f.radio_button :kind, :weekly %> Weekly
-</label>
-<div class="row">
-  <div class="small-1 columns">
-    <label for="weekly_interval" class="right">Every</label>
-  </div> 
-  <div class="small-1 columns">
-    <%= f.text_field :weekly_interval, id: :weekly_interval %>
+  
+  <div id="schedule_monthly" class="container" style="<%= kind == :monthly ? '' : 'display:none' %>">
+      on
+      <p class='large-4'>
+        <%= f.select( :monthly_day, (1..31)) %>
+      </p>
   </div>
-  <div class="small-10 columns">
-    weeks
+  
+  <div id="schedule_weekly" class="container" style="<%= kind == :weekly ? '' : 'display:none' %>">
+    <div class="row collapse">
+      <div class="large-1 columns"><label class="inline">Every</label></div>
+      <div class="large-1 columns"><%= f.text_field :weekly_interval, id: :weekly_interval %></div>
+      <div class="large-1 columns">&nbsp;<label class="inline right">weeks.</label></div>
+      <div class="large-9 columns"></div>
+    </div>
+    <div class="row collapse">
+      <div class="large-2 columns">Starting on</div>
+      <div class='large-10 columns'><%= f.date_select( :weekly_date, order: [:month, :day]) %></p>
+    </div>
   </div>
 </div>
-<div class="large-4 columns">
-  Starting on
-  <%= f.date_select( :weekly_date, order: [:month, :day]) %>
-</div>
-<hr/>
-
-<label>
-  <%= f.radio_button :kind, :first_day_month %> First Day of the Month
-</label>
-<hr/>
-
-<label>
-  <%= f.radio_button :kind, :last_day_month %> Last Day of the Month
-</label>

@@ -49,9 +49,9 @@
     <%= link_to('#', onclick: "toggle_tree('#task-scheduler-#{@task.id}', '#task-toggle-#{@task.id}')") do %>
           <span id="task-toggle-<%=@task.id%>" class="ui-icon ui-icon-triangle-1-e left") ></span>Scheduler
         <% end %>
-    <div id="task-scheduler-<%= @task.id %>" style="display:none">
+    <div id="task-scheduler-<%= @task.id %>" style="display:inline">
       <%= f.fields_for :schedule do |build| %>
-        <%= render('scheduler', f: build ) %>
+        <%= render('scheduler', f: build, kind: :weekly) %>
       <% end %>
     </div>
   </div>
