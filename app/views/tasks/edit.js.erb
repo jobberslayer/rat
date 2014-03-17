@@ -1,1 +1,2 @@
 $('#task-<%= @task.id %>').empty().append('<%= j render 'form' %>')
+$(".task-scheduler-div").refreshSchedulerEvents();

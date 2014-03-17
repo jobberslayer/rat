@@ -47,16 +47,15 @@
 
   <div id="scheduler">
     <%= link_to('#', onclick: "toggle_tree('#task-scheduler-#{@task.id}', '#task-toggle-#{@task.id}')") do %>
-          <span id="task-toggle-<%=@task.id%>" class="ui-icon ui-icon-triangle-1-e left") ></span>Scheduler
-        <% end %>
-    <div id="task-scheduler-<%= @task.id %>" style="display:inline">
+      <span id="task-toggle-<%=@task.id%>" class="ui-icon ui-icon-triangle-1-e left") ></span>Scheduler
+    <% end %>
+    <div id="task-scheduler-<%= @task.id %>" class="task-scheduler-div" style="display:inline">
       <%= f.fields_for :schedule do |build| %>
-        <%= render('scheduler', f: build, kind: :weekly) %>
+        <%= render('scheduler', f: build, kind: @task.schedule ? @task.schedule.kind : :none) %>
       <% end %>
     </div>
   </div>
- </div>
-
+  <br/>
   <div class="large-4">
     <div class="actions button-group round even-2">
       <%= f.submit :class => 'button' %>

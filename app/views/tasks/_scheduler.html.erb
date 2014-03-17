@@ -16,37 +16,60 @@
     %>
   </p>
 
-  <div id="schedule_once" class="container" style="<%= kind == :once ? '' : 'display:none' %>">
-      On Date: 
-      <p class="large-4">
-        <%= f.date_select( :once_date, order: [:year, :month, :day]) %>
-      </p>
+  <div id="schedule_once" class="container" style="<%= kind == 'once' ? '' : 'display:none' %>">
+      <div class="row collapse">
+        <div class="large-2 columns">
+          On 
+        </div>
+        <div class="large-4 columns">
+          <%= f.text_field( :once_date, class: 'scheduler_once_date') %>
+        </div>
+        <div class="large-6"></div>
+      </div>
   </div>
   
-  <div id="schedule_yearly" class="container" style="<%= kind == :yearly ? '' : 'display:none' %>">
-      on
-      <p class='large-4'>
-        <%= f.date_select( :yearly_date, order: [:month, :day]) %>
-      </p>
+  <div id="schedule_yearly" class="container" style="<%= kind == 'yearly' ? '' : 'display:none' %>">
+      <div class="collapse row">
+        <div class="large-1 columns">
+          <label class="inline">On</label>
+        </div>
+        <div class='large-4 columns'>
+          <%= f.text_field( :yearly_date, class: 'scheduler_yearly_date') %>
+        </div>
+        <div class="large-7"></div>
+      </div>
+      <div class="row collapse">
+        <em>*Year part not important for calculating yearly date.</em>
+      </div>
   </div>
-  
-  <div id="schedule_monthly" class="container" style="<%= kind == :monthly ? '' : 'display:none' %>">
-      on
-      <p class='large-4'>
-        <%= f.select( :monthly_day, (1..31)) %>
-      </p>
+
+  <div id="schedule_monthly" class="container" style="<%= kind == 'monthly' ? '' : 'display:none' %>">
+      <div class="collapse row">
+        <div class="large-1 columns">
+          <label class="inline">On</label>
+        </div>
+        <div class='large-2 columns'>
+          <%= f.select( :monthly_day, (1..31)) %>
+        </div>
+        <div class="large-9 columns">
+          <label class="inline">&nbsp;&nbsp;day of the month.</label>
+        </div>
+      </div>
   </div>
-  
-  <div id="schedule_weekly" class="container" style="<%= kind == :weekly ? '' : 'display:none' %>">
+
+  <div id="schedule_weekly" class="container" style="<%= kind == 'weekly' ? '' : 'display:none' %>">
     <div class="row collapse">
-      <div class="large-1 columns"><label class="inline">Every</label></div>
-      <div class="large-1 columns"><%= f.text_field :weekly_interval, id: :weekly_interval %></div>
-      <div class="large-1 columns">&nbsp;<label class="inline right">weeks.</label></div>
-      <div class="large-9 columns"></div>
-    </div>
-    <div class="row collapse">
-      <div class="large-2 columns">Starting on</div>
-      <div class='large-10 columns'><%= f.date_select( :weekly_date, order: [:month, :day]) %></p>
+      <div class="large-6 columns" >
+        <div class="row collapse">
+          <div class="small-3 columns"><label class="inline">Every</label></div>
+          <div class="small-6 columns"><%= f.text_field :weekly_interval, id: :weekly_interval %></div>
+          <div class="small-3 columns"><label class="inline">&nbsp;&nbsp;weeks</label></div>
+        </div>
+        <div class="row collapse">
+          <div class="small-4 columns"><label class="inline">Starting on</label></div>
+          <div class='small-8 columns'><%= f.text_field( :weekly_date, class: 'scheduler_weekly_date') %></p>
+        </div>
+      </div>
     </div>
   </div>
 </div>
