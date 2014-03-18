@@ -24,14 +24,14 @@
     <%= link_to('', onclick: "toggle_tree('#scheduler-status-#{@status.id}', '#status-toggle-#{@status.id}'); return false;") do %>
           <span id="status-toggle-<%= @status.id %>" class="ui-icon ui-icon-triangle-1-e left") ></span>Scheduler
         <% end %>
-    <div id="scheduler-status-<%= @status.id %>" style="display:none">
+    <div id="scheduler-status-<%= @status.id %>" class="task-scheduler-div" style="display:none">
       <%= f.fields_for :schedule do |build| %>
-        <%= render('scheduler', f: build, task: @task) %>
+        <%= render('scheduler', f: build, task: @task, kind: @status.schedule.kind) %>
       <% end %>
     </div>
   </div>
   <div class="button-group round even-2">
-    <%= f.submit :class => 'button' %>
+    <%= f.submit 'Update News', :class => 'button' %>
     <% if @status.new_record? %>
       <%= button_to_function 'Cancel', raw('$("#new-status' + @status.id.to_s + '").empty(); $("#new-status-link").show()'), :class => 'button' %>
     <% else %>

@@ -1,1 +1,2 @@
 $('#outer-status-<%= @status.id %>').empty().append('<%= j render 'status_form' %>')
+$(".task-scheduler-div").refreshSchedulerEvents();
