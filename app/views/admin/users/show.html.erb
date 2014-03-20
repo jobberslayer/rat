@@ -1,0 +1,24 @@
+<h1>Admin Users</h1>
+
+<div class="small-3">
+  <div class="row headerrow">
+    <div class="small-6 columns">
+       <strong>Name</strong>
+    </div>
+    <div class="small-6 columns">
+      <strong>Email</strong>
+    </div>
+  </div>
+
+<% @users.each do |user| %>
+  <div class="row <%= cycle('oddrow', 'evenrow') %>">
+    <div class="small-6 columns">
+      <%= user.full_name %> 
+    </div>
+    <div class="small-6 columns">
+      <%= user.email %>
+    </div>
+  </div>
+<% end %>
+</div>
+

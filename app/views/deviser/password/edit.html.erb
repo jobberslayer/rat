@@ -1,0 +1,24 @@
+<h1>Password Change</h1>
+
+<div class='large-4'>
+  <%= form_for @user, url: update_password_path() do |f| %>
+    <% @user.errors.messages.each do |field, msgs|%>
+        <div class="alert-box alert round">
+          <%= field %>
+          <% msgs.each do |msg| %>
+            <%= msg %>
+          <% end %>
+        </div>
+    <% end %>
+    <p><%= f.label :current_password %><br />
+    <%= f.password_field :current_password, autofocus: true %></p>
+  
+    <p><%= f.label :password %><br />
+    <%= f.password_field :password %></p>
+  
+    <p><%= f.label :password_confirmation %><br />
+    <%= f.password_field :password_confirmation %></p>
+  
+    <p><%= f.submit 'Change Password', class: 'button' %></p>
+  <% end %>
+</div>

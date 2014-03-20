@@ -1,4 +1,20 @@
 Rat::Application.routes.draw do
+  get "admin/users/show", to: "admin/users#show", as: "admin_show_users"
+
+  get "admin/users/new", to: "admin/users#new", as: "admin_new_user"
+
+  post "admin/users/create", to: "admin/users#create", as: "admin_create_user"
+
+  get "users/edit"
+
+  get "users/update"
+
+  get "users/delete"
+
+  get "password/edit"
+
+  get "password/update"
+
   resources :categories
   resources :companies
 
@@ -13,6 +29,9 @@ Rat::Application.routes.draw do
   resources :tasks
 
   devise_for :users
+
+  get "user/password/edit", to: "deviser/password#edit", as: "change_password"
+  put "user/password/update", to: "deviser/password#update", as: "update_password"
 
   get "home/index"
 

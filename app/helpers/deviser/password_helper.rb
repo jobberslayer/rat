@@ -1,0 +1,2 @@
+module Deviser::PasswordHelper
+end

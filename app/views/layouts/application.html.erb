@@ -50,9 +50,11 @@
             <% end %>  
             <li class="divider"></li>
             <% if user_signed_in? %>
-            <li><%= link_to "Sign Out", destroy_user_session_path, method: :delete %></li>
+              <li><%= link_to 'Admin', admin_show_users_path %></li>
+              <li><%= link_to 'Change password', change_password_path %></li>
+              <li><%= link_to "Sign Out (#{current_user.full_name})", destroy_user_session_path, method: :delete %></li>
             <% else %>
-            <li><%= link_to "Sign In", user_session_path %></li>
+              <li><%= link_to "Sign In", user_session_path %></li>
             <% end %>
           </ul>
         </section>
