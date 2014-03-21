@@ -14,6 +14,11 @@
  *= require jquery.ui.all
  */
 
+div.row a {
+  text-decoration: underline;
+  font-color:red;
+}
+
 .headerrow {
   background-color: #cccccc;
   border: 1px solid #eeeeee;

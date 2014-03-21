@@ -1,22 +1,41 @@
 <h1>Admin Users</h1>
 
-<div class="small-3">
+<%= link_to "New User", admin_new_user_path, class: "button small roun" %>
+
+<div class="small-6">
   <div class="row headerrow">
-    <div class="small-6 columns">
+    <div class="small-4 columns">
        <strong>Name</strong>
     </div>
-    <div class="small-6 columns">
+    <div class="small-4 columns">
       <strong>Email</strong>
     </div>
+    <div class="small-1 columns">
+      <strong>Admin</strong>
+    </div>
+    <div class="small-2 columns"></div>
+    <div class="small-1 columns"></div>
   </div>
 
 <% @users.each do |user| %>
   <div class="row <%= cycle('oddrow', 'evenrow') %>">
-    <div class="small-6 columns">
-      <%= user.full_name %> 
+    <div class="small-4 columns">
+      <%= link_to user.full_name, admin_edit_user_path(user.id), class:'lank' %> 
     </div>
-    <div class="small-6 columns">
+    <div class="small-4 columns">
       <%= user.email %>
+    </div>
+    <div class="small-1 columns">
+      <%= user.admin? ? 'Yes' : 'No' %> 
+    </div>
+    <div class="small-2 columns">
+      <%= link_to "delete", admin_delete_user_path(user.id), method: :delete, 
+          confirm: "Confirm. Delete will fail if user still has tasks assigned to them.",
+          title: "Deleting #{user.full_name}"
+      %>
+    </div>
+    <div class="small-1 columns">
+      <%= link_to user.access_locked? ? 'locked' : 'unlocked', admin_toogle_lock_path(user.id) %> 
     </div>
   </div>
 <% end %>

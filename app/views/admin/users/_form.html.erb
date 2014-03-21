@@ -1,13 +1,7 @@
 <% if @user.errors.any? %>
-  <div id="error_explanation">
-    <ul>
-    <% @user.errors.msgs.each do |msgs| %>
-      <% msgs.each do |msg| %>
-        <%= msg %>
-      <% end %>
-    <% end %>
-    </ul>
-  </div>
+  <% @user.errors.messages.each do |field, msgs| %>
+    <p class="alert-box alert"><%= field.to_s + ' ' + msgs.join(' ')%></p>
+  <% end %>
 <% end %>
 
 <div class="large-2">
@@ -38,6 +32,17 @@
   <div class="field">
     <%= f.label :password_confirmation %><br />
     <%= f.password_field :password_confirmation %>
+  </div>
+</div>
+<div class="large-1">
+  <label>Admin</label>
+  <div class="large-6 switch round">
+    <%= f.radio_button :admin, "false", id: "not_admin" %>
+    <%= f.label 'Off', for: 'not_admin' %>
+
+    <%= f.radio_button :admin, "true", id: "admin" %>
+    <%= f.label 'On', for: 'admin' %>
+    <span></span>
   </div>
 </div>
 

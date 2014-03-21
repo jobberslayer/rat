@@ -1,18 +1,13 @@
 Rat::Application.routes.draw do
   get "admin/users/show", to: "admin/users#show", as: "admin_show_users"
-
   get "admin/users/new", to: "admin/users#new", as: "admin_new_user"
-
   post "admin/users/create", to: "admin/users#create", as: "admin_create_user"
-
-  get "users/edit"
-
-  get "users/update"
-
-  get "users/delete"
+  get "admin/users/edit/:id", to: "admin/users#edit", as: "admin_edit_user"
+  put "admin/users/update/:id", to: "admin/users#update", as: "admin_update_user"
+  delete "admin/users/:id", to:"admin/users#destroy", as: "admin_delete_user"
+  get "admin/users/toogle_lock/:id", to: "admin/users#toogle_locking", as: "admin_toogle_lock"
 
   get "password/edit"
-
   get "password/update"
 
   resources :categories
