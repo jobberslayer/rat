@@ -34,7 +34,9 @@ Rat::Application.routes.draw do
 
   root :to => "home#index"
 
-  mount Ckeditor::Engine => "/ckeditor"
+  # mount Ckeditor::Engine => "/ckeditor"
+
+  match "*path", :to => "home#routing_error"
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

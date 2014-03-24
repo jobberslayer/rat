@@ -3,15 +3,15 @@ require 'spec_helper'
 describe Task do
   describe "create parent and children and delete" do
     it do
-      c = Company.new(name: 'Test Company')
-      u = User.new(first_name: 'Test', last_name: 'User', email: 'user@test.org', password: 'password', password_confirmation: 'password')
-      s = Schedule.new() 
-      parent = Task.new(user_id: u.id, company_id: c.id, title: "Parent Task", info: "This is the parent task.")
+      c = FactoryGirl.create(:company)
+      u = FactoryGirl.create(:normal_user, first_name: 'Test', last_name: 'User', email: 'user@test.org')
+      s = FactoryGirl.create(:schedule)
+      parent = FactoryGirl.create(:task, company_id: c.id, user_id: u.id) 
       parent.schedule = s
       parent.save
       s.save
 
-      child = Status.new(title: "subtask", info:'this is a subtask.')
+      child = FactoryGirl.create(:status)
       child_s = Schedule.new()
       child.schedule = child_s
       child.save
