@@ -10,14 +10,44 @@
     <em>Updated:</em> <%= l task.updated_at, format: :long_dateweek %><br/>
     <em>owned by:</em> <%= task.user.full_name %><br/>
     <% if task.schedule.exists? %>
-      <em>next occurence:</em><%= l task.schedule.ice_cube.next_occurrence(@start_date), format: :date_only%><br/>
+      <% next_date = task.schedule.next_occurrence %>
+      <% 
+        task_complete = !task.schedule.history_on(next_date).nil? 
+      %>
+      <em>next occurence:</em><%= l next_date, format: :date_only%>
+      <br/><br/>
+      <%= form_tag task_complete_current_url(task.id), remote:true, id: 'complete_form' do %>
+        <%= hidden_field_tag :task_id, task.id %>
+
+        <div class="large-3">
+          <div class="large-6 switch round">
+            <%= radio_button_tag "task_complete", 
+                  "false", 
+                  !task_complete, 
+                  {
+                    onchange: "$('#complete_form').submit();"
+                  }
+            %>
+            <%= label_tag 'Off', 'Incomplete' %>
+
+            <%= radio_button_tag "task_complete", 
+                  "true", 
+                  task_complete,
+                  {
+                    onchange: "$('#complete_form').submit();"
+                  }
+            %>
+            <%= label_tag 'On', 'Complete' %>
+            <span></span>
+          </div>
+        </div>
+      <% end %> 
     <% end %>
-    <em>Last Completed: <%=  %></em>
   </div>
   <div class="button-bar">
     <ul class="button-group radius round">
       <li><%= link_to 'Edit', edit_task_path(task), class: 'button small', remote: true %> </li>
-      <li><%= link_to 'Updated', '#', class: 'button small', remote: true %></li>
+      <li><%= link_to 'History', task_history_url(task.id), class: 'button small' %></li>
     </ul>
   </div>
 </div>

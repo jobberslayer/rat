@@ -18,6 +18,8 @@ Rat::Application.routes.draw do
   post 'tasks/:id/new_status', to: "tasks#create_status", as: "new_task_status"
   get 'tasks/:id/edit_status/:status_id', to: "tasks#edit_status", as: "edit_task_status"
   put 'tasks/:id/update_status/:status_id', to: "tasks#update_status", as: "update_task_status"
+  get 'tasks/:id/history', to: "tasks#history", as: "task_history"
+  post 'tasks/:id/complete_current', to: "tasks#complete_current", as:"task_complete_current"
 
   mount Ckeditor::Engine => '/ckeditor'
 

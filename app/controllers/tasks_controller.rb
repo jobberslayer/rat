@@ -128,7 +128,7 @@ class TasksController < ApplicationController
     @status = Status.new(params[:status])
     
     if @status.save
-      flash.now[:success] = "Prayer update created."
+      flash.now[:success] = "Status update created."
     else
       flash.now[:error] = "Errors below."
     end
@@ -157,6 +157,25 @@ class TasksController < ApplicationController
 
     respond_to do |format|
       format.js 
+    end
+  end
+
+  def history
+    @task = Task.find(params[:id])
+  end
+
+  def complete_current
+    task = Task.find(params[:task_id])  
+    authorize! :update, task
+
+    if params[:task_complete] == 'true'
+      task.schedule.log_next()
+    else
+      task.schedule.unlog_next()
+    end
+
+    respond_to do |format|
+      format.js
     end
   end
 

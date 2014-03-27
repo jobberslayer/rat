@@ -1,0 +1,21 @@
+<h2>History</h2>
+<h3><%= @task.title %></h3>
+
+<% if @task.schedule.histories.exists? %>
+  <div class="large-6">
+    <div class="row headerrow">
+      <div class="large-6 columns">Due Date</div>
+      <div class="large-6 columns">Marked Completed Date</div>
+    </div>
+  </div>
+  <% @task.schedule.histories.all.each do |h| %>  
+    <div class="large-6">
+      <div class="row <%= cycle('oddrow', 'evenrow') %>">
+        <div class="large-6 columns"><%= l h.completed_for, format: :date_only %></div>
+        <div class="large-6 columns"><%= l h.updated_at, format: :long_dateweek %></div>
+      </div>
+    </div>
+  <% end %>
+<% else %> 
+  <p>no history</p>
+<% end %>

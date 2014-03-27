@@ -50,6 +50,18 @@ class Schedule < ActiveRecord::Base
     log_date(next_occurrence())
   end
 
+  def unlog_date(d)
+    h = history_on(d)
+    if h.nil?
+    else
+      h.destroy
+    end
+  end
+
+  def unlog_next
+    unlog_date(next_occurrence())
+  end
+
   def all_overdue
     overdue = []
     occurs_between(updated_at, Date.today + 2.years).each do |d|
