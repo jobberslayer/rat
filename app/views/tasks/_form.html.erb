@@ -46,23 +46,28 @@
   </div>
 
   <div id="scheduler">
-    <%= link_to('#', onclick: "toggle_tree('#task-scheduler-#{@task.id}', '#task-toggle-#{@task.id}')") do %>
-      <span id="task-toggle-<%=@task.id%>" class="ui-icon ui-icon-triangle-1-e left") ></span>Scheduler
-    <% end %>
-    <div id="task-scheduler-<%= @task.id %>" class="task-scheduler-div" style="display:none">
-      <%= f.fields_for :schedule do |build| %>
-        <%= render('scheduler', f: build, kind: @task.schedule ? @task.schedule.kind : :none) %>
-      <% end %>
-    </div>
+    <!-- left incase I decide to hide the scheduler again on load
+    #link_to('#', onclick: "toggle_tree('#task-scheduler-#{@task.id}', '#task-toggle-#{@task.id}')") do %>
+      <span id="task-toggle-#@task.id" class="ui-icon ui-icon-triangle-1-e left") ></span>Scheduler
+    #end
+    -->
+    <fieldset>
+      <legend>Scheduler</legend>
+      <div id="task-scheduler-<%= @task.id %>" class="task-scheduler-div">
+        <%= f.fields_for :schedule do |build| %>
+          <%= render('scheduler', f: build, kind: @task.schedule ? @task.schedule.kind : :none) %>
+        <% end %>
+      </div>
+    </fieldset>
   </div>
   <br/>
   <div class="large-4">
     <div class="actions button-group round even-2">
-      <%= f.submit :class => 'button' %>
+      <%= f.submit :class => 'button small' %>
       <% if @task.new_record? %>
-        <%= button_to_function 'Cancel', raw("document.location='#{tasks_path}'"), :class => 'button'%>
+        <%= button_to_function 'Cancel', raw("document.location='#{tasks_path}'"), :class => 'button small'%>
       <% else %>
-        <%= button_to_function 'Cancel', raw('$("#task-' + @task.id.to_s + '").empty().append("' + j(render('show_task', task: @task)) + '")'), :class => 'button' %>
+        <%= button_to_function 'Cancel', raw('$("#task-' + @task.id.to_s + '").empty().append("' + j(render('show_task', task: @task)) + '")'), :class => 'button small' %>
       <% end %>
     </div>
   </div>

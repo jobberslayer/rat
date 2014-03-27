@@ -1,11 +1,24 @@
-<div id="task-<%=task.id%>" class="panel callout large-12">
-  <h3><%= task.title %></h3>
-  <em>Created: <%= l task.created_at, format: :long_dateweek %></em><br/>
-  <em>Updated: <%= l task.updated_at, format: :long_dateweek %></em><br/>
-  <em>owned by: <%= task.user.full_name %></em>
-  <hr/>
-  <p><%= task.info %></p>
-  <p>Scheduled: <%= task.schedule.to_s %></p>
-  <%= link_to 'Edit', edit_task_path(task), remote: true %> 
+<div id="task-<%=task.id%>" class="callout large-12">
+  <h2><%= task.title %></h2>
+  <div class="panel"><p><%= task.info %></p></div>
+  <fieldset>
+    <legend>Scheduled</legend>
+      <p><%= task.schedule.to_s %></p>
+   </fieldset>
+  <div class="panel">
+    <em>Created:</em> <%= l task.created_at, format: :long_dateweek %><br/>
+    <em>Updated:</em> <%= l task.updated_at, format: :long_dateweek %><br/>
+    <em>owned by:</em> <%= task.user.full_name %><br/>
+    <% if task.schedule.exists? %>
+      <em>next occurence:</em><%= l task.schedule.ice_cube.next_occurrence(@start_date), format: :date_only%><br/>
+    <% end %>
+    <em>Last Completed: <%=  %></em>
+  </div>
+  <div class="button-bar">
+    <ul class="button-group radius round">
+      <li><%= link_to 'Edit', edit_task_path(task), class: 'button small', remote: true %> </li>
+      <li><%= link_to 'Updated', '#', class: 'button small', remote: true %></li>
+    </ul>
+  </div>
 </div>
 <hr/>

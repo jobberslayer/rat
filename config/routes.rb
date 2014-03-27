@@ -30,13 +30,14 @@ Rat::Application.routes.draw do
 
   get "home/index"
 
-  get "agenda", :to => "agenda#index"
+  get "agenda/(:start_date)", to: "agenda#index", as: :agenda
+  post "agenda/(:start_date)", to: "agenda#index", as: :agenda
 
   root :to => "home#index"
 
   # mount Ckeditor::Engine => "/ckeditor"
 
-  match "*path", :to => "home#routing_error"
+  #match "*path", :to => "home#routing_error"
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

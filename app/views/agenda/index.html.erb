@@ -1,15 +1,36 @@
 <% content_for :title, 'Agenda' %>
+<h1>
+  From 
+  <a id="start_date"><%= @start_date.to_s %></a>
+  to
+  <a id="end_date"><%= @end_date.to_s %></a>
+  for
+  <% if params[:show_all] %>
+    All
+  <% else %>
+    <%= current_user.full_name %>
+  <% end %>
+  </p>
+</h1>
 
-<% @happenings.each do |date, tasks| %>
+<% if current_user.admin? %>
   <div class="panel">
-    <%= l date, format: :long_dateweek %>
-    <br/>
-    <% tasks.each_with_index do |task, i| %>
-      <% if i > 0 %><hr/><% end %>
-      <p>
-        <h3><%= task.title %></h3>
-        <%= task.info %>
-      </p>
+    <%= form_tag agenda_url, id: 'view_all_form' do |f| %>
+      <div class="large-3">
+        <div class="row">
+          <div class="small-1 columns"><%= check_box_tag :show_all, :show_all, params[:show_all], onclick: "$('#view_all_form').submit()" %></div>
+          <div class="small-11 columns"><%= label_tag 'View All' %></div>
+        </div>
+      </div>
     <% end %>
   </div>
 <% end %>
+
+<div id="agenda_list" class="panel">
+  <%= render partial: 'agenda_list' %>
+</div>
+<div id="load_more" class="panel">
+  <p class="text-center"><strong>
+    <%= link_to "load more", agenda_path(@end_date, show_all: params[:show_all]), remote: true, id: 'load_more_link' %>
+  </strong></p>
+</div>

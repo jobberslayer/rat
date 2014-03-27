@@ -1,11 +1,18 @@
-<div id="outer-status-<%=status.id%>" class="panel callout large-8">
+<div id="outer-status-<%=status.id%>" class="large-8">
   <h3><%= status.title %></h3>
-  <em>Created: <%= l status.created_at, format: :long_dateweek %></em><br/>
-  <em>Updated: <%= l status.updated_at, format: :long_dateweek %></em><br/>
-  <em>owned by: <%= status.user.full_name %></em>
-  <hr/>
-  <p><%= status.info %></p>
-  <p>Scheduled: <%= status.schedule.to_s %></p>
-  <%= link_to 'Edit', edit_task_status_path(task.id, status.id), remote: true %> 
+  <div class="panel"><p><%= status.info %></p></div>
+  <fieldset>
+    <legend>Scheduled</legend> 
+    <p><%= status.schedule.to_s %></p>
+  </fieldset>
+  <div class="panel">
+    <em>Created: <%= l status.created_at, format: :long_dateweek %></em><br/>
+    <em>Updated: <%= l status.updated_at, format: :long_dateweek %></em><br/>
+    <em>owned by: <%= status.user.full_name %></em>
+    <% if status.schedule.exists? %>
+      <em>next occurence:</em><%= l task.schedule.ice_cube.next_occurrence(@start_date), format: :date_only%><br/>
+    <% end %>
+  </div>
+  <%= link_to 'Edit', edit_task_status_path(task.id, status.id), class: 'button small round', remote: true %> 
 </div>
 <hr/>

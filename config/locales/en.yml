@@ -8,4 +8,5 @@ en:
       long_dateweek: "%A, %B %d, %Y"
   time:
     formats:
-      long_dateweek: "%A %B %d, %Y %I:%M%p %Z"
+      long_dateweek: "%A, %B %d, %Y %I:%M%p %Z"
+      date_only: "%A, %B %d, %Y"

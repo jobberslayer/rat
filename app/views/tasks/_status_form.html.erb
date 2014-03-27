@@ -21,21 +21,21 @@
   </div>
 
   <div>
-    <%= link_to('', onclick: "toggle_tree('#scheduler-status-#{@status.id}', '#status-toggle-#{@status.id}'); return false;") do %>
-          <span id="status-toggle-<%= @status.id %>" class="ui-icon ui-icon-triangle-1-e left") ></span>Scheduler
+    <fieldset>
+      <legend>Scheduler</legend>
+      <div id="scheduler-status-<%= @status.id %>" class="task-scheduler-div">
+        <%= f.fields_for :schedule do |build| %>
+          <%= render('scheduler', f: build, task: @task, kind: @status.schedule.kind) %>
         <% end %>
-    <div id="scheduler-status-<%= @status.id %>" class="task-scheduler-div" style="display:none">
-      <%= f.fields_for :schedule do |build| %>
-        <%= render('scheduler', f: build, task: @task, kind: @status.schedule.kind) %>
-      <% end %>
-    </div>
+      </div>
+    </fieldset>
   </div>
   <div class="button-group round even-2">
-    <%= f.submit 'Update News', :class => 'button' %>
+    <%= f.submit 'Update News', :class => 'button small' %>
     <% if @status.new_record? %>
-      <%= button_to_function 'Cancel', raw('$("#new-status' + @status.id.to_s + '").empty(); $("#new-status-link").show()'), :class => 'button' %>
+      <%= button_to_function 'Cancel', raw('$("#new-status' + @status.id.to_s + '").empty(); $("#new-status-link").show()'), :class => 'button small' %>
     <% else %>
-      <%= button_to_function 'Cancel',  raw('$("#outer-status-' + @status.id.to_s + '").empty().append("' + j(render('show_status', status: @status, task:@task)) + '")'), :class => 'button' %>
+      <%= button_to_function 'Cancel',  raw('$("#outer-status-' + @status.id.to_s + '").empty().append("' + j(render('show_status', status: @status, task:@task)) + '")'), :class => 'button small' %>
     <% end %>
   </div>
 <% end %>

@@ -5,6 +5,10 @@ class TasksController < ApplicationController
   # GET /tasks
   # GET /tasks.json
   def index
+    if params[:user_id].nil?
+      params[:user_id] = current_user.id.to_s
+    end
+
     @tasks = Task
         .filters(params)
         .order('companies.name', 'categories.name', 'tasks.created_at')
@@ -35,6 +39,7 @@ class TasksController < ApplicationController
     @task = Task.new
     @task.build_schedule
     @task.statuses.build
+    @task.user_id = current_user.id
 
     respond_to do |format|
       format.html # new.html.erb

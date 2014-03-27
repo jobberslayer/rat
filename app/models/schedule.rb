@@ -7,23 +7,68 @@ class Schedule < ActiveRecord::Base
   belongs_to :tasks
   belongs_to :statuses
 
+  has_many :histories, dependent: :destroy
+
   def occurs_on?(date)
     ice_cube.occurs_on?(date)
+  end
+
+  def next_occurrence
+    ice_cube.next_occurrence()
+  end
+
+  def occurs_between(d1, d2)
+    ice_cube.occurrences_between(d1, d2)
   end
 
   def exists?
     not ice_cube.nil?
   end
 
+  def history_on(d)
+    if histories.exists?
+      histories.where("completed_for >= ? and completed_for <= ?", d.strftime("%Y-%m-%d 00:00:00"), d.strftime("Y-%m-%d 23:59:59")).first
+    else
+      return nil
+    end
+  end
+
+  def log_date(d)
+    h = history_on(d)
+    if h.nil?
+      h = History.new
+      h.schedule_id = id
+      h.completed_for = d 
+      h.save
+    else
+      h.completed_for = d
+      h.save
+    end
+  end
+
+  def log_next()
+    log_date(next_occurrence())
+  end
+
+  def all_overdue
+    overdue = []
+    occurs_between(updated_at, Date.today + 2.years).each do |d|
+      h = history_on(d)  
+      if h.nil?
+        overdue.push(d)
+      end
+    end
+  end
+
   def to_s
     case 
-      when !exists?
-        'none'
-      when kind == 'weekly'
-        ice_cube.to_s + " starting on #{weekly_date.strftime('%A, %B %d, %Y')}"
-      else
-        ice_cube.to_s
-      end
+    when !exists?
+      'none'
+    when kind == 'weekly'
+      ice_cube.to_s + " starting on #{weekly_date.strftime('%A, %B %d, %Y')}"
+    else
+      ice_cube.to_s
+    end
   end
 
   def ice_cube

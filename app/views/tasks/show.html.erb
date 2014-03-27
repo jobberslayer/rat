@@ -5,12 +5,11 @@
   <%= render 'show_task', task:@task %>
 </div>
 
-<%= link_to "new note", new_task_status_path(task_id: @task.id), remote: true, id: 'new-status-link',
-      :class => 'button round'  %>
 <div id="new-status">
 </div>
-<hr/>
-<h2>Notes</h2>
+<h2>Statuses</h2>
+<%= link_to "new status", new_task_status_path(task_id: @task.id), remote: true, id: 'new-status-link',
+      :class => 'button small round'  %>
 <div id="statuses">
   <p id="none-msg" <%= !@subtasks.empty?() ? raw('style="display:none"') : '' %>>No updates</p>
   <% @subtasks.each do |s| %>

@@ -1,0 +1,40 @@
+<% if @year_of_nothing %>
+  <div class="panel">
+    <p class="text-center"><strong>Stopped after a year of finding nothing.</strong></p>
+  </div>
+<% else %>
+  <% @happenings.each do |date, reminders| %>
+    <div>
+      <fieldset>
+        <legend>
+          <%= l date, format: :long_dateweek %>
+        </legend>
+        <% reminders.each_with_index do |remind, i| %>
+          <% o = remind.schedule.all_overdue() %>
+          <% if !o.nil? && !o.empty?%>
+            <p class="alert-box alert"><strong>Overdue on:<br/></strong> <%=o.map {|d| l d, format: :date_only}.join('<br/>').html_safe %></p>
+          <% end %>
+          <div class="alert-box"><h2><%= remind.title %></h2></div>
+          <% if params[:show_all] %>
+            <h3>Owned by:<%= remind.user.full_name %></h3>
+          <% end %>
+          <% if remind.instance_of?(Status) %>
+            <h3><em>Status for <%= remind.task.title %></em></h3>
+          <% end %>
+          <% if remind.schedule.exists? %>
+            <p>
+              <strong>Happens:</strong>
+              <%= remind.schedule.to_s %>
+            </p>
+          <% end %>
+          <% if remind.instance_of?(Status)%>
+            <%= link_to 'view', task_path(remind.task.id) %> 
+          <%else%>
+            <%= link_to 'view', task_path(remind.id) %> 
+          <%end%>
+          <hr/>
+        <% end %>
+      </fieldset>
+    </div>
+  <% end %>
+<% end %>

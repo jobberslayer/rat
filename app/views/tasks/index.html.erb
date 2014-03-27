@@ -13,7 +13,7 @@
     </div>
     <div class="columns large-3">
       <%= collection_select nil, :user_id, User.order(:last_name, :first_name), :id, :full_name, 
-          {:include_blank => 'All Users', selected: params[:user_id.to_s]} %> 
+          {include_blank: 'All Users', selected: params[:user_id.to_s]} %> 
     </div>
     <div class="columns large-2">
       <%= text_field_tag :search_text, params[:search_text] %>
