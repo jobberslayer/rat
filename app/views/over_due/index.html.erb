@@ -1,0 +1,49 @@
+<h1>Over Due</h1>
+<% cur_userid = nil %>
+<% if @overdue_tasks.empty? %>
+  <div class="alert-box large-4">
+    Nothing overdue.  
+  </div>
+<% end %>
+
+<div>
+  <% @overdue_tasks.each do |odt| %>
+    <% if cur_userid != odt.user.id %>
+      <% reset_cycle() %>
+      <br/>
+      <div class="row headerrow" <%= hide_from_other_users(odt.user.id)%> >
+        <div class="columns">
+          <h3><%= odt.user.full_name %></h3>
+        </div>
+      </div>
+      <% cur_userid = odt.user.id %>
+    <% end %>
+    <% odt.schedule.all_overdue().each do |od_date| %>
+      <div id="<%= odt.schedule.id.to_s + '-' +l(od_date, format: :short_date_only) %>" class="row <%= cycle('oddrow', 'evenrow') %>" <%= hide_from_other_users(odt.user.id)%> >
+        <div class="large-5 columns">
+          <%= odt.title %>
+        </div>
+        <div class="large-1 columns">
+          <%= odt.instance_of?(Task) ? 'Task' : 'Status' %>
+        </div>
+        <div class="large-1 columns">
+          <% if odt.instance_of?(Task) %>
+            <%= link_to :view, task_path(odt.id) %>
+          <% else %>
+            <%= link_to :view, task_path(odt.task.id) %>
+          <% end %>
+        </div>
+        <div class="large-1 columns">
+          <% if odt.instance_of?(Task) %>
+            <%= link_to :clear, task_complete_path(odt.id, odt.schedule.id,  l(od_date, format: :short_date_only)), remote: true %>
+          <% else %>
+            <%= link_to :clear, task_complete_path(odt.task.id, odt.schedule.id, l(od_date, format: :short_date_only) ), remote: true %>
+          <% end %>
+        </div>
+        <div class="large-4 columns">
+          <span style='color: red'><%= l od_date, format: :date_only %></span>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+</div>

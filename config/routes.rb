@@ -1,4 +1,6 @@
 Rat::Application.routes.draw do
+  get "overdue/", to: "over_due#index", as: "overdue"
+
   get "admin/users/show", to: "admin/users#show", as: "admin_show_users"
   get "admin/users/new", to: "admin/users#new", as: "admin_new_user"
   post "admin/users/create", to: "admin/users#create", as: "admin_create_user"
@@ -19,7 +21,9 @@ Rat::Application.routes.draw do
   get 'tasks/:id/edit_status/:status_id', to: "tasks#edit_status", as: "edit_task_status"
   put 'tasks/:id/update_status/:status_id', to: "tasks#update_status", as: "update_task_status"
   get 'tasks/:id/history', to: "tasks#history", as: "task_history"
-  post 'tasks/:id/complete_current', to: "tasks#complete_current", as:"task_complete_current"
+
+  post 'tasks/:id/complete_current/:schedule_id', to: "tasks#complete_current", as:"task_complete_current"
+  get 'tasks/:id/complete/:schedule_id/:date', to: "tasks#complete", as:"task_complete"
 
   mount Ckeditor::Engine => '/ckeditor'
 

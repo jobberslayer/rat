@@ -36,6 +36,10 @@
               <li class="divider"></li>
               <li><%= link_to "Agenda", agenda_path %></li>
             <% end %>
+            <% if user_signed_in? %>
+              <li class="divider"></li>
+              <li><%= link_to "OverDue", overdue_path %></li>
+            <% end %>
             <% if user_signed_in? && current_user.admin? %>
               <li class="divider"></li>
               <li><%= link_to "Companies", companies_path %></li>

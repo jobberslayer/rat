@@ -165,13 +165,13 @@ class TasksController < ApplicationController
   end
 
   def complete_current
-    task = Task.find(params[:task_id])  
-    authorize! :update, task
+    schedule = Schedule.find(params[:schedule_id])  
+    authorize! :update, schedule
 
-    if params[:task_complete] == 'true'
-      task.schedule.log_next()
+    if params[:complete] == 'true'
+      schedule.log_next()
     else
-      task.schedule.unlog_next()
+      schedule.unlog_next()
     end
 
     respond_to do |format|
@@ -179,4 +179,17 @@ class TasksController < ApplicationController
     end
   end
 
+  def complete
+    schedule = Schedule.find(params[:schedule_id])  
+    date = params[:date]
+
+    @id = "#{schedule.id}-#{date}"
+    authorize! :update, schedule
+
+    schedule.log_date(date.to_date)
+
+    respond_to do |format|
+      format.js
+    end
+  end
 end

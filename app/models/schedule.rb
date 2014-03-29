@@ -10,15 +10,27 @@ class Schedule < ActiveRecord::Base
   has_many :histories, dependent: :destroy
 
   def occurs_on?(date)
-    ice_cube.occurs_on?(date)
+    if ice_cube.nil?
+      return false
+    else
+      ice_cube.occurs_on?(date)
+    end
   end
 
   def next_occurrence
-    ice_cube.next_occurrence()
+    if ice_cube.nil?
+      nil
+    else
+      ice_cube.next_occurrence()
+    end
   end
 
   def occurs_between(d1, d2)
-    ice_cube.occurrences_between(d1, d2)
+    if ice_cube.nil?
+      []
+    else
+      ice_cube.occurrences_between(d1, d2)
+    end
   end
 
   def exists?
@@ -64,6 +76,7 @@ class Schedule < ActiveRecord::Base
 
   def all_overdue
     overdue = []
+
     occurs_between(updated_at, Date.today + 2.years).each do |d|
       h = history_on(d)  
       if h.nil?

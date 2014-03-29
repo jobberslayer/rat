@@ -12,27 +12,27 @@
     <% if task.schedule.exists? %>
       <% next_date = task.schedule.next_occurrence %>
       <% 
-        task_complete = !task.schedule.history_on(next_date).nil? 
+        complete = !task.schedule.history_on(next_date).nil? 
       %>
-      <em>next occurence:</em><%= l next_date, format: :date_only%>
+      <% if !next_date.nil? %>
+        <em>next occurence:</em><%= l next_date, format: :date_only%>
+      <% end %>
       <br/><br/>
-      <%= form_tag task_complete_current_url(task.id), remote:true, id: 'complete_form' do %>
-        <%= hidden_field_tag :task_id, task.id %>
-
+      <%= form_tag task_complete_current_url(task.id, task.schedule.id), remote:true, id: 'complete_form' do %>
         <div class="large-3">
           <div class="large-6 switch round">
-            <%= radio_button_tag "task_complete", 
+            <%= radio_button_tag "complete", 
                   "false", 
-                  !task_complete, 
+                  !complete, 
                   {
                     onchange: "$('#complete_form').submit();"
                   }
             %>
             <%= label_tag 'Off', 'Incomplete' %>
 
-            <%= radio_button_tag "task_complete", 
+            <%= radio_button_tag "complete", 
                   "true", 
-                  task_complete,
+                  complete,
                   {
                     onchange: "$('#complete_form').submit();"
                   }

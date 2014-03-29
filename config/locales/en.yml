@@ -10,3 +10,4 @@ en:
     formats:
       long_dateweek: "%A, %B %d, %Y %I:%M%p %Z"
       date_only: "%A, %B %d, %Y"
+      short_date_only: "%Y-%m-%d"

@@ -10,7 +10,38 @@
     <em>Updated: <%= l status.updated_at, format: :long_dateweek %></em><br/>
     <em>owned by: <%= status.user.full_name %></em>
     <% if status.schedule.exists? %>
-      <em>next occurence:</em><%= l task.schedule.ice_cube.next_occurrence(@start_date), format: :date_only%><br/>
+      <% next_date = status.schedule.next_occurrence %>
+      <% 
+        complete = !status.schedule.history_on(next_date).nil? 
+      %>
+      <% if !next_date.nil? %>
+        <em>next occurence:</em><%= l next_date, format: :date_only%>
+      <% end %>
+      <br/><br/>
+      <%= form_tag task_complete_current_url(status.task.id, status.schedule.id), remote:true, id: "complete_form_#{status.id}" do %>
+        <div class="large-3">
+          <div class="large-6 switch round">
+            <%= radio_button_tag "complete", 
+                  "false", 
+                  !complete, 
+                  {
+                    onchange: "$('#complete_form_#{status.id}').submit();"
+                  }
+            %>
+            <%= label_tag 'Off', 'Incomplete' %>
+
+            <%= radio_button_tag "complete", 
+                  "true", 
+                  complete,
+                  {
+                    onchange: "$('#complete_form_#{status.id}').submit();"
+                  }
+            %>
+            <%= label_tag 'On', 'Complete' %>
+            <span></span>
+          </div>
+        </div>
+      <% end %> 
     <% end %>
   </div>
   <%= link_to 'Edit', edit_task_status_path(task.id, status.id), class: 'button small round', remote: true %> 
