@@ -34,6 +34,7 @@ namespace :db do
         end
 
         t = Task.new(company_id: comp.id, category_id: gory.id, user_id: user.id, title: title, info: info)
+        t.schedule = Schedule.new()
         t.save
         print "Created #{title}"
       end
