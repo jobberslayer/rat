@@ -20,6 +20,7 @@
     <%= f.text_area :description %>
   </div>
   <div class="actions large-4">
-    <%= f.submit %>
+    <%= f.submit class: 'button small' %>
+    <%= link_to 'Back', categories_path, class: 'button small' %>
   </div>
 <% end %>

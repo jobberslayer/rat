@@ -1,4 +1,7 @@
 <h1>Companies</h1>
+
+<%= button_to 'New Company', new_company_path, :class => 'button small round', method: 'get' %>
+
 <% content_for :title, 'Companies' %>
 <table>
   <tr>
@@ -15,7 +18,3 @@
   </tr>
 <% end %>
 </table>
-
-<br />
-
-<%= link_to 'New Company', new_company_path %>

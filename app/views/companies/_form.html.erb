@@ -23,9 +23,8 @@
       <%= f.text_area :info %>
     </div>
   </div>
-  <div class="large-4">
-    <div class="actions">
-      <%= f.submit %>
-    </div>
+  <div class="large-12">
+    <%= f.submit class: 'button small' %>
+    <%= link_to 'Back', companies_path, class: 'button small' %>
   </div>
 <% end %>
