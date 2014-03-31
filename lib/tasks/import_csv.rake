@@ -14,14 +14,14 @@ namespace :db do
         if comp.nil?
           comp = Company.new(name: company)
           comp.save
-          print "Created #{comp.title}"
+          puts "Created #{comp.name}"
         end
 
         gory = Category.where(name: cat).first
         if gory.nil?
           gory = Category.new(name: cat)
           gory.save
-          print "Created #{gory.title}"
+          puts "Created #{gory.name}"
         end
 
         if email.nil? || email.empty?
@@ -36,7 +36,7 @@ namespace :db do
         t = Task.new(company_id: comp.id, category_id: gory.id, user_id: user.id, title: title, info: info)
         t.schedule = Schedule.new()
         t.save
-        print "Created #{title}"
+        puts "Created #{title}"
       end
     end
   end
