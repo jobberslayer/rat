@@ -29,8 +29,10 @@
 <div id="agenda_list" class="panel">
   <%= render partial: 'agenda_list' %>
 </div>
-<div id="load_more" class="panel">
-  <p class="text-center"><strong>
-    <%= link_to "load more", agenda_path(@end_date, show_all: params[:show_all]), remote: true, id: 'load_more_link' %>
-  </strong></p>
-</div>
+<% if !@happenings.empty? %>
+  <div id="load_more" class="panel">
+    <p class="text-center"><strong>
+      <%= link_to "load more", agenda_path(@end_date, show_all: params[:show_all]), remote: true, id: 'load_more_link' %>
+    </strong></p>
+  </div>
+<% end %>
