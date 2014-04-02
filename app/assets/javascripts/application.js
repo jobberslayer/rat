@@ -13,10 +13,24 @@
 //= require jquery
 //= require jquery_ujs
 //= require jquery.ui.all
+//= require ckeditor/init
 //= require foundation
 //= require_tree .
 
-$(function(){ $(document).foundation(); });
+// still not sure why I have to do this. 
+// It has something to do with foundation and ckeditor not playing nice together
+// After page is loaded replace all textareas with ckeditor
+// $( document ).ready(function() {
+//   $('textarea').each(function() { 
+//     CKEDITOR.replace( 
+//       $(this).attr('id'),
+//       {
+//         toolbar : 'Basic',
+//       }
+//     )
+//   })
+// })
+
 
 function toggle(div_name, butt_name, on_text, off_text) {
   $("#" + div_name).toggle(); 

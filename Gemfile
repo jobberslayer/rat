@@ -11,9 +11,10 @@ gem 'rspec', '2.14.1'
 gem 'ice_cube', '0.11.0'
 gem 'devise', '3.1.1'
 gem 'cancan', '1.6.10'
+gem 'highline'
 
-gem 'ckeditor', '4.0.6'
-gem 'paperclip', '3.5.1'
+gem 'ckeditor'
+gem 'paperclip'
 
 gem 'will_paginate', '3.0.5'
 

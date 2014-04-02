@@ -2,22 +2,20 @@
 
 <%= link_to 'New Category', new_category_path, class: 'button small' %>
 
-<table>
-  <tr>
-    <th>Name</th>
-    <th>Description</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
+<div class="small-6">
+  <div class="row headerrow">
+    <div class="small-6 columns">Name</div>
+    <div class="small-2 columns">&nbsp;</div>
+    <div class="small-2 columns">&nbsp;</div>
+    <div class="small-2 columns">&nbsp;</div>
+  </div>
 
-<% @categories.each do |category| %>
-  <tr>
-    <td><%= category.name %></td>
-    <td><%= category.description %></td>
-    <td><%= link_to 'Show', category %></td>
-    <td><%= link_to 'Edit', edit_category_path(category) %></td>
-    <td><%= link_to 'Destroy', category, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-  </tr>
-<% end %>
-</table>
+  <% @categories.each do |category| %>
+  <div class="row <%= cycle('oddrow', 'evenrow') %>">
+    <div class="small-6 columns"><%= category.name %></div>
+    <div class="small-2 columns"><%= link_to 'Show', category %></div>
+    <div class="small-2 columns"><%= link_to 'Edit', edit_category_path(category) %></div>
+    <div class="small-2 columns"><%= link_to 'Destroy', category, method: :delete, data: { confirm: 'Are you sure?' } %></div>
+  </div>
+  <% end %>
+</div>

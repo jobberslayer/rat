@@ -1,7 +1,7 @@
 <h1> New User</h1>
 
-
 <%= form_for @user, url: admin_create_user_path do |f| %>
   <%= render partial: 'form', locals: {f: f} %>
-  <%= f.submit "Create User", class: 'button' %>
+  <%= f.submit "Create User", class: 'button small' %>
+  <%= link_to :back, admin_show_users_path, class: 'button small'%>
 <% end %>

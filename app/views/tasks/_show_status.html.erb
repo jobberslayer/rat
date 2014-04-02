@@ -1,6 +1,6 @@
 <div id="outer-status-<%=status.id%>" class="large-8">
   <h3><%= status.title %></h3>
-  <div class="panel"><p><%= status.info %></p></div>
+  <div class="panel"><p><%= status.info.html_safe %></p></div>
   <fieldset>
     <legend>Scheduled</legend> 
     <p><%= status.schedule.to_s %></p>

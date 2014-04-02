@@ -1,6 +1,6 @@
 <div id="task-<%=task.id%>" class="callout large-12">
   <h2><%= task.title %></h2>
-  <div class="panel"><p><%= task.info %></p></div>
+  <div class="panel"><p><%= task.info.html_safe %></p></div>
   <fieldset>
     <legend>Scheduled</legend>
       <p><%= task.schedule.to_s %></p>

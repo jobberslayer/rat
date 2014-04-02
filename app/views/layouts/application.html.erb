@@ -20,8 +20,6 @@
   	<%= javascript_include_tag "vendor/custom.modernizr" %>
     <%= csrf_meta_tags %>
   </head>
-
-
   <body>
     <div class="sticky">
       <nav class="top-bar">
@@ -76,7 +74,9 @@
       <%= yield %>
     </div>
 
-    
+    <!-- <script type='text/javascript'> -->
+    <!--   var CKEDITOR_BASEPATH = '/assets/ckeditor/'; -->
+    <!-- </script> -->
     <%= javascript_include_tag "application" %>
   </body>
 </html>

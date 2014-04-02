@@ -3,18 +3,22 @@
 <%= button_to 'New Company', new_company_path, :class => 'button small round', method: 'get' %>
 
 <% content_for :title, 'Companies' %>
-<table>
-  <tr>
-    <th>Name</th>
-    <th></th>
-    <th></th>
-  </tr>
 
-<% @companies.each do |company| %>
-  <tr>
-    <td><%= link_to company.name, company %></td>
-    <td><%= link_to 'Edit', edit_company_path(company) %></td>
-    <td><%= link_to 'Destroy', company, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-  </tr>
-<% end %>
-</table>
+<div class="large-6">
+  <div class="row headerrow">
+    <div class="large-10 columns">Name</div>
+    <div class="large-1 columns">&nbsp;</div>
+    <div class="large-1 columns">&nbsp;</div>
+  </div>
+</div>
+
+<div class="large-6">
+  <% @companies.each do |company| %>
+    <div class="row <%= cycle('oddrow', 'evenrow') %>">
+      <div class="large-10 columns"><%= link_to company.name, company %></div>
+      <div class="large-1 columns"><%= link_to 'Edit', edit_company_path(company) %></div>
+      <div class="large-1 columns"><%= link_to 'Destroy', company, method: :delete, data: { confirm: 'Are you sure?' } %></div>
+    </div>
+  <% end %>
+  </div>
+</div>
