@@ -33,3 +33,15 @@ div.row a {
   background-color: #cccccc;
   border: 1px solid #eeeeee;
 }
+
+.oddrow_subrow {
+  background-color: orange;
+  color: black;
+  border: 1px solid #eeeeee;
+}
+
+.evenrow_subrow {
+  background-color: brown;
+  color: black;
+  border: 1px solid #eeeeee;
+}

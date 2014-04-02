@@ -1,8 +1,6 @@
 CKEDITOR.config.toolbar = [
   { name: 'document',
     items: [ 
-      'Source', 
-      '-', 
       'Bold',
       'Italic',
       'Underline',
@@ -48,13 +46,6 @@ CKEDITOR.config.toolbar = [
       'Format' 
     ] 
   },
-  { name: 'tools', 
-    items : [ 
-      'Maximize',
-      '-',
-      'About' 
-    ] 
-  },
   { name: 'paragraph', 
     items : [ 
       'NumberedList',
@@ -72,6 +63,13 @@ CKEDITOR.config.toolbar = [
       'Unlink',
       'Anchor' 
     ] 
-  }
+  },
+  { name: 'tools', 
+    items : [ 
+      'Maximize',
+      '-',
+      'About' 
+    ] 
+  },
 ];
 

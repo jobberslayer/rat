@@ -1,17 +1,14 @@
 <h1>Listing tasks</h1>
 <% content_for :title, 'Tasks' %>
-<div>
-  <%= button_to 'New Task', new_task_path, :class => 'button small round', method: 'get' %>
-</div>
 
-<div class="panel small-7">
+<div class="panel small-8">
   <div class="row">
   <%= form_tag tasks_path, method: :get do %>
     <div class="small-3 columns">
       <%= collection_select nil, :company_id, Company.order(:name), :id, :name, 
           {:include_blank => 'All Companies', selected: params[:company_id.to_s]} %> 
     </div>
-    <div class="small-2 columns">
+    <div class="small-3 columns">
       <%= collection_select nil, :category_id, Category.order(:name), :id, :name, 
           {:include_blank => 'All Categories', selected: params[:category_id.to_s]} %> 
     </div>
@@ -19,7 +16,7 @@
       <%= collection_select nil, :user_id, User.order(:last_name, :first_name), :id, :full_name, 
           {include_blank: 'All Users', selected: params[:user_id.to_s]} %> 
     </div>
-    <div class="small-3 columns">
+    <div class="small-2 columns">
       <%= text_field_tag :search_text, params[:search_text] %>
     </div>
     <div class="small-1 columns">
@@ -29,51 +26,56 @@
   </div>
 </div>
 
+<div>
+  <%= button_to 'New Task', new_task_path, :class => 'button small round', method: 'get' %>
+</div>
+
 <div class="small-6">
   <%= will_paginate @tasks %>
 </div>
 
-<div class="small-6">
-  <div class="row headerrow">
-    <div class="small-1 columns">&nbsp;</div>
-    <div class="small-1 columns">Company</div>
-    <div class="small-1 columns">Category</div>
-    <div class="small-4 columns">Title</div>
-    <div class="small-2 columns">Owner</div>
-    <div class="small-2 columns">Schedule</div>
-    <div class="small-1 columns">&nbsp;</div>
-  </div>
+<div class="row headerrow">
+  <div class="small-1 columns">&nbsp;</div>
+  <div class="small-1 columns">Company</div>
+  <div class="small-1 columns">Category</div>
+  <div class="small-4 columns">Title</div>
+  <div class="small-2 columns">Owner</div>
+  <div class="small-2 columns">Due Next</div>
+  <div class="small-1 columns">&nbsp;</div>
+</div>
 
-  <div class="row">
-  <% @tasks.each do |task| %>
-    <div class="small-1 columns">
-      <% if task.statuses.size > 0 %>
-        <%= link_to('#', onclick: "toggle_tree('.subtask-#{task.id}', '#task-toggle-#{task.id}')") do %>
-          <span id="task-toggle-<%=task.id%>" class="ui-icon ui-icon-triangle-1-e")></span>
-        <% end %>
+<% @tasks.each do |task| %>
+<div class="row <%= cycle('oddrow', 'evenrow') %>" >
+  <div class="small-1 columns">
+    <% if task.statuses.size > 0 %>
+      <%= link_to('#', onclick: "toggle_tree('.subtask-#{task.id}', '#task-toggle-#{task.id}')") do %>
+        <span id="task-toggle-<%=task.id%>" class="ui-icon ui-icon-triangle-1-e")></span>
       <% end %>
-    </div>
-    <div class="small-1 columns"><%= task.company.name %></div>
-    <div class="small-1 columns"><%= task.category ? task.category.name : '' %></div>
-    <div class="small-4 columns"><%= link_to task.title, task %></div>
-    <div class="small-2 columns"><%= link_to task.user.full_name %></div>
-    <div class="small-2 columns"><%= task.schedule %></div>
-    <div class="small-1 columns"><%= link_to 'Destroy', task, method: :delete, data: { confirm: 'Are you sure?' } %></div>
+    <% else %>
+      &nbsp;
+    <% end %>
   </div>
+  <div class="small-1 columns"><%= task.company.name %></div>
+  <div class="small-1 columns"><%= task.category ? task.category.name : '' %></div>
+  <div class="small-4 columns"><%= link_to task.title, task %></div>
+  <div class="small-2 columns"><%= link_to task.user.full_name %></div>
+  <div class="small-2 columns"><%= short_date(task.schedule.next_occurrence) %></div>
+  <div class="small-1 columns"><%= link_to 'Destroy', task, method: :delete, data: { confirm: 'Are you sure?' } %></div>
+</div>
 
-  <div class="row subtask-<%= task.id %>" style="display: none;">
-    <% task.statuses.each do |status| %>
+  <% task.statuses.each do |status| %>
+    <div class="row subtask-<%= task.id %> <%= cycle('oddrow_subrow', 'evenrow_subrow', name: :status_row) %>" style="display: none;">
       <div class="small-1 columns">&nbsp;</div>
       <div class="small-1 columns">&nbsp;</div>
       <div class="small-1 columns">&nbsp;</div>
       <div class="small-4 columns"><%= status.title %></div>
       <div class="small-2 columns"><%= status.user.full_name %></div>
-      <div class="small-2 columns"><%= status.schedule %></div>
+      <div class="small-2 columns"><%= short_date(status.schedule.next_occurrence) %></div>
       <div class="small-1 columns"><%= link_to 'Destroy', task, method: :delete, data: { confirm: 'Are you sure?' } %></div>
-    <% end %>
-  </div>
-  <% end %>
-</div>
+    </div>
+  <% end %> <!-- end of status loop for <%= task.title %> -->
+  <% reset_cycle(:status_row) %>
+<%end%> <!-- end of task loop -->
 
 <div class="large-12">
   <%= will_paginate @tasks %>

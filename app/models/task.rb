@@ -1,5 +1,5 @@
 class Task < ActiveRecord::Base
-  attr_accessible :company_id, :category_id, :title, :info, :schedule_attributes, :user_id
+  attr_accessible :company_id, :category_id, :title, :info, :schedule_attributes, :user_id, :schedule
 
   belongs_to :company
   belongs_to :user
@@ -8,6 +8,13 @@ class Task < ActiveRecord::Base
   has_many :statuses, dependent: :destroy
 
   accepts_nested_attributes_for :schedule
+
+  validates :title, presence: true, length: { maximum: Rails.application.config.max_title_size }
+  validates :info, presence: true 
+  validates :company_id, presence: true
+  validates :category, presence: true
+  validates :user, presence: true
+  validates :schedule, presence: true
 
   def self.filters(args)
     set = Task.select('DISTINCT tasks.*')

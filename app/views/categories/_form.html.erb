@@ -13,7 +13,7 @@
 
   <div class="field large-4">
     <%= f.label :name %><br />
-    <%= f.text_field :name %>
+    <%= f.text_field :name, size: myconfig(:max_title_size), maxlength: myconfig(:max_title_size) %>
   </div>
   <div class="field large-8">
     <%= f.label :description %><br />
