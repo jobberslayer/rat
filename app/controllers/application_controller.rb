@@ -1,12 +1,12 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
 
-  # rescue_from CanCan::AccessDenied, :with => :render_missing
-  # rescue_from ActiveRecord::RecordNotFound, :with => :render_not_found
-  # rescue_from ActionController::RoutingError, :with => :render_not_found
-  # rescue_from AbstractController::ActionNotFound, :with => :render_not_found
-  # rescue_from AbstractController::ActionNotFound, :with => :render_not_found
-  # rescue_from ActionView::MissingTemplate, :with => :render_not_found
+  rescue_from CanCan::AccessDenied, :with => :render_missing
+  rescue_from ActiveRecord::RecordNotFound, :with => :render_not_found
+  rescue_from ActionController::RoutingError, :with => :render_not_found
+  rescue_from AbstractController::ActionNotFound, :with => :render_not_found
+  rescue_from AbstractController::ActionNotFound, :with => :render_not_found
+  rescue_from ActionView::MissingTemplate, :with => :render_not_found
 
   def render_missing
     render '/layouts/access_denied' 

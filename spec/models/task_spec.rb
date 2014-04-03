@@ -6,7 +6,8 @@ describe Task do
       c = FactoryGirl.create(:company)
       u = FactoryGirl.create(:normal_user, first_name: 'Test', last_name: 'User', email: 'user@test.org')
       s = FactoryGirl.create(:schedule)
-      parent = FactoryGirl.create(:task, company_id: c.id, user_id: u.id) 
+      g = FactoryGirl.create(:category)
+      parent = FactoryGirl.create(:task, company: c, user: u, schedule: s, category: g) 
       parent.schedule = s
       parent.save
       s.save
@@ -30,6 +31,32 @@ describe Task do
 
       Schedule.should_not be_exists(s.id)
       Schedule.should_not be_exists(child_s.id)
+    end
+  end
+
+  describe "testing overdue" do
+    it do
+      c = FactoryGirl.create(:company)
+      g = FactoryGirl.create(:category)
+      u = FactoryGirl.create(:normal_user, first_name: 'Test', last_name: 'User', email: 'user@test.org')
+      s = FactoryGirl.create(:schedule)
+
+      t = FactoryGirl.create(:task, company: c, user: u, category: g, schedule: s) 
+      t.save
+
+      t.schedule.kind = 'last_day_month'
+      t.save
+
+      t.schedule.all_overdue(Date.today + 1.month).length.should == 1
+
+      t.schedule.all_overdue(Date.today + 1.month).each do |o|
+        t.schedule.log_date(o)
+      end
+
+      t.schedule.all_overdue(Date.today + 1.month).length.should eq 0
+
+      t.schedule.histories.length.should eq 1
+
     end
   end
 end

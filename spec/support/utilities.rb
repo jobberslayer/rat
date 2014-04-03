@@ -28,7 +28,13 @@ end
 
 RSpec::Matchers.define :access_denied_page do
   match do |page|
-    page.find('div.panel').text.should eq 'access denied'
+    #cs = page.find('div.panel')
+    cs = page.find('div#main-content')
+    if cs.text.nil?
+      return false
+    else
+      cs.text.should eq 'access denied'
+    end
   end
 end
 
