@@ -8,14 +8,14 @@
   <div class="panel">
     <em>Created: <%= l status.created_at, format: :long_dateweek %></em><br/>
     <em>Updated: <%= l status.updated_at, format: :long_dateweek %></em><br/>
-    <em>owned by: <%= status.user.full_name %></em>
+    <em>owned by: <%= status.user.full_name %></em><br/>
     <% if status.schedule.exists? %>
       <% next_date = status.schedule.next_occurrence %>
       <% 
         complete = !status.schedule.history_on(next_date).nil? 
       %>
       <% if !next_date.nil? %>
-        <em>next occurence:</em><%= l next_date, format: :date_only%>
+        <em>next occurence: <%= l next_date, format: :date_only%></em><br/>
       <% end %>
       <br/><br/>
       <%= form_tag task_complete_current_url(status.task.id, status.schedule.id), remote:true, id: "complete_form_#{status.id}" do %>
