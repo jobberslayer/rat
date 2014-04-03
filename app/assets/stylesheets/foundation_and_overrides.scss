@@ -149,7 +149,9 @@ $default-float: left;
 // Grid Variables
 //
 
-// $row-width: em-calc(1000);
+// WKL - changed to make row width take up full screen
+$row-width: 100%;
+//$row-width: em-calc(1000);
 // $column-gutter: em-calc(30);
 // $total-columns: 12;
 
