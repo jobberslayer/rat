@@ -45,3 +45,34 @@ div.row a {
   color: black;
   border: 1px solid #eeeeee;
 }
+
+.light-text {
+  color: #FFFFFF;
+}
+
+#status-message{
+  position:fixed;
+  bottom:0;
+  padding:0 5px;
+  line-height:25px;
+  background-color: green;
+  color: white;
+  margin-bottom:-25px;
+  font-weight:bold;
+  left:0;
+  right:0;
+}
+
+#status-message-error{
+  position:fixed;
+  bottom:0;
+  padding:0 5px;
+  line-height:25px;
+  background-color: red;
+  color: white;
+  margin-bottom:-25px;
+  font-weight:bold;
+  left:0;
+  right:0;
+}
+

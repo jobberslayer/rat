@@ -31,6 +31,19 @@
 //   })
 // })
 
+function status_msg(msg) {
+  $('#status-message').text(msg).animate({'margin-bottom':0},200);
+    setTimeout( function(){
+        $('#status-message').animate({'margin-bottom':-25},200);
+    }, 5*1000);
+}
+
+function status_error_msg(msg) {
+  $('#status-message-error').text(msg).animate({'margin-bottom':0},200);
+    setTimeout( function(){
+        $('#status-message-error').animate({'margin-bottom':-25},200);
+    }, 10*1000);
+}
 
 function toggle(div_name, butt_name, on_text, off_text) {
   $("#" + div_name).toggle(); 

@@ -168,10 +168,14 @@ class TasksController < ApplicationController
     schedule = Schedule.find(params[:schedule_id])  
     authorize! :update, schedule
 
+    @date = schedule.next_occurrence
+
     if params[:complete] == 'true'
       schedule.log_next()
+      @what = 'Completed'
     else
       schedule.unlog_next()
+      @what = 'Set back to uncompleted'
     end
 
     respond_to do |format|
@@ -187,6 +191,7 @@ class TasksController < ApplicationController
     authorize! :update, schedule
 
     schedule.log_date(date.to_date)
+    @what = "Completed for #{date}"
 
     respond_to do |format|
       format.js

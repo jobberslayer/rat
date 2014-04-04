@@ -20,6 +20,11 @@
           <% end %>
           <% if remind.instance_of?(Status) %>
             <h3><em>Status for <%= remind.task.title %></em></h3>
+            <div>
+              <h3><%= remind.task.company.name + " / " + remind.task.category.name %></h3>
+            </div>
+          <% else %>
+              <h3><%= remind.company.name + " / " + remind.category.name %></h3>
           <% end %>
           <% if remind.schedule.exists? %>
             <p>
