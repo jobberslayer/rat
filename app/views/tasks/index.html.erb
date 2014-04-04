@@ -31,7 +31,7 @@
 </div>
 
 <div class="small-6">
-  <%= will_paginate @tasks %>
+  <%= will_paginate @tasks, renderer: FoundationPagination::Rails %>
 </div>
 
 <div class="row headerrow">
@@ -93,5 +93,5 @@
 <%end%> <!-- end of task loop -->
 
 <div class="large-12">
-  <%= will_paginate @tasks %>
+  <%= will_paginate @tasks, renderer: FoundationPagination::Rails %>
 </div>
