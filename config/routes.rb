@@ -24,6 +24,7 @@ Rat::Application.routes.draw do
 
   post 'tasks/:id/complete_current/:schedule_id', to: "tasks#complete_current", as:"task_complete_current"
   get 'tasks/:id/complete/:schedule_id/:date', to: "tasks#complete", as:"task_complete"
+  post 'tasks/:id/complete/:schedule_id/:date', to: "tasks#complete", as:"task_complete"
 
   mount Ckeditor::Engine => '/ckeditor'
 

@@ -4,6 +4,7 @@
   </div>
 <% else %>
   <% @happenings.each do |date, reminders| %>
+    <% curr_company = nil %>
     <div>
       <fieldset>
         <legend>
@@ -11,28 +12,51 @@
         </legend>
         <% reminders.each_with_index do |remind, i| %>
           <% o = remind.schedule.all_overdue() %>
-          <% if !o.nil? && !o.empty?%>
-            <p class="alert-box alert"><strong>Overdue on:<br/></strong> <%=o.map {|d| l d, format: :date_only}.join('<br/>').html_safe %></p>
-          <% end %>
-          <div class="alert-box"><h2><%= remind.title %></h2></div>
-          <% if params[:show_all] %>
-            <h3>Owned by:<%= remind.user.full_name %></h3>
-          <% end %>
-          <% if remind.instance_of?(Status) %>
-            <h3><em>Status for <%= remind.task.title %></em></h3>
-          <% end %>
-          <% if remind.schedule.exists? %>
-            <p>
-              <strong>Happens:</strong>
-              <%= remind.schedule.to_s %>
-            </p>
-          <% end %>
-          <% if remind.instance_of?(Status)%>
-            <%= link_to 'view', task_path(remind.task.id) %> 
-          <%else%>
-            <%= link_to 'view', task_path(remind.id) %> 
-          <%end%>
-          <hr/>
+            <% if tors(remind).company.name != curr_company %>
+              <h2> <%= tors(remind).company.name %></h2>
+              <% curr_company = tors(remind).company.name %>
+            <% end %>
+            <div class="small-8">
+              <div class='row'>
+                <div class='columns small-1'><span class='ui-icon ui-icon-bullet'></span></div>
+                <div class='columns small-5'><%= remind.title %></div>
+                  <% if params[:show_all] %>
+                    <div class='columns small-3'><%= remind.user.full_name %></div>
+                  <% end %>
+                  <% if remind.instance_of?(Status) %>
+                    <div class='columns small-1'><%= link_to :view, task_path(remind.task.id) %></div>
+                  <% else %>
+                    <div class='columns small-1'><%= link_to :view, task_path(remind.id) %></div>
+                  <% end %>
+                <div class="columns small-2">
+                  <% 
+                    complete = !remind.schedule.history_on(date).nil? 
+                  %>
+                  <%= form_tag task_complete_url(tors(remind).id, remind.schedule.id, l(date,format: :short_date_only)), remote: true, id:"complete-form-#{remind.schedule.id}-#{short_date(date)}" do  %>
+                      <div class="switch round">
+                      <%= radio_button_tag "complete", 
+                            "false", 
+                            !complete, 
+                            {
+                              onchange: "$('#complete-form-#{remind.schedule.id}-#{short_date(date)}').submit();"
+                            }
+                      %>
+                      <%= label_tag 'Off', 'No', class:'light-text'%>
+
+                      <%= radio_button_tag "complete", 
+                            "true", 
+                            complete,
+                            {
+                              onchange: "$('#complete-form-#{remind.schedule.id}-#{short_date(date)}').submit();"
+                            }
+                      %>
+                      <%= label_tag 'On', 'Yes', class:'light-text' %>
+                      <span></span>
+                    </div>
+                  <% end %>
+                </div>
+              </div>
+            </div>
         <% end %>
       </fieldset>
     </div>

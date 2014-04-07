@@ -21,7 +21,7 @@
     <%= csrf_meta_tags %>
   </head>
   <body>
-    <div class="sticky">
+    <div class="fixed">
       <nav class="top-bar">
         <ul class="title-area">
           <li class="name">
@@ -61,8 +61,13 @@
           </ul>
         </section>
       </nav>
+      <% if content_for? :crumbs %>
+        <ul class="breadcrumbs">
+          <li><%= content_for :crumbs %>
+        </ul>
+      <% end %>
     </div> 
-
+    <br/><br/><br/><br/>
     <div class="panel" style="background: white">
       <% if notice %>
       <p class="notice"><div class="alert-box success round"><%= notice %></div></p>
@@ -78,5 +83,7 @@
     <!--   var CKEDITOR_BASEPATH = '/assets/ckeditor/'; -->
     <!-- </script> -->
     <%= javascript_include_tag "application" %>
+    <div id="status-message"></div>
+    <div id="status-message-error"></div>
   </body>
 </html>

@@ -28,7 +28,7 @@
                     onchange: "$('#complete_form_#{status.id}').submit();"
                   }
             %>
-            <%= label_tag 'Off', 'Incomplete' %>
+            <%= label_tag 'Off', 'No', class: 'light-text' %>
 
             <%= radio_button_tag "complete", 
                   "true", 
@@ -37,7 +37,7 @@
                     onchange: "$('#complete_form_#{status.id}').submit();"
                   }
             %>
-            <%= label_tag 'On', 'Complete' %>
+            <%= label_tag 'On', 'Yes', class:'light-text' %>
             <span></span>
           </div>
         </div>

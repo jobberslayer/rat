@@ -7,11 +7,23 @@ module ApplicationHelper
     Rails.application.config.send(opt)
   end
 
+  def tors(obj)
+    if obj.instance_of?(Task)
+      return obj
+    else
+      return obj.task
+    end
+  end
+
   def short_date(date)
     date.nil? ? 'none' : l(date, format: :short_date_only)
   end
 
   def long_date(date)
     date.nil? ? 'none' : l(date, format: :long_date_only)
+  end
+
+  def c(msg)
+    content_for :crumbs, "<strong>#{msg}</strong>".html_safe
   end
 end

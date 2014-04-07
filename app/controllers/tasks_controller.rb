@@ -115,6 +115,7 @@ class TasksController < ApplicationController
     @task_id = params[:id]
     @task = Task.find(@task_id)
     @status = Status.new()
+    @status.user_id = current_user.id
     @status.build_schedule
 
     respond_to do |format|
@@ -168,10 +169,14 @@ class TasksController < ApplicationController
     schedule = Schedule.find(params[:schedule_id])  
     authorize! :update, schedule
 
+    @date = schedule.next_occurrence
+
     if params[:complete] == 'true'
       schedule.log_next()
+      @what = 'Completed'
     else
       schedule.unlog_next()
+      @what = 'Set back to uncompleted'
     end
 
     respond_to do |format|
@@ -187,6 +192,15 @@ class TasksController < ApplicationController
     authorize! :update, schedule
 
     schedule.log_date(date.to_date)
+    @what = "Completed for #{date}"
+
+    if !params.key?(:complete) || params[:complete] == 'true'
+      schedule.log_date(date.to_date)
+      @what = 'Completed'
+    else
+      schedule.unlog_date(date.to_date)
+      @what = 'Set back to uncompleted'
+    end
 
     respond_to do |format|
       format.js
