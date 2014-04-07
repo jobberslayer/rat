@@ -6,6 +6,7 @@ en:
   date:
     formats:
       long_dateweek: "%A, %B %d, %Y"
+      short_date_only: "%Y-%m-%d"
   time:
     formats:
       long_dateweek: "%A, %B %d, %Y %I:%M%p %Z"

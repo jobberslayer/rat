@@ -193,6 +193,14 @@ class TasksController < ApplicationController
     schedule.log_date(date.to_date)
     @what = "Completed for #{date}"
 
+    if !params.key?(:complete) || params[:complete] == 'true'
+      schedule.log_date(date.to_date)
+      @what = 'Completed'
+    else
+      schedule.unlog_date(date.to_date)
+      @what = 'Set back to uncompleted'
+    end
+
     respond_to do |format|
       format.js
     end

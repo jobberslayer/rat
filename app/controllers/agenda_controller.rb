@@ -12,9 +12,9 @@ class AgendaController < ApplicationController
       
       tasks = nil
       if current_user.admin? && params[:show_all]
-        tasks = Task.joins(:user).order('users.last_name', 'users.first_name')
+        tasks = Task.joins(:user).joins(:company).order('users.last_name', 'users.first_name','companies.name')
       else
-        tasks = Task.where("user_id = #{current_user.id}")
+        tasks = Task.joins(:company).where("user_id = #{current_user.id}").order('companies.name')
       end
 
       tasks.each do |task|
