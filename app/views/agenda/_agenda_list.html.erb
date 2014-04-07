@@ -3,7 +3,7 @@
     <p class="text-center"><strong>Stopped after a year of finding nothing.</strong></p>
   </div>
 <% else %>
-  <% @happenings.each do |date, reminders| %>
+  <% @happenings.sort.each do |date, reminders| %>
     <% curr_company = nil %>
     <div>
       <fieldset>
