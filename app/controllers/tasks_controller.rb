@@ -115,6 +115,7 @@ class TasksController < ApplicationController
     @task_id = params[:id]
     @task = Task.find(@task_id)
     @status = Status.new()
+    @status.user_id = current_user.id
     @status.build_schedule
 
     respond_to do |format|
