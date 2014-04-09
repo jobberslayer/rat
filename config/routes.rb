@@ -40,7 +40,7 @@ Rat::Application.routes.draw do
   get "agenda/(:start_date)", to: "agenda#index", as: :agenda
   post "agenda/(:start_date)", to: "agenda#index", as: :agenda
 
-  root :to => "home#index"
+  root :to => "agenda#index"
 
   # mount Ckeditor::Engine => "/ckeditor"
 
