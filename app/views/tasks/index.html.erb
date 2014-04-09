@@ -35,15 +35,16 @@
 </div>
 
 <div class="row headerrow">
-  <div class="small-6 columns">Title</div>
-  <div class="small-4 columns">Owner</div>
+  <div class="small-4 columns">Title</div>
+  <div class="small-4 columns">Company</div>
+  <div class="small-2 columns">Owner</div>
   <div class="small-1 columns">Due Next</div>
   <div class="small-1 columns">&nbsp;</div>
 </div>
 
 <% @tasks.each do |task| %>
 <div class="row <%= cycle('oddrow', 'evenrow') %>" >
-  <div class="small-6 columns">
+  <div class="small-4 columns">
     <div class="row">
       <div class="columns">
         <div class="row">
@@ -59,7 +60,8 @@
       </div>
     </div>
   </div>
-  <div class="small-4 columns"><%= task.user.full_name %></div>
+  <div class="small-4 columns"><%= task.company.name %></div>
+  <div class="small-2 columns"><%= task.user.full_name %></div>
   <div class="small-1 columns"><%= short_date(task.schedule.next_occurrence) %></div>
   <div class="small-1 columns"><%= link_to 'Destroy', task, method: :delete, data: { confirm: 'Are you sure?' } %></div>
 </div>

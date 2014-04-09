@@ -21,7 +21,12 @@ class Schedule < ActiveRecord::Base
     if ice_cube.nil?
       nil
     else
-      ice_cube.next_occurrence()
+      today = Time.current
+      if ice_cube.occurs_on?(today)
+        return today
+      else
+        return ice_cube.next_occurrence()
+      end
     end
   end
 

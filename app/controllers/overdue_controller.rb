@@ -1,4 +1,4 @@
-class OverDueController < ApplicationController
+class OverdueController < ApplicationController
   def index
     @users = User.find(:all, order: 'last_name, first_name')
     @overdue_tasks = [] 

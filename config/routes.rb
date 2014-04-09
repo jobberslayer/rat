@@ -1,5 +1,5 @@
 Rat::Application.routes.draw do
-  get "overdue/", to: "over_due#index", as: "overdue"
+  get "overdue/", to: "overdue#index", as: "overdue"
 
   get "admin/users/show", to: "admin/users#show", as: "admin_show_users"
   get "admin/users/new", to: "admin/users#new", as: "admin_new_user"
@@ -40,7 +40,7 @@ Rat::Application.routes.draw do
   get "agenda/(:start_date)", to: "agenda#index", as: :agenda
   post "agenda/(:start_date)", to: "agenda#index", as: :agenda
 
-  root :to => "home#index"
+  root :to => "agenda#index"
 
   # mount Ckeditor::Engine => "/ckeditor"
 
