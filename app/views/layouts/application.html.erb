@@ -66,17 +66,17 @@
         </section>
       </nav>
       <% if content_for? :crumbs %>
-        <ul class="breadcrumbs">
-          <li><%= content_for :crumbs %>
-        </ul>
+        <nav class="breadcrumbs">
+          <li><%= content_for :crumbs %></li>
+        </nav>
       <% end %>
     </div> 
     <div class="panel" style="background: white">
       <% if notice %>
-      <p class="notice"><div class="alert-box success round"><%= notice %></div></p>
+        <p class="notice"><div class="alert-box success"><%= notice %></div></p>
       <%end%>
       <% if alert %>
-      <p class="alert"><div class="alert-box alert round"><%= alert %></div></p>
+      <p class="alert"><div class="alert-box alert"><%= alert %></div></p>
       <%end%>
 
       <div id="main-content"> <%= yield %> </div>
