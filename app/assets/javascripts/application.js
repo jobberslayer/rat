@@ -17,6 +17,8 @@
 //= require foundation
 //= require_tree .
 
+$(document).foundation();
+
 // still not sure why I have to do this. 
 // It has something to do with foundation and ckeditor not playing nice together
 // After page is loaded replace all textareas with ckeditor
