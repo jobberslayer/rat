@@ -13,7 +13,7 @@
         <% reminders.each_with_index do |remind, i| %>
           <% o = remind.schedule.all_overdue() %>
             <% if tors(remind).company.name != curr_company %>
-              <h2> <%= tors(remind).company.name %></h2>
+              <h3><%= tors(remind).company.name %></h3>
               <% curr_company = tors(remind).company.name %>
             <% end %>
             <div class="small-8">
