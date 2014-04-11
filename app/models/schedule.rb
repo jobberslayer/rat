@@ -82,7 +82,7 @@ class Schedule < ActiveRecord::Base
   def all_overdue(end_date = Date.today)
     overdue = []
 
-    occurs_between(updated_at, end_date).each do |d|
+    occurs_between(updated_at.to_date, end_date+1.day).each do |d|
       h = history_on(d)  
       if h.nil?
         overdue.push(d)
@@ -128,7 +128,8 @@ class Schedule < ActiveRecord::Base
   end
 
   def ic_once
-    IceCube::Schedule.new(once_date) 
+    #IceCube::Schedule.new(once_date, duration: 1.day) 
+    IceCube::Schedule.new(Time.new(once_date.year, once_date.month, once_date.day, 23, 59, 59))
   end
 
   def ic_weekly
