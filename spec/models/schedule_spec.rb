@@ -9,6 +9,9 @@ describe Schedule do
     it { s.should be_occurs_on(Date.today) }
     it { s.should_not be_occurs_on(Date.today + 1.year) }
     it { s.should_not be_occurs_on(Date.yesterday) }
+    it { s.next_occurrence.to_date.should eq Date.today }
+    it { s.occurs_between(Date.today, Date.today).length.should eq 0 }
+    it { s.occurs_between(Date.today, Date.today+1.day).length.should eq 1 }
   end
 
   describe "on yearly" do
