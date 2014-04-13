@@ -15,7 +15,7 @@ describe "Categories" do
     it "loading page" do
       # Run the generator again with the --webrat flag if you want to use webrat methods/matchers
       visit categories_url
-      page.find('div#main-content > h1').text.should eq 'Listing categories'
+      page.find('nav.breadcrumbs > li > strong').text.should eq 'Listing categories'
     end
   end
 
