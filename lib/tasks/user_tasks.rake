@@ -2,6 +2,7 @@ require 'highline'
 
 namespace :db do
   namespace :admin do
+    desc "Create an admin user"
     task :create => [:environment] do 
       ui = HighLine.new
 
