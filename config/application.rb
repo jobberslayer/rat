@@ -34,6 +34,19 @@ module Rat
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     # config.i18n.default_locale = :de
     
+    # false: if you
+    #    want to skip the locale validation
+    #    don't care about locales
+    # true: if you
+    #    want the application to raise an error if an invalid locale is passed (or)
+    #    want to default to the new Rails behaviors (or)
+    #    care about locale validation
+    # Also removes deprecation warning:
+    #   [deprecated] I18n.enforce_available_locales will default to true in the future. 
+    #   If you really want to skip validation of your locale you can set 
+    #   I18n.enforce_available_locales = false to avoid this message.
+    config.i18n.enforce_available_locales = true
+    
     # maximum title/name size 
     config.max_title_size = 50
 
