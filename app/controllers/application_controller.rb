@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
+  force_ssl
 
   rescue_from CanCan::AccessDenied, :with => :render_missing
   rescue_from ActiveRecord::RecordNotFound, :with => :render_not_found
