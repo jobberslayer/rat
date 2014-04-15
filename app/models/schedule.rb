@@ -43,6 +43,7 @@ class Schedule < ActiveRecord::Base
   end
 
   def history_on(d)
+    return nil if d.nil?
     if histories.exists?
       histories.where("completed_for >= ? and completed_for <= ?", d.strftime("%Y-%m-%d 00:00:00"), d.strftime("%Y-%m-%d 23:59:59")).first
     else
