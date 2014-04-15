@@ -1,18 +1,21 @@
 <h2>History</h2>
 <h3><%= @task.title %></h3>
+<%= link_to 'Back', task_path(@task.id), class: 'button small' %>
 
 <% if @task.schedule.histories.exists? %>
   <div class="large-6">
     <div class="row headerrow">
-      <div class="large-6 columns">Due Date</div>
-      <div class="large-6 columns">Marked Completed Date</div>
+      <div class="large-4 columns">Due Date</div>
+      <div class="large-4 columns">Completed</div>
+      <div class="large-4 columns">&nbsp;</div>
     </div>
   </div>
   <% @task.schedule.histories.all.each do |h| %>  
     <div class="large-6">
-      <div class="row <%= cycle('oddrow', 'evenrow') %>">
-        <div class="large-6 columns"><%= l h.completed_for, format: :date_only %></div>
-        <div class="large-6 columns"><%= l h.updated_at, format: :long_dateweek %></div>
+      <div class="row <%= cycle('oddrow', 'evenrow') %>" id='<%= "#{@task.schedule.id}-#{l(h.completed_for, format: :short_date_only)}" %>'>
+        <div class="large-4 columns"><%= l h.completed_for, format: :date_only %></div>
+        <div class="large-4 columns"><%= l h.updated_at, format: :long_dateweek %></div>
+        <div class="large-4 columns"><%= link_to "uncomplete", task_complete_path(@task.id, @task.schedule.id, l(h.completed_for, format: :short_date_only), complete:false), remote:true %></div>
       </div>
     </div>
   <% end %>
@@ -21,22 +24,26 @@
 <% end %>
 <br/><br/>
 <% reset_cycle() %>
-<h3>Statuses</h3>
-<div class="large-6">
-  <div class="row headerrow">
-    <div class="large-4 columns">Title</div>
-    <div class="large-4 columns">Due Date</div>
-    <div class="large-4 columns">Marked Completed Date</div>
-  </div>
-</div>
-<% @task.statuses.each do |s| %>
-  <% s.schedule.histories.all.each do |h| %>  
-    <div class="large-6">
-      <div class="row <%= cycle('oddrow', 'evenrow') %>">
-        <div class="large-4 columns"><%= s.title %></div>
-        <div class="large-4 columns"><%= l h.completed_for, format: :date_only %></div>
-        <div class="large-4 columns"><%= l h.updated_at, format: :long_dateweek %></div>
-      </div>
+<% if @task.statuses.length > 0 %>
+  <h3>Statuses</h3>
+  <div class="large-6">
+    <div class="row headerrow">
+      <div class="large-6 columns">Title</div>
+      <div class="large-2 columns">Due Date</div>
+      <div class="large-2 columns">Completed</div>
+      <div class="large-2 columns">&nbsp;</div>
     </div>
+  </div>
+  <% @task.statuses.each do |s| %>
+    <% s.schedule.histories.all.each do |h| %>  
+      <div class="large-6">
+        <div class="row <%= cycle('oddrow', 'evenrow') %>">
+          <div class="large-6 columns"><%= s.title %></div>
+          <div class="large-2 columns"><%= l h.completed_for, format: :date_only %></div>
+          <div class="large-2 columns"><%= l h.updated_at, format: :long_dateweek %></div>
+          <div class="large-4 columns"><%= link_to "uncomplete", task_complete_path(@task.id, @task.schedule.id, l(h.completed_for, format: :short_date_only), complete:false), remote:true %></div>
+        </div>
+      </div>
+    <% end %>
   <% end %>
 <% end %>
