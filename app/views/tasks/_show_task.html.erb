@@ -18,30 +18,32 @@
         <em>next occurence:</em><%= l next_date, format: :date_only%>
       <% end %>
       <br/><br/>
-      <%= form_tag task_complete_current_url(task.id, task.schedule.id), remote:true, id: 'complete_form' do %>
-        <div class="large-3">
-          <div class="large-6 switch round">
-            <%= radio_button_tag "complete", 
-                  "false", 
-                  !complete, 
-                  {
-                    onchange: "$('#complete_form').submit();"
-                  }
-            %>
-            <%= label_tag 'Off', 'No', class:'light-text'%>
+      <% if !task.schedule.next_occurrence.nil?  %>
+        <%= form_tag task_complete_current_url(task.id, task.schedule.id), remote:true, id: 'complete_form' do %>
+          <div class="large-3">
+            <div class="large-6 switch round">
+              <%= radio_button_tag "complete", 
+                    "false", 
+                    !complete, 
+                    {
+                      onchange: "$('#complete_form').submit();"
+                    }
+              %>
+              <%= label_tag 'Off', 'No', class:'light-text'%>
 
-            <%= radio_button_tag "complete", 
-                  "true", 
-                  complete,
-                  {
-                    onchange: "$('#complete_form').submit();"
-                  }
-            %>
-            <%= label_tag 'On', 'Yes', class:'light-text' %>
-            <span></span>
+              <%= radio_button_tag "complete", 
+                    "true", 
+                    complete,
+                    {
+                      onchange: "$('#complete_form').submit();"
+                    }
+              %>
+              <%= label_tag 'On', 'Yes', class:'light-text' %>
+              <span></span>
+            </div>
           </div>
-        </div>
-      <% end %> 
+        <% end %> 
+      <% end %>
     <% end %>
   </div>
   <div class="button-bar">
