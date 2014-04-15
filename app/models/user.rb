@@ -20,4 +20,26 @@ class User < ActiveRecord::Base
   def full_name
     "#{first_name} #{last_name}"
   end
+
+  def has_overdue?
+    overdue().count > 0
+  end
+
+  def overdue
+    overdue = []
+    tasks.each do |t|
+      if t.schedule.all_overdue().count > 0
+        overdue.push(t)
+      end
+      if !t.statuses.nil?
+        t.statuses.each do |s|
+          if s.all_overdue().count > 0
+            overdue.push(s)
+          end
+        end
+      end
+    end
+
+    return overdue
+  end
 end

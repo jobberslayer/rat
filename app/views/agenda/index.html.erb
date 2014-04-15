@@ -21,6 +21,17 @@
     <% end %>
   </div>
 <% end %>
+<% if current_user.admin? && @show_all %>
+  <% User.find(:all, order: 'last_name, first_name').each do |u|  %>
+    <% if u.has_overdue? %>  
+       <div class="alert-box alert"><%= "#{u.full_name} has overdue items."%></div>
+    <% end %>
+  <% end %>
+<% else %>
+  <% if current_user.has_overdue? %>
+    <div class="alert-box alert"><strong>You have overdue items.</strong></div>  
+  <% end %>
+<% end %>
 
 <div id="agenda_list" class="panel">
   <%= render partial: 'agenda_list' %>
