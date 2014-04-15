@@ -139,7 +139,7 @@ class Schedule < ActiveRecord::Base
   end
 
   def add_rule(rule)
-    ic = IceCube::Schedule.new
+    ic = IceCube::Schedule.new(updated_at)
     ic.add_recurrence_rule rule
     ic
   end
