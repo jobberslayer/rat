@@ -7,6 +7,7 @@
             ['Once', :once],
             ['Yearly', :yearly],
             ['Monthly', :monthly],
+            ['Every X Month', :few_months],
             ['Weekly', :weekly],
             ['Start of Month', :first_day_month],
             ['Last of Month', :last_day_month],
@@ -57,17 +58,47 @@
       </div>
   </div>
 
+  <div id="schedule_few_months" class="container" style="<%= kind == 'few_months' ? '' : 'display:none' %>">
+    <div class="collapse row">
+      <div class="large-1 columns">
+        <label class="inline">Every</label>
+      </div>
+      <div class='large-2 columns'>
+        <%= f.text_field :few_months_recur, id: :few_months_recur %>
+      </div>
+      <div class='large-2 columns'>
+        <label class="inline">&nbsp;months</label> 
+      </div>
+      <div class="large-7 columns">&nbsp;</div>
+    </div>
+
+    <div class="collapse row">
+      <div class="large-1 columns">
+        <label class="inline">On the</label>
+      </div>
+      <div class='large-2 columns'>
+        <%= f.select( :few_months_day, (1..31)) %>
+      </div>
+      <div class='large-2 columns'>
+        <label class="inline">&nbsp;day.</label>
+      </div>
+      <div class="large-7 columns">&nbsp;</div>
+    </div>
+  </div>
+
   <div id="schedule_weekly" class="container" style="<%= kind == 'weekly' ? '' : 'display:none' %>">
     <div class="row collapse">
       <div class="large-6 columns" >
         <div class="row collapse">
-          <div class="small-3 columns"><label class="inline">Every</label></div>
+          <div class="small-2 columns"><label class="inline">Every</label></div>
           <div class="small-6 columns"><%= f.text_field :weekly_interval, id: :weekly_interval %></div>
-          <div class="small-3 columns"><label class="inline">&nbsp;&nbsp;weeks</label></div>
+          <div class="small-1 columns"><label class="inline">&nbsp;&nbsp;weeks</label></div>
+          <div class="small-3 columns">&nbsp;</div>
         </div>
         <div class="row collapse">
-          <div class="small-4 columns"><label class="inline">Starting on</label></div>
+          <div class="small-3 columns"><label class="inline">Starting on</label></div>
           <div class='small-8 columns'><%= f.text_field( :weekly_date, class: 'scheduler_weekly_date') %></p>
+          <div class="small-1 columns">&nbsp;</div>
         </div>
       </div>
     </div>

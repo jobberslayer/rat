@@ -22,6 +22,7 @@ jQuery.fn.refreshSchedulerEvents = function() {
   this.find('.scheduler_once_date').defaultDatePicker();
   this.find('.scheduler_yearly_date').defaultDatePicker();
   this.find('.scheduler_weekly_date').defaultDatePicker();
+  this.find('.scheduler_few_months_date').defaultDatePicker();
 }
 
 $(function() { 

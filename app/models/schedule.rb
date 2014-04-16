@@ -2,7 +2,12 @@ require 'ice_cube'
 
 class Schedule < ActiveRecord::Base
   attr_accessible :monthly_day, :once_date, :kind, :weekly_day, :yearly_date, :yearly_day, :yearly_month, 
-    :weekly_date, :weekly_interval
+    :weekly_date, :weekly_interval, :few_months_date, :few_months_recur, :few_months_day
+
+  validates :monthly_day, numericality: { only_integer: true, :allow_blank => true }
+  validates :weekly_interval, numericality: { only_integer: true, :allow_blank => true }
+  validates :few_months_recur, numericality: { only_integer: true, :allow_blank => true }
+  validate :needed_values_are_here
 
   belongs_to :tasks
   belongs_to :statuses
@@ -138,9 +143,53 @@ class Schedule < ActiveRecord::Base
     s
   end
 
+  def ic_few_months
+    add_rule( IceCube::Rule.monthly(few_months_recur).day_of_month(few_months_day) )
+  end
+
   def add_rule(rule)
     ic = IceCube::Schedule.new(updated_at)
     ic.add_recurrence_rule rule
     ic
+  end
+
+  def needed_values_are_here 
+    if kind == 'few_months'
+      if few_months_recur.nil? 
+        errors.add(:few_months_recur, "Recurring can't be blank")
+      end
+
+      if few_months_day.nil? 
+        errors.add(:few_months_day, "Day can't be blank")
+      end
+    end
+
+    if kind == 'once'
+      if once_date.nil?
+        errors.add(:once_date, "Date can't be blank")
+      end
+    end
+
+    if kind == 'monthly'
+      if monthly_date.nil?
+        errors.add(:monthly_day, "Date can't be blank")
+      end
+    end
+
+    if kind == 'yearly'
+      if monthly_date.nil?
+        errors.add(:yearly_date, "Date can't be blank")
+      end
+    end
+
+    if kind == 'weekly'
+      if weekly_date.nil?
+        errors.add(:weekly_date, "Date can't be blank")
+      end
+
+      if weekly_interval.nil?
+        errors.add(:weekly_interval, "Interval can't be blank")
+      end
+    end
   end
 end
