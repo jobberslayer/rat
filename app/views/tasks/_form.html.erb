@@ -13,20 +13,20 @@
 
   <div class="large-4">
     <div class="field">
-      <%= f.label :company %>
+      <%= f.label :company_id %>
       <%= f.collection_select :company_id, Company.order(:name), :id, :name %>
     </div>
   </div>
   <div class="large-4">
     <div class="field">
-      <%= f.label :category %>
+      <%= f.label :category_id %>
       <%= f.collection_select :category_id, Category.order(:name), :id, :name %>
     </div>
   </div>
 
   <div class="large-4">
     <div class="field">
-      <%= f.label :user %>
+      <%= f.label :user_id %>
       <%= f.collection_select :user_id, User.order(:last_name, :first_name), :id, :full_name %>
     </div>
   </div>

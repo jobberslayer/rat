@@ -171,13 +171,13 @@ class Schedule < ActiveRecord::Base
     end
 
     if kind == 'monthly'
-      if monthly_date.nil?
+      if monthly_day.nil?
         errors.add(:monthly_day, "Date can't be blank")
       end
     end
 
     if kind == 'yearly'
-      if monthly_date.nil?
+      if yearly_date.nil?
         errors.add(:yearly_date, "Date can't be blank")
       end
     end

@@ -41,6 +41,8 @@ class TasksController < ApplicationController
     @task.statuses.build
     @task.user_id = current_user.id
 
+    @show_scheduler = params['show_scheduler'] || nil
+
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @task }

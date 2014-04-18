@@ -17,7 +17,7 @@
     %>
   </p>
 
-  <div id="schedule_once" class="container" style="<%= kind == 'once' ? '' : 'display:none' %>">
+  <div id="schedule_once" class="container" style="<%= kind == 'once' || @show_scheduler ? '' : 'display:none' %>">
       <div class="row collapse">
         <div class="large-2 columns">
           On 
@@ -29,7 +29,7 @@
       </div>
   </div>
   
-  <div id="schedule_yearly" class="container" style="<%= kind == 'yearly' ? '' : 'display:none' %>">
+  <div id="schedule_yearly" class="container" style="<%= kind == 'yearly' || @show_scheduler ? '' : 'display:none' %>">
       <div class="collapse row">
         <div class="large-1 columns">
           <label class="inline">On</label>
@@ -44,7 +44,7 @@
       </div>
   </div>
 
-  <div id="schedule_monthly" class="container" style="<%= kind == 'monthly' ? '' : 'display:none' %>">
+  <div id="schedule_monthly" class="container" style="<%= kind == 'monthly' || @show_scheduler ? '' : 'display:none' %>">
       <div class="collapse row">
         <div class="large-1 columns">
           <label class="inline">On</label>
@@ -58,7 +58,7 @@
       </div>
   </div>
 
-  <div id="schedule_few_months" class="container" style="<%= kind == 'few_months' ? '' : 'display:none' %>">
+  <div id="schedule_few_months" class="container" style="<%= kind == 'few_months' || @show_scheduler ? '' : 'display:none' %>">
     <div class="collapse row">
       <div class="large-1 columns">
         <label class="inline">Every</label>
@@ -86,7 +86,7 @@
     </div>
   </div>
 
-  <div id="schedule_weekly" class="container" style="<%= kind == 'weekly' ? '' : 'display:none' %>">
+  <div id="schedule_weekly" class="container" style="<%= kind == 'weekly' || @show_scheduler ? '' : 'display:none' %>">
     <div class="row collapse">
       <div class="large-6 columns" >
         <div class="row collapse">
