@@ -10,12 +10,18 @@ class AgendaController < ApplicationController
     while @happenings.empty?
       @end_date = @start_date + increment.days
       dates = (@start_date..@end_date)
-      
+
       tasks = nil
-      if current_user.admin? && params[:show_all]
+      if current_user.admin? && params[:agenda]
+        @show_user = params[:agenda][:view] || current_user.id
+      else
+        @show_user = current_user.id
+      end
+
+      if current_user.admin? && @show_user.blank?
         tasks = Task.joins(:user).joins(:company).order('users.last_name', 'users.first_name','companies.name')
       else
-        tasks = Task.joins(:company).where("user_id = #{current_user.id}").order('companies.name')
+        tasks = Task.joins(:company).where("user_id = #{@show_user}").order('companies.name')
       end
 
       tasks.each do |task|

@@ -1,13 +1,6 @@
 <% content_for :title, 'Agenda' %>
 <% 
-  header = "From <span id='start_date'>#{@start_date.to_s}</span> to <span id='end_date'>#{@end_date.to_s}</span> for"
-  if params[:show_all]
-    header += " All"
-  else
-    header += " #{current_user.full_name}"
-  end
-
-  c header
+  c render('user_select_form')
  %>
 <% if current_user.admin? %>
   <div class="panel">

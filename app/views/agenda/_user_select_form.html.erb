@@ -1,0 +1,12 @@
+<div class="rows" style="width: 400px">
+<%= form_for('agenda', html: {id: 'view_form'}) do |f| %>
+  <div class="columns large-7">
+    From <span id='start_date'><%= @start_date.to_s %></span> to <span id='end_date'><%= @end_date.to_s %></span>
+  </div>
+  <% if current_user.admin? %>
+  <div class="columns large-5">
+    <%= f.collection_select :view, User.order(:last_name, :first_name), :id, :full_name, {selected: @show_user, include_blank:'All'}, {onchange: "$('#view_form').submit()"} %>
+  </div>
+  <% end %>
+<% end %>
+</div>
