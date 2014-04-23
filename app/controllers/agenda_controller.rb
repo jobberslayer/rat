@@ -13,15 +13,29 @@ class AgendaController < ApplicationController
 
       tasks = nil
       if current_user.admin? && params[:agenda]
-        @show_user = params[:agenda][:view] || current_user.id
+        @show_user = params[:agenda][:view_user] || current_user.id
       else
         @show_user = current_user.id
       end
 
-      if current_user.admin? && @show_user.blank?
-        tasks = Task.joins(:user).joins(:company).order('users.last_name', 'users.first_name','companies.name')
+      if params[:agenda]
+        @show_company = params[:agenda][:view_company]
       else
-        tasks = Task.joins(:company).where("user_id = #{@show_user}").order('companies.name')
+        @show_company = ''
+      end
+
+      if current_user.admin? && @show_user.blank?
+        tasks = Task.joins(:user).joins(:company)
+        if !@show_company.blank?
+          tasks = tasks.where("companies.id = ?", @show_company)
+        end
+        tasks = tasks.order('users.last_name', 'users.first_name','companies.name')
+      else
+        tasks = Task.joins(:company).where("user_id = #{@show_user}")
+        if !@show_company.blank?
+          tasks = tasks.where("companies.id = ?", @show_company)
+        end
+        tasks = tasks.order('companies.name')
       end
 
       tasks.each do |task|

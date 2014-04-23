@@ -2,18 +2,6 @@
 <% 
   c render('user_select_form')
  %>
-<% if current_user.admin? %>
-  <div class="panel">
-    <%= form_tag agenda_url, id: 'view_all_form' do |f| %>
-      <div class="large-3">
-        <div class="row">
-          <div class="small-1 columns"><%= check_box_tag :show_all, :show_all, params[:show_all], onclick: "$('#view_all_form').submit()" %></div>
-          <div class="small-11 columns"><%= label_tag 'View All' %></div>
-        </div>
-      </div>
-    <% end %>
-  </div>
-<% end %>
 <% if current_user.admin? && @show_all %>
   <% User.find(:all, order: 'last_name, first_name').each do |u|  %>
     <% if u.has_overdue? %>  
@@ -32,7 +20,7 @@
 <% if !@happenings.empty? %>
   <div id="load_more" class="panel">
     <p class="text-center"><strong>
-      <%= link_to "load more", agenda_path(@end_date, show_all: params[:show_all]), remote: true, id: 'load_more_link' %>
+      <%= link_to "load more", agenda_path(@end_date, agenda: { view_user: @show_user, view_company: @show_company }), remote: true, id: 'load_more_link' %>
     </strong></p>
   </div>
 <% end %>

@@ -3,5 +3,5 @@ $('#end_date').html("<%= (@end_date + 1.day).to_s %>")
 <% if  @year_of_nothing %>
   $('#load_more').hide()
 <% else %>  
-  $('#load_more_link').attr('href', '<%= agenda_path(@end_date + 1.day)  %>')
+  $('#load_more_link').attr('href', '<%= agenda_path(@end_date + 1.day, agenda: { view_user: @show_user, view_company: @show_company }).html_safe %>')
 <% end %>

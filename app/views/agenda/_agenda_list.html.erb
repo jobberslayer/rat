@@ -20,7 +20,7 @@
               <div class='row'>
                 <div class='columns small-1'><span class='ui-icon ui-icon-bullet'></span></div>
                 <div class='columns small-5'><%= remind.title %></div>
-                  <% if params[:show_all] %>
+                  <% if @show_user.blank? %>
                     <div class='columns small-3'><%= remind.user.full_name %></div>
                   <% end %>
                   <% if remind.instance_of?(Status) %>
