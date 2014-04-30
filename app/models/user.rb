@@ -16,6 +16,7 @@ class User < ActiveRecord::Base
 
   has_many :tasks
   has_many :statuses
+  has_one :group
 
   def full_name
     "#{first_name} #{last_name}"
