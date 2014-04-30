@@ -1,0 +1,10 @@
+<% c 'Team' %>
+<h3><%= @team.name %></h3>
+
+<div class="panel">
+  <%= @team.description.html_safe %>
+</div>
+
+
+<%= link_to 'Edit', edit_team_path(@team), class: 'button small' %>
+<%= link_to 'Back', teams_path, class: 'button small' %>

@@ -28,6 +28,9 @@ class Task < ActiveRecord::Base
     if args.has_key?(:user_id) and !args[:user_id].empty?
       set = set.where("tasks.user_id = ? or statuses.user_id=?", args[:user_id], args[:user_id])
     end
+    if args.has_key?(:team_id) and !args[:team_id].empty?
+      set = set.where("companies.team_id = ?", args[:team_id])
+    end
     if args.has_key?(:search_text) and !args[:search_text.empty?]
       sts = "%#{args[:search_text]}%"
       set = set.where("tasks.title like ? or tasks.info like ? or statuses.title like ? or statuses.info like ?",

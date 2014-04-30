@@ -1,0 +1,22 @@
+<% c 'Teams' %>
+
+<%= link_to 'New Team', new_team_path, class: 'button small' %>
+
+<div class="large-6">
+  <div class="row headerrow">
+    <div class="large-10 columns">Name</div>
+    <div class="large-1 columns">&nbsp;</div>
+    <div class="large-1 columns">&nbsp;</div>
+  </div>
+</div>
+
+<div class="large-6">
+<% @teams.each do |team| %>
+  <div class="row <%= cycle('oddrow', 'evenrow') %>">
+    <div class="large-10 columns"><%= link_to team.name, team %></div>
+    <div class="large-1 columns"><%= link_to 'Edit', edit_team_path(team) %></div>
+    <div class="large-1 columns"><%= link_to 'Destroy', team, method: :delete, data: { confirm: 'Are you sure?' } %></div>
+  </div>
+<% end %>
+</div>
+

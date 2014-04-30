@@ -17,6 +17,12 @@
       <%= f.text_field :name, maxlength: myconfig(:max_title_size), size: myconfig(:max_title_size) %>
     </div>
   </div>
+  <div class="large-4">
+    <div class="field">
+      <%= f.label :team %><br />
+      <%= f.collection_select :team_id, Team.order(:name), :id, :name, {include_blank: 'None'} %>
+    </div>
+  </div>
   <div class="large-8">
     <div class="field">
       <%= f.label :info %><br />

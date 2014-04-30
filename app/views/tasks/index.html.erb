@@ -4,19 +4,23 @@
 <div class="panel large-12">
   <%= form_tag tasks_path, method: :get do %>
     <div class="row">
-      <div class="large-3 columns">
+      <div class="large-2 columns">
         <%= collection_select nil, :company_id, Company.order(:name), :id, :name, 
             {:include_blank => 'All Companies', selected: params[:company_id.to_s]} %> 
       </div>
-      <div class="large-3 columns">
+      <div class="large-2 columns">
         <%= collection_select nil, :category_id, Category.order(:name), :id, :name, 
             {:include_blank => 'All Categories', selected: params[:category_id.to_s]} %> 
       </div>
-      <div class="large-3 columns">
+      <div class="large-2 columns">
         <%= collection_select nil, :user_id, User.order(:last_name, :first_name), :id, :full_name, 
             {include_blank: 'All Users', selected: params[:user_id.to_s]} %> 
       </div>
       <div class="large-2 columns">
+        <%= collection_select nil, :team_id, Team.order(:name), :id, :name, 
+            {include_blank: 'All Teams', selected: params[:team_id.to_s]} %> 
+      </div>
+      <div class="large-3 columns">
         <%= text_field_tag :search_text, params[:search_text], size: 50 %>
       </div>
       <div class="large-1 columns">
@@ -81,6 +85,18 @@
       <%= task.category.name %>
     </div>
   </div>
+    <div class="row">
+      <div class="large-2 text-right columns">
+        <strong>Team:</strong>
+      </div>
+      <div class="large-10 columns"> 
+        <% if task.company.team %>
+          <%= task.company.team.name %>
+        <% else %>
+          None
+        <% end %>
+      </div>
+    </div>
   <div class="row">
     <div class="large-2 text-right columns">
       <strong>Statuses:</strong>

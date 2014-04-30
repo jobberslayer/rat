@@ -7,6 +7,7 @@ class AgendaController < ApplicationController
     increment = 14
     @year_of_nothing = false
     @show_all = params[:show_all] || false
+
     while @happenings.empty?
       @end_date = @start_date + increment.days
       dates = (@start_date..@end_date)
@@ -20,8 +21,10 @@ class AgendaController < ApplicationController
 
       if params[:agenda]
         @show_company = params[:agenda][:view_company]
+        @show_team = params[:agenda][:view_team]
       else
         @show_company = ''
+        @show_team = ''
       end
 
       if current_user.admin? && @show_user.blank?
@@ -29,11 +32,17 @@ class AgendaController < ApplicationController
         if !@show_company.blank?
           tasks = tasks.where("companies.id = ?", @show_company)
         end
+        if !@show_team.blank?
+          tasks = tasks.where("companies.team_id = ?", @show_team)
+        end
         tasks = tasks.order('users.last_name', 'users.first_name','companies.name')
       else
         tasks = Task.joins(:company).where("user_id = #{@show_user}")
         if !@show_company.blank?
           tasks = tasks.where("companies.id = ?", @show_company)
+        end
+        if !@show_team.blank?
+          tasks = tasks.where("companies.team_id = ?", @show_team)
         end
         tasks = tasks.order('companies.name')
       end

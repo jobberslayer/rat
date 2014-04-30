@@ -1,4 +1,7 @@
 Rat::Application.routes.draw do
+  resources :teams
+
+
   get "overdue/", to: "overdue#index", as: "overdue"
 
   get "admin/users/show", to: "admin/users#show", as: "admin_show_users"
