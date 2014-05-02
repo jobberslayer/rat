@@ -138,7 +138,7 @@ class Schedule < ActiveRecord::Base
   end
 
   def ic_weekly
-    s = IceCube::Schedule.new(weekly_date)
+    s = IceCube::Schedule.new(Time.utc(weekly_date.year, weekly_date.month, weekly_date.day, 23, 59, 59))
     s.add_recurrence_rule IceCube::Rule.weekly(weekly_interval)
     s
   end
