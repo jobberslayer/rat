@@ -1,6 +1,6 @@
 require 'csv'
 
-DEFAULT_TEST_USER = 'traceylester@gmail.com'
+DEFAULT_TEST_USER = 'kevin@e-kevin.com'
 
 namespace :db do
   namespace :import do
