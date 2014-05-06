@@ -147,6 +147,10 @@ class Schedule < ActiveRecord::Base
     add_rule(IceCube::Rule.daily)
   end
 
+  def ic_daily_work
+    add_rule(IceCube::Rule.daily.day(:monday, :tuesday, :wednesday, :thursday, :friday))
+  end
+
   def ic_few_months
     add_rule( IceCube::Rule.monthly(few_months_recur).day_of_month(few_months_day) )
   end
