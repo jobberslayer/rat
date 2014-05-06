@@ -24,4 +24,40 @@
       <%= f.submit class:"button" %>
     </div>
   </div>
+  <%= hidden_field_tag "perms[company][create][0]", nil  %>
+  <%= hidden_field_tag "perms[company][read][0]", nil  %>
+  <%= hidden_field_tag "perms[company][update][0]", nil  %>
+  <%= hidden_field_tag "perms[company][destroy][0]", nil  %>
+
+  <% Company.find(:all, order: :name).each do |c| %>
+    <%= hidden_field_tag "perms[company][create][#{c.id}]", nil%>
+    <%= hidden_field_tag "perms[company][read][#{c.id}]", nil%>
+    <%= hidden_field_tag "perms[company][update][#{c.id}]", nil%>
+    <%= hidden_field_tag "perms[company][destroy][#{c.id}]", nil%>
+  <% end %>
+
+  <table>
+  <tr>
+    <th>Company</th>
+    <th>Create</th>
+    <th>Read</th>
+    <th>Update</th>
+    <th>Destroy</th>
+    <tr>
+      <td>All</td>
+      <td><%= check_box_tag "perms[company][create][0]", 1, Perm.create_on?(@group.id, :company, 0)%></td>
+      <td><%= check_box_tag "perms[company][read][0]", 1, Perm.read_on?(@group.id, :company, 0)%></td>
+      <td><%= check_box_tag "perms[company][update][0]", 1, Perm.update_on?(@group.id, :company, 0)%></td>
+      <td><%= check_box_tag "perms[company][destroy][0]", 1, Perm.destroy_on?(@group.id, :company, 0) %></td>
+    </tr>
+  <% Company.find(:all, order: :name).each do |c| %>
+    <tr>
+      <td><%= c.name %></td>
+      <td><%= check_box_tag "perms[company][create][#{c.id}]", 1%></td>
+      <td><%= check_box_tag "perms[company][read][#{c.id}]", 1%></td>
+      <td><%= check_box_tag "perms[company][update][#{c.id}]", 1%></td>
+      <td><%= check_box_tag "perms[company][destroy][#{c.id}]", 1%></td>
+    </tr>
+  <% end %>
+  </table>
 <% end %>

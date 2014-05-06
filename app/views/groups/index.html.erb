@@ -1,23 +1,22 @@
-<h1>Listing groups</h1>
+<% c 'Groups' %>
 
-<table>
-  <tr>
-    <th>Name</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
+<%= link_to 'New Group', new_group_path, class: 'button small' %>
+
+<div class="row large-12">
+  <div class="columns large-5">Name</div>
+  <div class="columns large-1">&nbsp;</div>
+  <div class="columns large-1">&nbsp;</div>
+  <div class="columns large-1">&nbsp;</div>
+  <div class="columns large-4">&nbsp;</div>
+</div>
 
 <% @groups.each do |group| %>
-  <tr>
-    <td><%= group.name %></td>
-    <td><%= link_to 'Show', group %></td>
-    <td><%= link_to 'Edit', edit_group_path(group) %></td>
-    <td><%= link_to 'Destroy', group, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-  </tr>
+  <div class="row large-12">
+    <div class="columns large-5"><%= group.name %></div>
+    <div class="columns large-1"><%= link_to 'Show', group %></div>
+    <div class="columns large-1"><%= link_to 'Edit', edit_group_path(group) %></div>
+    <div class="columns large-1"><%= link_to 'Destroy', group, method: :delete, data: { confirm: 'Are you sure?' } %></div>
+    <div class="columns large-4">&nbsp;</div>
+  </div>
 <% end %>
-</table>
 
-<br />
-
-<%= link_to 'New Group', new_group_path %>

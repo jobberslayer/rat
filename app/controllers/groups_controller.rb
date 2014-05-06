@@ -37,13 +37,33 @@ class GroupsController < ApplicationController
     @group = Group.find(params[:id])
   end
 
+  def process_perms(group, params)
+    params[:perms].each_key do |object|
+      params[:perms][object].each_key do |mode|
+        params[:perms][object][mode].each_key do |obj_id|
+          if params[:perms][object][mode][obj_id] == 1
+            Perm.permit(group.id, mode, object, object_id)
+          else
+            Perm.revoke(group.id, mode, object, object_id)
+          end
+        end
+      end
+    end
+  end
+
   # POST /groups
   # POST /groups.json
   def create
     @group = Group.new(params[:group])
+    
+    saved = @group.save
+
+    if saved
+      process_perms(@group, params)
+    end
 
     respond_to do |format|
-      if @group.save
+      if saved
         format.html { redirect_to @group, notice: 'Group was successfully created.' }
         format.json { render json: @group, status: :created, location: @group }
       else
@@ -51,6 +71,7 @@ class GroupsController < ApplicationController
         format.json { render json: @group.errors, status: :unprocessable_entity }
       end
     end
+
   end
 
   # PUT /groups/1
@@ -60,6 +81,7 @@ class GroupsController < ApplicationController
 
     respond_to do |format|
       if @group.update_attributes(params[:group])
+        process_perms(@group, params)
         format.html { redirect_to @group, notice: 'Group was successfully updated.' }
         format.json { head :no_content }
       else

@@ -101,6 +101,8 @@ GEM
       cocaine (~> 0.5.3)
       mime-types
     polyglot (0.3.4)
+    quiet_assets (1.0.2)
+      railties (>= 3.1, < 5.0)
     rack (1.4.5)
     rack-cache (1.2)
       rack (>= 0.4)
@@ -186,16 +188,17 @@ PLATFORMS
 DEPENDENCIES
   cancan (= 1.6.10)
   capybara (= 2.1.0)
-  ckeditor
+  ckeditor (= 4.0.11)
   coffee-rails (~> 3.2.1)
   devise (= 3.1.1)
   factory_girl_rails (= 4.3.0)
   faker (= 1.2.0)
-  highline
+  highline (= 1.6.21)
   ice_cube (= 0.11.0)
   jquery-rails (= 3.0.4)
-  jquery-ui-rails
-  paperclip
+  jquery-ui-rails (= 4.1.2)
+  paperclip (= 4.1.1)
+  quiet_assets (= 1.0.2)
   rails (= 3.2.11)
   rspec (= 2.14.1)
   rspec-rails (= 2.14.0)

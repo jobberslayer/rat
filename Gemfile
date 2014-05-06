@@ -11,15 +11,17 @@ gem 'rspec', '2.14.1'
 gem 'ice_cube', '0.11.0'
 gem 'devise', '3.1.1'
 gem 'cancan', '1.6.10'
-gem 'highline'
+gem 'highline', '1.6.21'
 
-gem 'ckeditor'
-gem 'paperclip'
+gem 'quiet_assets', '1.0.2'
+
+gem 'ckeditor', '4.0.11'
+gem 'paperclip', '4.1.1'
 
 gem 'will_paginate', '3.0.5'
 gem 'will_paginate-foundation'
 
-gem 'jquery-ui-rails'
+gem 'jquery-ui-rails', '4.1.2'
 
 # Gems used only for assets and not required
 # in production environments by default.

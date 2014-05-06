@@ -1,5 +1,8 @@
 class Group < ActiveRecord::Base
   attr_accessible :description, :name
+  has_many :perms, dependent: :destroy
+
+  validates :name, presence: true
 
   def can_create?(object, obj_id=0)
     Perm.can_create?(self.id, object, obj_id)
