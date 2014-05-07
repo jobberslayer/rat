@@ -2,15 +2,17 @@
 <% 
   c render('user_select_form')
 %>
-<% if current_user.admin? && @show_all %>
+<% if current_user.admin? && @show_user == '' %>
+  <div class="alert-box alert">Everyone overdue</div>
   <% User.find(:all, order: 'last_name, first_name').each do |u|  %>
     <% if u.has_overdue? %>  
        <div class="alert-box alert"><%= "#{u.full_name} has overdue items."%></div>
     <% end %>
   <% end %>
 <% else %>
-  <% if current_user.has_overdue? %>
-    <div class="alert-box alert"><strong>You have overdue items.</strong></div>  
+  <% this_user = User.find(@show_user) %>
+  <% if this_user.has_overdue? %>
+    <div class="alert-box alert"><strong><%= this_user.full_name %> has overdue items.</strong></div>  
   <% end %>
 <% end %>
 

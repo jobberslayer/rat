@@ -6,7 +6,6 @@ class AgendaController < ApplicationController
     @happenings = {} 
     increment = 14
     @year_of_nothing = false
-    @show_all = params[:show_all] || false
 
     while @happenings.empty?
       @end_date = @start_date + increment.days
