@@ -31,7 +31,7 @@ class AgendaController < ApplicationController
         statuses = Status.joins(:user).joins(:task).joins('LEFT OUTER JOIN companies ON tasks.company_id = companies.id ')
         if !@show_company.blank?
           tasks = tasks.where("companies.id = ?", @show_company)
-          statuses = statuses.where("companies_id=?", @show_company)
+          statuses = statuses.where("tasks.company_id=?", @show_company)
         end
         if !@show_team.blank?
           tasks = tasks.where("companies.team_id = ?", @show_team)
