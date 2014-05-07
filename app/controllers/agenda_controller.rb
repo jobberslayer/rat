@@ -29,22 +29,29 @@ class AgendaController < ApplicationController
 
       if current_user.admin? && @show_user.blank?
         tasks = Task.joins(:user).joins(:company)
+        statuses = Status.joins(:user).joins(:task).joins('LEFT OUTER JOIN companies ON tasks.company_id = companies.id ')
         if !@show_company.blank?
           tasks = tasks.where("companies.id = ?", @show_company)
+          statuses = statuses.where("companies_id=?", @show_company)
         end
         if !@show_team.blank?
           tasks = tasks.where("companies.team_id = ?", @show_team)
+          statuses = statuses.where("companies.team_id = ?", @show_team)
         end
         tasks = tasks.order('users.last_name', 'users.first_name','companies.name')
+        statuses = statuses.order('users.last_name', 'users.first_name','companies.name')
       else
         tasks = Task.joins(:company).where("user_id = #{@show_user}")
+        statuses = Status.joins(:task).joins('LEFT OUTER JOIN companies ON tasks.company_id = companies.id ').where("statuses.user_id = #{@show_user}")
         if !@show_company.blank?
           tasks = tasks.where("companies.id = ?", @show_company)
+          statuses = statuses.where("companies.id = ?", @show_company)
         end
         if !@show_team.blank?
-          tasks = tasks.where("companies.team_id = ?", @show_team)
+          statuses = statuses.where("companies.team_id = ?", @show_team)
         end
         tasks = tasks.order('companies.name')
+        statuses = statuses.order('companies.name')
       end
 
       tasks.each do |task|
@@ -55,13 +62,16 @@ class AgendaController < ApplicationController
             end
             @happenings[date].push(task)
           end
-          task.statuses.each do |status|
-            if status.schedule.exists? && status.schedule.occurs_on?(date)
-              if (@happenings[date].nil?)
-                @happenings[date] = Array.new()
-              end
-              @happenings[date].push(status)
+        end
+      end
+
+      statuses.each do |task|
+        dates.each do |date|
+          if task.schedule.exists? && task.schedule.occurs_on?(date)
+            if (@happenings[date].nil?)
+              @happenings[date] = Array.new()
             end
+            @happenings[date].push(task)
           end
         end
       end
