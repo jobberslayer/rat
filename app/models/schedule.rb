@@ -70,7 +70,8 @@ class Schedule < ActiveRecord::Base
   end
 
   def log_next()
-    log_date(next_occurrence())
+    d = next_occurrence()
+    log_date(d.strftime("%Y-%m-%d 00:00:00 UTC"))
   end
 
   def unlog_date(d)
