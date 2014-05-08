@@ -31,12 +31,10 @@ class User < ActiveRecord::Base
       if t.schedule.all_overdue().count > 0
         overdue.push(t)
       end
-      if !t.statuses.nil?
-        t.statuses.each do |s|
-          if s.schedule.all_overdue().count > 0
-            overdue.push(s)
-          end
-        end
+    end
+    statuses.each do |s|
+      if s.schedule.all_overdue().count > 0
+        overdue.push(s)
       end
     end
 
