@@ -174,7 +174,7 @@ class TasksController < ApplicationController
     @date = schedule.next_occurrence
 
     if params[:complete] == 'true'
-      schedule.log_next()
+      schedule.log_next(current_user.id)
       @what = 'Completed'
     else
       schedule.unlog_next()
@@ -193,11 +193,11 @@ class TasksController < ApplicationController
     @id = "#{schedule.id}-#{date}"
     authorize! :update, schedule
 
-    schedule.log_date(date.to_date)
+    schedule.log_date(current_user.id, date.to_date)
     @what = "Completed for #{date}"
 
     if !params.key?(:complete) || params[:complete] == 'true'
-      schedule.log_date(date.to_date)
+      schedule.log_date(current_user.id, date.to_date)
       @what = 'Completed'
     else
       schedule.unlog_date(date.to_date)

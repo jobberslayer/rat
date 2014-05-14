@@ -58,12 +58,13 @@ class Schedule < ActiveRecord::Base
     end
   end
 
-  def log_date(d)
+  def log_date(user_id, d)
     h = history_on(d)
     if h.nil?
       h = History.new
       h.schedule_id = id
       h.completed_for = d 
+      h.user_id = user_id 
       h.save
     else
       h.completed_for = d
@@ -71,9 +72,9 @@ class Schedule < ActiveRecord::Base
     end
   end
 
-  def log_next()
+  def log_next(user_id)
     d = next_occurrence()
-    log_date( d.strftime("%Y-%m-%d 00:00:00").to_date )
+    log_date( user_id, d.strftime("%Y-%m-%d 00:00:00").to_date )
   end
 
   def unlog_date(d)

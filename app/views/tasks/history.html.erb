@@ -3,19 +3,21 @@
 <%= link_to 'Back', task_path(@task.id), class: 'button small' %>
 
 <% if @task.schedule.histories.exists? %>
-  <div class="large-6">
+  <div class="large-8">
     <div class="row headerrow">
-      <div class="large-4 columns">Due Date</div>
-      <div class="large-4 columns">Completed</div>
-      <div class="large-4 columns">&nbsp;</div>
+      <div class="large-3 columns">Due Date</div>
+      <div class="large-3 columns">Completed</div>
+      <div class="large-3 columns">Completed By</div>
+      <div class="large-3 columns">&nbsp;</div>
     </div>
   </div>
   <% @task.schedule.histories.all.each do |h| %>  
-    <div class="large-6">
+    <div class="large-8">
       <div class="row <%= cycle('oddrow', 'evenrow') %>" id='<%= "#{@task.schedule.id}-#{l(h.completed_for, format: :short_date_only)}" %>'>
-        <div class="large-4 columns"><%= l h.completed_for, format: :date_only %></div>
-        <div class="large-4 columns"><%= l h.updated_at, format: :long_dateweek %></div>
-        <div class="large-4 columns"><%= link_to "uncomplete", task_complete_path(@task.id, @task.schedule.id, l(h.completed_for, format: :short_date_only), complete:false), remote:true %></div>
+        <div class="large-3 columns"><%= l h.completed_for, format: :date_only %></div>
+        <div class="large-3 columns"><%= l h.updated_at, format: :long_dateweek %></div>
+        <div class="large-3 columns"><%= h.user_id ? User.find(h.user_id).full_name : 'Unknown' %></div>
+        <div class="large-3 columns"><%= link_to "uncomplete", task_complete_path(@task.id, @task.schedule.id, l(h.completed_for, format: :short_date_only), complete:false), remote:true %></div>
       </div>
     </div>
   <% end %>
