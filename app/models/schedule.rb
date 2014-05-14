@@ -91,7 +91,7 @@ class Schedule < ActiveRecord::Base
   def all_overdue(end_date = Date.today)
     overdue = []
 
-    occurs_between(updated_at.to_date, end_date).each do |d|
+    occurs_between(created_at.to_date, end_date).each do |d|
       h = history_on(d)  
       if h.nil?
         overdue.push(d)
@@ -186,7 +186,7 @@ class Schedule < ActiveRecord::Base
   end
 
   def add_rule(rule)
-    ic = IceCube::Schedule.new(updated_at)
+    ic = IceCube::Schedule.new(created_at)
     ic.add_recurrence_rule rule
     ic
   end
