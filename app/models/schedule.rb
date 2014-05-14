@@ -229,5 +229,11 @@ class Schedule < ActiveRecord::Base
         errors.add(:weekly_interval, "Interval can't be blank")
       end
     end
+
+    if kind == 'certain'
+      if !certain_monday && !certain_tuesday && !certain_wednesday && !certain_thursday && !certain_friday && !certain_saturday && !certain_sunday
+        errors.add(:kind, "Have to choose at least one day.")
+      end
+    end
   end
 end
