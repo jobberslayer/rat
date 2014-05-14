@@ -6,6 +6,7 @@
             ['None', :none], 
             ['Daily', :daily], 
             ['Every Weekday', :daily_work], 
+            ['Certain Days', :certain],
             ['Once', :once],
             ['Yearly', :yearly],
             ['Monthly', :monthly],
@@ -88,6 +89,16 @@
     </div>
   </div>
 
+  <div id="schedule_certain" class="container" style="<%= kind == 'certain' || @show_scheduler ? '' : 'display:none' %>">
+    <%= f.check_box :certain_sunday %>&nbsp;<span style="vertical-align:top">Sunday</span><br/>
+    <%= f.check_box :certain_monday %>&nbsp;<span style="vertical-align:top">Monday</span><br/>
+    <%= f.check_box :certain_tuesday %>&nbsp;<span style="vertical-align:top">Tuesday</span><br/>
+    <%= f.check_box :certain_wednesday %>&nbsp;<span style="vertical-align:top">Wednesday</span><br/>
+    <%= f.check_box :certain_thursday %>&nbsp;<span style="vertical-align:top">Thursday</span><br/>
+    <%= f.check_box :certain_friday %>&nbsp;<span style="vertical-align:top">Friday</span><br/>
+    <%= f.check_box :certain_saturday %>&nbsp;<span style="vertical-align:top">Saturday</span>
+  </div>
+
   <div id="schedule_weekly" class="container" style="<%= kind == 'weekly' || @show_scheduler ? '' : 'display:none' %>">
     <div class="row collapse">
       <div class="large-6 columns" >
@@ -105,4 +116,6 @@
       </div>
     </div>
   </div>
+
+
 </div>

@@ -2,7 +2,9 @@ require 'ice_cube'
 
 class Schedule < ActiveRecord::Base
   attr_accessible :monthly_day, :once_date, :kind, :weekly_day, :yearly_date, :yearly_day, :yearly_month, 
-    :weekly_date, :weekly_interval, :few_months_date, :few_months_recur, :few_months_day
+    :weekly_date, :weekly_interval, :few_months_date, :few_months_recur, :few_months_day,
+    :certain_monday, :certain_tuesday, :certain_wednesday, :certain_thursday,
+    :certain_friday, :certain_saturday, :certain_sunday
 
   validates :monthly_day, numericality: { only_integer: true, :allow_blank => true }
   validates :weekly_interval, numericality: { only_integer: true, :allow_blank => true }
@@ -154,6 +156,33 @@ class Schedule < ActiveRecord::Base
 
   def ic_few_months
     add_rule( IceCube::Rule.monthly(few_months_recur).day_of_month(few_months_day) )
+  end
+
+  def ic_certain
+    a = []
+    if certain_monday
+      a.push(:monday)
+    end
+    if certain_tuesday
+      a.push(:tuesday)
+    end
+    if certain_wednesday
+      a.push(:wednesday)
+    end
+    if certain_thursday
+      a.push(:thursday)
+    end
+    if certain_friday
+      a.push(:friday)
+    end
+    if certain_saturday
+      a.push(:saturday)
+    end
+    if certain_sunday
+      a.push(:sunday)
+    end
+
+    add_rule( IceCube::Rule.daily.day(*a) )
   end
 
   def add_rule(rule)
