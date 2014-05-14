@@ -18,7 +18,7 @@
         <em>next occurence: <%= l next_date, format: :date_only%></em><br/>
       <% end %>
       <br/><br/>
-      <% if !status.schedule.next_occurrence.nil? %>
+      <% if !status.schedule.next_occurrence.nil? && current_user.id == status.user_id%>
         <%= form_tag task_complete_current_url(status.task.id, status.schedule.id), remote:true, id: "complete_form_#{status.id}" do %>
           <div class="large-3">
             <div class="large-6 switch round">
