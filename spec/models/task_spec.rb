@@ -50,7 +50,7 @@ describe Task do
       t.schedule.all_overdue(Date.today + 1.month).length.should == 1
 
       t.schedule.all_overdue(Date.today + 1.month).each do |o|
-        t.schedule.log_date(o)
+        t.schedule.log_date(u.id, o)
       end
 
       t.schedule.all_overdue(Date.today + 1.month).length.should eq 0

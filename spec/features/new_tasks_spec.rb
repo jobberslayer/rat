@@ -19,7 +19,7 @@ describe "New Task", type: :feature do
 
   describe "should load for normal user" do
     it do
-      find('nav.breadcrumbs > li > strong').text.should eq "New Task" 
+      find('nav.breadcrumbs > strong').text.should eq "New Task" 
     end
   end
 
