@@ -3,3 +3,5 @@
 *.log
 tmp/*
 public/assets/*
+db/schema.db
+Gemfile.lock
