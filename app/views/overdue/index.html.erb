@@ -8,6 +8,10 @@
   </div>
 <% end %>
 
+<div class="small-6">
+  <%= will_paginate @overdue_tasks, renderer: FoundationPagination::Rails %>
+</div>
+
 <div>
   <% @overdue_tasks.each do |odt| %>
     <% if cur_userid != odt.user.id %>

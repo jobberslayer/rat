@@ -1,4 +1,6 @@
 class OverdueController < ApplicationController
+  before_filter :authenticate_user!
+
   def index
     @users = User.find(:all, order: 'last_name, first_name')
     @overdue_tasks = [] 
@@ -14,5 +16,6 @@ class OverdueController < ApplicationController
         end
       end
     end 
+    @overdue_tasks = @overdue_tasks.paginate(page: params[:page], per_page: 10, count: @overdue_tasks.size)
   end
 end
