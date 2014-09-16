@@ -13,7 +13,9 @@
 </div>
 
 <div>
-  <% @overdue_tasks.each do |odt| %>
+  <% @overdue_tasks.each do |row| %>
+    <% odt = row[0] %>
+    <% od_date = row[1] %>
     <% if cur_userid != odt.user.id %>
       <% reset_cycle() %>
       <br/>
@@ -24,26 +26,24 @@
       </div>
       <% cur_userid = odt.user.id %>
     <% end %>
-    <% odt.schedule.all_overdue().each do |od_date| %>
-      <div id="<%= odt.schedule.id.to_s + '-' +l(od_date, format: :short_date_only) %>" class="row <%= cycle('oddrow', 'evenrow') %>" <%= hide_from_other_users(odt.user.id)%> >
-        <div class="large-5 columns">
-          <%= "#{odt.title} for #{tors(odt).company.name}" %>
-        </div>
-        <div class="large-1 columns">
-          <%= odt.instance_of?(Task) ? 'Task' : 'Status' %>
-        </div>
-        <div class="large-1 columns">
-          <%= link_to :view, task_path(tors(odt).id) %>
-        </div>
-        <% if current_user.id == odt.user_id %>
-        <div class="large-1 columns">
-          <%= link_to :clear, task_complete_path(tors(odt).id, odt.schedule.id,  l(od_date, format: :short_date_only)), remote: true %>
-        </div>
-        <% end %>
-        <div class="large-4 columns">
-          <span style='color: red'><%= l od_date, format: :date_only %></span>
-        </div>
+    <div id="<%= odt.schedule.id.to_s + '-' +l(od_date, format: :short_date_only) %>" class="row <%= cycle('oddrow', 'evenrow') %>" <%= hide_from_other_users(odt.user.id)%> >
+      <div class="large-5 columns">
+        <%= "#{odt.title} for #{tors(odt).company.name}" %>
       </div>
-    <% end %>
+      <div class="large-1 columns">
+        <%= odt.instance_of?(Task) ? 'Task' : 'Status' %>
+      </div>
+      <div class="large-1 columns">
+        <%= link_to :view, task_path(tors(odt).id) %>
+      </div>
+      <% if current_user.id == odt.user_id %>
+      <div class="large-1 columns">
+        <%= link_to :clear, task_complete_path(tors(odt).id, odt.schedule.id,  l(od_date, format: :short_date_only)), remote: true %>
+      </div>
+      <% end %>
+      <div class="large-4 columns">
+        <span style='color: red'><%= l od_date, format: :date_only %></span>
+      </div>
+    </div>
   <% end %>
 </div>
