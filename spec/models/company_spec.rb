@@ -18,14 +18,14 @@ describe Task do
       child.save
       parent.statuses.push child
 
-      c = Status.find(child.id)
-      c.task_id.should be parent.id
-      c.schedule.id.should be child_s.id
+      s = Status.find(child.id)
+      s.task_id.should be parent.id
+      s.schedule.id.should be child_s.id
 
       s2 = Schedule.find(s.id)
       s2.id.should be s.id
 
-      parent.destroy
+      c.destroy
       Task.should_not be_exists(parent.id)
       Status.should_not be_exists(child.id)
 

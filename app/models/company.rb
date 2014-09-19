@@ -1,5 +1,5 @@
 class Company < ActiveRecord::Base
-  has_many :tasks
+  has_many :tasks, dependent: :destroy
   belongs_to :team
   attr_accessible :info, :name, :team_id
 
