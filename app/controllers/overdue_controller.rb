@@ -2,7 +2,17 @@ class OverdueController < ApplicationController
   before_filter :authenticate_user!
 
   def index
-    @users = User.find(:all, order: 'last_name, first_name')
+    user_id = params[:user_id]
+    if user_id.nil?
+      user_id = current_user.id
+      params[:user_id] = user_id
+    end
+    if !user_id.blank?
+      @users = [User.find(user_id)]
+    else
+      @users = User.find(:all, order: 'last_name, first_name')
+    end
+
     @overdue_tasks = [] 
     @users.each do |u|
       Task.where(user_id: u.id).each do |t|

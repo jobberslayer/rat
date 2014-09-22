@@ -8,6 +8,20 @@
   </div>
 <% end %>
 
+<div class="panel large-12">
+  <%= form_tag overdue_path, method: :get do %>
+    <div class="row">
+      <div class="large-2 columns">
+        <%= collection_select nil, :user_id, User.order(:last_name, :first_name), :id, :full_name, 
+            {include_blank: 'All Users', selected: params[:user_id.to_s]} %> 
+      </div>
+      <div class="large-10 columns">
+        <%= submit_tag 'Filter', name: nil, class: 'button small' %>
+      </div>
+    </div>
+  <% end %>
+</div>
+
 <div class="small-6">
   <%= will_paginate @overdue_tasks, renderer: FoundationPagination::Rails %>
 </div>
@@ -46,4 +60,8 @@
       </div>
     </div>
   <% end %>
+</div>
+
+<div class="small-6">
+  <%= will_paginate @overdue_tasks, renderer: FoundationPagination::Rails %>
 </div>
