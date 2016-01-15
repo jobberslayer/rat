@@ -1,7 +1,7 @@
 class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable, 
+  devise :database_authenticatable,
           #:registerable, #turned off registration
           :lockable,
           :recoverable, :rememberable, :trackable, :validatable
@@ -23,6 +23,18 @@ class User < ActiveRecord::Base
 
   def has_overdue?
     overdue().count > 0
+  end
+
+  def companies_with_tasks
+    c = []
+    tasks.each do |t|
+      c.push t.company
+    end
+    return c.sort {|a,b| a.name <=> b.name}.uniq
+  end
+
+  def tasks_for_company(id)
+    return self.tasks.where(company_id: id)
   end
 
   def overdue

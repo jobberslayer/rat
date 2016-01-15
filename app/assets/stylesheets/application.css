@@ -76,3 +76,14 @@ div.row a {
   right:0;
 }
 
+.selected {
+  background-color: #A9F5F2;
+}
+
+.myhidden {
+  display:none;
+}
+
+.myheader {
+  background-color: #E0F8F7;
+}

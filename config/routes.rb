@@ -43,6 +43,10 @@ Rat::Application.routes.draw do
   get "agenda/(:start_date)", to: "agenda#index", as: :agenda
   post "agenda/(:start_date)", to: "agenda#index", as: :agenda
 
+  get "glance", to: "glance#index", as: :glance
+  get "glance/task_info", to: "glance#task_info", as: :glance_task_info
+  get "glance/task_list", to: "glance#task_list", as: :glance_task_list
+
   root :to => "agenda#index"
 
   # mount Ckeditor::Engine => "/ckeditor"

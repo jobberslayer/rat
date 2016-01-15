@@ -26,4 +26,12 @@ module ApplicationHelper
   def c(msg)
     content_for :crumbs, "<strong>#{msg}</strong>".html_safe
   end
+
+  def same(a, b, c)
+    return a == b ? c : ''
+  end
+
+  def not_same(a, b, c)
+    return a != b ? c : ''
+  end
 end
