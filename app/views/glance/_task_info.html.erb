@@ -1,12 +1,14 @@
-<div class='row'>
-  <div class='columns myheader'>
-    <center><h3>Information</h3></center>
+<fieldset>
+  <div class='row'>
+    <div class='columns myheader'>
+      <center><h3>Information</h3></center>
+    </div>
   </div>
-</div>
-<div class='row'>
-  <div class='columns data'>
-    <%= link_to 'Modify', "/tasks/#{@task.id}" %>
-    <hr/>
-    <%= @task.info.html_safe %>
+  <div class='row'>
+    <div class='columns data'>
+      <%= link_to 'Modify', "/tasks/#{@task.id}" %>
+      <hr/>
+      <%= @task.info.html_safe %>
+    </div>
   </div>
-</div>
+</fieldset>

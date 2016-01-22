@@ -1,16 +1,18 @@
-<div class='row'>
-  <div class='columns myheader'>
-    <center><h3>Task List</h3></center>
-  </div>
-</div>
-<% @tasks.each do |t| %>
-  <div id='task_<%= t.id %>' class="data row <%= cycle('oddrow', 'evenrow')%> <%= same(t.id, @task.id, 'selected') %>">
-    <div class='columns' style='padding:5px'>
-      <%= link_to t.title, glance_task_info_path(task_id: t.id), remote: true %>
-      <% if !t.schedule.next_occurrence.nil? %>
-        <br/>
-        <em><%= l t.schedule.next_occurrence, format: :date_only %></em>
-      <% end %>
+<fieldset>
+  <div class='row'>
+    <div class='columns myheader'>
+      <center><h3>Task List</h3></center>
     </div>
   </div>
-<% end %>
+  <% @tasks.each do |t| %>
+    <div id='task_<%= t.id %>' class="data row <%= cycle('oddrow', 'evenrow')%> <%= same(t.id, @task.id, 'selected') %>">
+      <div class='columns' style='padding:5px'>
+        <%= link_to t.title, glance_task_info_path(task_id: t.id), remote: true %>
+        <% if !t.schedule.next_occurrence.nil? %>
+          <br/>
+          <em><%= l t.schedule.next_occurrence, format: :date_only %></em>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+</fieldset>
