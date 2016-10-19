@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140514191313) do
+ActiveRecord::Schema.define(:version => 20161019153104) do
 
   create_table "categories", :force => true do |t|
     t.string   "name"
@@ -92,6 +92,7 @@ ActiveRecord::Schema.define(:version => 20140514191313) do
     t.string   "title"
     t.integer  "user_id"
     t.integer  "category_id"
+    t.boolean  "checked"
   end
 
   create_table "teams", :force => true do |t|

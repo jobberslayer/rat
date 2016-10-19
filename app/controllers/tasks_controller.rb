@@ -60,6 +60,18 @@ class TasksController < ApplicationController
     end
   end
 
+  def check_it
+    @task = Task.find(params[:id])
+
+    @task.checked.nil? ? @task.checked = 1 : @task.checked = nil
+    @task.save
+
+    respond_to do |format|
+      format.html # edit.html.erb
+      format.js
+    end
+  end
+
   # POST /tasks
   # POST /tasks.json
   def create

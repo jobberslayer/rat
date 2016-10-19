@@ -7,6 +7,7 @@
   <% @tasks.each do |t| %>
     <div id='task_<%= t.id %>' class="data row <%= cycle('oddrow', 'evenrow')%> <%= same(t.id, @task.id, 'selected') %>">
       <div class='columns' style='padding:5px'>
+        <%= check_box_tag 'completed', t.id , t.checked, :class => "task-check" %>
         <%= link_to t.title, glance_task_info_path(task_id: t.id), remote: true %>
         <% if !t.schedule.next_occurrence.nil? %>
           <br/>
@@ -16,3 +17,15 @@
     </div>
   <% end %>
 </fieldset>
+
+<script language='javascript'>
+  document.addEventListener("DOMContentLoaded", function(event) { 
+    $(".task-check").bind('change', function(){
+      $.ajax({
+        url: '/tasks/'+this.value+'/check_it',
+        type: 'POST',
+        data: {"completed": this.checked}
+      });
+    });
+  });
+</script>
