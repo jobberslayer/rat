@@ -20,6 +20,7 @@
 
 <script language='javascript'>
   document.addEventListener("DOMContentLoaded", function(event) { 
+  $(document).ready(function() {
     $(".task-check").bind('change', function(){
       $.ajax({
         url: '/tasks/'+this.value+'/check_it',
@@ -28,4 +29,5 @@
       });
     });
   });
+});
 </script>
