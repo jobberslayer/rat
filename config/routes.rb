@@ -49,7 +49,7 @@ Rat::Application.routes.draw do
   get "glance/task_info", to: "glance#task_info", as: :glance_task_info
   get "glance/task_list", to: "glance#task_list", as: :glance_task_list
 
-  root :to => "agenda#index"
+  root :to => "glance#index"
 
   # mount Ckeditor::Engine => "/ckeditor"
 
