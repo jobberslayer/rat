@@ -126,7 +126,7 @@ $default-float: left;
 // Media Queries
 
 // $small-screen: 768px;
-// $medium-screen: 1280px;
+// $medium-screen: 1440px;
 // $large-screen: 1440px;
 
 // $screen: "only screen";
@@ -1315,7 +1315,7 @@ $switch-negative-color: red;
 // Transitions and breakpoint styles
 
 // $topbar-transition-speed: 300ms;
-// $topbar-breakpoint: 940 !default; // Change to 9999px for always mobile layout
+$topbar-breakpoint: 1280px !default; // Change to 9999px for always mobile layout
 // $topbar-media-query: "only screen and (min-width: #{$topbar-breakpoint})";
 
 // Divider Styles

@@ -27,6 +27,7 @@
           <li class="name">
             <h1><%= link_to image_tag('/images/work_logo.png', width: '150px'), '/' %></a></h1>
           </li>
+          <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
         </ul>
         <section class="top-bar-section">
           <ul class="right">
@@ -41,6 +42,10 @@
             <% if user_signed_in? %>
               <li class="divider"></li>
               <li><%= link_to "Glance", glance_path %></li>
+            <% end %>
+            <% if user_signed_in? %>
+              <li class="divider"></li>
+              <li><%= link_to "+ New Task", new_task_path %></li>
             <% end %>
             <% if user_signed_in? %>
               <li class="divider"></li>
