@@ -1,19 +1,20 @@
 source 'https://rubygems.org'
 
 gem 'rails', '3.2.11'
+gem 'rake', '10.5.0'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
-gem 'sqlite3', '1.3.8'
+gem 'sqlite3'
 gem 'zurb-foundation', '4.3.2'
-gem 'rspec', '2.14.1'
+#gem 'rspec', '2.14.1'
 gem 'ice_cube', '0.11.0'
 gem 'devise', '3.1.1'
 gem 'cancan', '1.6.10'
 gem 'highline'
 
-gem 'ckeditor'
+gem 'ckeditor', '4.1.3'
 gem 'paperclip'
 
 gem 'will_paginate', '3.0.5'
