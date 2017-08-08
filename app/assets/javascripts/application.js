@@ -20,13 +20,13 @@
 $(document).foundation();
 
 // added the ckeditor to class fixed the below. probably remove this soon during cleanup
-// 
-// still not sure why I have to do this. 
+//
+// still not sure why I have to do this.
 // It has something to do with foundation and ckeditor not playing nice together
 // After page is loaded replace all textareas with ckeditor
 // $( document ).ready(function() {
-//   $('textarea').each(function() { 
-//     CKEDITOR.replace( 
+//   $('textarea').each(function() {
+//     CKEDITOR.replace(
 //       $(this).attr('id'),
 //       {
 //         toolbar : 'Basic',
@@ -50,7 +50,7 @@ function status_error_msg(msg) {
 }
 
 function toggle(div_name, butt_name, on_text, off_text) {
-  $("#" + div_name).toggle(); 
+  $("#" + div_name).toggle();
   if ( $("#" + div_name).is(':visible') ) {
     $("#" + butt_name).val(on_text);
   } else {
@@ -59,7 +59,7 @@ function toggle(div_name, butt_name, on_text, off_text) {
 }
 
 function toggle_tree(div_name, arrow) {
-  $(div_name).toggle(); 
+  $(div_name).toggle();
   if ( $(div_name).is(':visible') ) {
     $(arrow).removeClass('ui-icon-triangle-1-e').addClass('ui-icon-triangle-1-s');
   } else {
@@ -68,10 +68,16 @@ function toggle_tree(div_name, arrow) {
 }
 
 function toggle_class_link(div_name, butt_name, on_text, off_text) {
-  $("." + div_name).toggle(); 
+  $("." + div_name).toggle();
   if ( $("." + div_name).is(':visible') ) {
     $("#" + butt_name).text(on_text);
   } else {
     $("#" + butt_name).text(off_text);
   }
 }
+
+$(document).ajaxError( function (e, xhr, settings) {
+  if (xhr.status == 401) {
+    window.location.replace('/');
+  }
+});
